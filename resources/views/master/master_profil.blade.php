@@ -27,9 +27,8 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-animated dropdown-menu-right">
                                 <a class="dropdown-item" href="/dashboard">Kembali</a>
-                                <a class="dropdown-item" href="{{ route('profil_admin.edit') }}">Edit</a>
+                                <a class="dropdown-item" href="{{ route('profil_admin.edit') }}">Sunting</a>
                                 <div class="dropdown-divider m-0"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </x-panel.tool-bar>
                     </x-slot>
@@ -44,32 +43,27 @@
                                     {{ auth()->user()->name }}
                                     <small class="text-muted mb-0">{{ auth()->user()->email }}</small>
                                 </h5>
-                                <div class="mt-4 text-center demo">
-                                    <a href="javascript:void(0);" class="fs-xl" style="color:#3b5998">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="fs-xl" style="color:#38A1F3">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="fs-xl" style="color:#db3236">
-                                        <i class="fab fa-google-plus"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="fs-xl" style="color:#0077B5">
-                                        <i class="fab fa-linkedin-in"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="fs-xl" style="color:#000000">
-                                        <i class="fab fa-reddit-alien"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="fs-xl" style="color:#00AFF0">
-                                        <i class="fab fa-skype"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="fs-xl" style="color:#0063DC">
-                                        <i class="fab fa-flickr"></i>
-                                    </a>
-                                </div>
+                                <br>
+                                @if ($user->dosen != null)
+                                    <p><strong>NIP:</strong> {{ $user->dosen->nip }}</p>
+                                    <p><strong>Gender:</strong>
+                                        {{ $user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
+                                    <p><strong>Kampus:</strong> {{ $user->dosen->kampus }}</p>
+                                    <p><strong>Alamat:</strong> {{ $user->dosen->address }}</p>
+                                    <p><strong>No HP:</strong> {{ $user->dosen->phone }}</p>
+                                @elseif($user->Mahasiswa != null)
+                                    <p><strong>NIM:</strong> {{ $user->Mahasiswa->nim }}</p>
+                                    <p><strong>Gender:</strong>
+                                        {{ $user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
+                                    <p><strong>Kampus:</strong> {{ $user->Mahasiswa->kampus }}</p>
+                                    <p><strong>Alamat:</strong> {{ $user->Mahasiswa->address }}</p>
+                                    <p><strong>No HP:</strong> {{ $user->Mahasiswa->phone }}</p>
+                                    <p><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</p>
+                                    <p><strong>Semester:</strong> {{ $user->Mahasiswa->semester }}</p>
+                                @endif
                             </div>
                         </div>
-                        <div class="col-6">
+                        {{-- <div class="col-6">
                             <div class="text-center py-3">
                                 <h5 class="mb-0 fw-700">
                                     764
@@ -84,7 +78,7 @@
                                     <small class="text-muted mb-0">Followers</small>
                                 </h5>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </x-panel.show>
             </x-slot>
