@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::with('dosen', 'mahasiswa')->get();
 
         return view('user.index', compact('users'));
     }
@@ -34,13 +36,58 @@ class UserController extends Controller
             'email.unique' => 'Email already exists.',
         ]);
 
-        // Simpan data ke database
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'role' => $request->role,
-        ]);
+        if (request()->role == 'Dosen') {
+            // Simpan data ke database
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'role' => $request->role,
+            ]);
+
+            // assign Role menggunakan spatie
+            $user->assignRole('Dosen');
+
+            Dosen::create([
+                'user_id' => $user->id,
+                'nip' => $request->nip,
+                'gender' => $request->gender,
+                'phone' => $request->phone,
+                'address' => $request->alamat,
+                'kampus' => $request->kampus,
+            ]);
+        } else if (request()->role == 'Mahasiswa') {
+            // Simpan data ke database
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'role' => $request->role,
+            ]);
+            // assign Role menggunakan spatie
+            $user->assignRole('Mahasiswa');
+
+            Mahasiswa::create([
+                'user_id' => $user->id,
+                'nim' => $request->nim,
+                'gender' => $request->gender,
+                'phone' => $request->phone,
+                'address' => $request->alamat,
+                'kampus' => $request->kampus,
+                'prodi' => $request->prodi,
+                'semester' => $request->semester,
+            ]);
+        } else {
+            // Simpan data ke database
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'role' => $request->role,
+            ]);
+            // assign Role menggunakan spatie
+            $user->assignRole('Admin');
+        }
 
 
         // menampilkan message success
@@ -60,7 +107,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::with('dosen', 'mahasiswa')->find($id);
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
@@ -68,37 +115,85 @@ class UserController extends Controller
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'role' => ['required', 'string', 'max:255'],
         ];
 
         $validated = $request->validate($rules, [
             'email.unique' => 'Email already exists.',
         ]);
 
-        // update ke database
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role
-        ]);
+        if ($user->dosen != null) {
+            // Simpan data ke database
+            // update ke database
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+
+            $dosen = Dosen::where('user_id', $user->id)->first();
+
+            $dosen->update([
+                'user_id' => $user->id,
+                'nip' => $request->nip,
+                'gender' => $request->gender,
+                'phone' => $request->phone,
+                'address' => $request->alamat,
+                'kampus' => $request->kampus,
+            ]);
+        } else if ($user->mahasiswa != null) {
+            // Simpan data ke database
+            // update ke database
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role
+            ]);
+
+            $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+
+            $mahasiswa->update([
+                'user_id' => $user->id,
+                'nim' => $request->nim,
+                'gender' => $request->gender,
+                'phone' => $request->phone,
+                'address' => $request->alamat,
+                'kampus' => $request->kampus,
+                'prodi' => $request->prodi,
+                'semester' => $request->semester,
+            ]);
+        } else {
+            // update ke database
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role
+            ]);
+        }
 
         return redirect()->route('user.index')->with('success', 'Data berhasil diubah.');
     }
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        // dd($users);
+        $user = User::with('dosen', 'mahasiswa', 'roles')->findOrFail($id);
+        // dd($user);
         return view('user.show', compact('user'));
     }
     public function destroy($id)
     {
         // Ambil data user berdasarkan id
         $user = User::find($id);
+        $dosen = Dosen::where('user_id', $user->id)->first();
+        $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
         // dd($user);
 
         // Hapus data user
         $user->delete();
+
+        if ($dosen != null) {
+            $dosen->delete();
+        } else if ($mahasiswa != null) {
+            $mahasiswa->delete();
+        }
 
         return redirect()->route('user.index')->with('success', 'Data berhasil dihapus.');
     }

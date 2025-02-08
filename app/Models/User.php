@@ -60,12 +60,13 @@ class User extends Authenticatable
         });
     }
 
-    public function incoming()
+    public function dosen()
     {
-        return $this->belongsToMany(Incoming::class);
+        return $this->hasOne(Dosen::class);
     }
-    public function outcoming()
+
+    public function mahasiswa()
     {
-        return $this->belongsToMany(Outcoming::class);
+        return $this->hasOne(Mahasiswa::class);
     }
 }

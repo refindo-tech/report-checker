@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +14,13 @@ class MasterController extends Controller
 {
     public function master_profil()
     {
-        return view('master.master_profil');
+        $user = User::where('id', Auth::user()->id)->with('dosen', 'mahasiswa')->first();
+        return view('master.master_profil', compact('user'));
     }
     public function master_profil_edit()
     {
-        return view('master.master_profil_edit');
+        $users = User::where('id', Auth::user()->id)->with('dosen', 'mahasiswa')->first();
+        return view('master.master_profil_edit', compact('users'));
     }
     public function master_profil_update(Request $request)
     {
@@ -64,6 +68,33 @@ class MasterController extends Controller
                 'email' => $request->email,
                 'image' => $imageName,
             ]);
+            if ($user->dosen != null) {
+
+                $dosen = Dosen::where('user_id', $id)->first();
+
+                $dosen->update([
+                    'user_id' => $id,
+                    'nip' => $request->nip,
+                    'gender' => $request->gender,
+                    'phone' => $request->phone,
+                    'address' => $request->alamat,
+                    'kampus' => $request->kampus,
+                ]);
+            } else if ($user->mahasiswa != null) {
+
+                $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+
+                $mahasiswa->update([
+                    'user_id' => $id,
+                    'nim' => $request->nim,
+                    'gender' => $request->gender,
+                    'phone' => $request->phone,
+                    'address' => $request->alamat,
+                    'kampus' => $request->kampus,
+                    'prodi' => $request->prodi,
+                    'semester' => $request->semester,
+                ]);
+            }
         } else {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|min:3',
@@ -83,6 +114,33 @@ class MasterController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
             ]);
+            if ($user->dosen != null) {
+
+                $dosen = Dosen::where('user_id', $id)->first();
+
+                $dosen->update([
+                    'user_id' => $id,
+                    'nip' => $request->nip,
+                    'gender' => $request->gender,
+                    'phone' => $request->phone,
+                    'address' => $request->alamat,
+                    'kampus' => $request->kampus,
+                ]);
+            } else if ($user->mahasiswa != null) {
+
+                $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+
+                $mahasiswa->update([
+                    'user_id' => $id,
+                    'nim' => $request->nim,
+                    'gender' => $request->gender,
+                    'phone' => $request->phone,
+                    'address' => $request->alamat,
+                    'kampus' => $request->kampus,
+                    'prodi' => $request->prodi,
+                    'semester' => $request->semester,
+                ]);
+            }
         }
 
         // redirect ke halaman product.index

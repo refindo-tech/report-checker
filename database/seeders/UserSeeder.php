@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
 
         // assign Role menggunakan spatie
         $admin->assignRole('Admin');
-        $dosen->assignRole('Purchasing');
-        $mahasiswa->assignRole('Gudang');
+        $dosen->assignRole('Dosen');
+        $mahasiswa->assignRole('Mahasiswa');
     }
 }
