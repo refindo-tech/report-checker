@@ -13,7 +13,7 @@
         ])
         <div class="subheader">
             @component('inc._page_heading', [
-                'icon' => 'user',
+                'icon' => 'users',
                 'heading1' => 'Pengguna',
                 'heading2' => 'WebApps',
             ])
@@ -46,9 +46,16 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 <span
-                                    class="badge {{ $user->role ? ($user->role == 'Purchasing' ? 'bg-danger' : 'bg-primary') : 'bg-primary' }}">
-                                    {{ $user->role ? $user->role : 'Tidak Tersedia' }}
+                                    class="badge 
+                                        @switch($user->getRoleNames()->first())
+                                            @case('Admin') bg-danger @break
+                                            @case('Dosen') bg-success @break
+                                            @case('Mahasiswa') bg-primary @break
+                                            @default bg-secondary
+                                        @endswitch">
+                                    {{ $user->getRoleNames()->first() ?? 'Tidak Tersedia' }}
                                 </span>
+
                             </td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>

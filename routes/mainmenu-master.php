@@ -61,7 +61,7 @@ Route::middleware(['auth', 'role:Admin', 'verified'])->prefix('tools')->group(fu
 //Profil Admin
 // groups middleware
 Route::middleware('auth')->group(function () {
-    Route::middleware('role:Admin|Purchasing|Gudang')->prefix('settings/profile')->group(function () {
+    Route::middleware('role:Admin|Dosen|Mahasiswa')->prefix('settings/profile')->group(function () {
         Route::get('/profil_admin', [MasterController::class, 'master_profil'])->name('profil_admin');
         Route::get('/profil_admin/edit', [MasterController::class, 'master_profil_edit'])->name('profil_admin.edit');
         Route::put('/profil_admin', [MasterController::class, 'master_profil_update'])->name('profil_admin.update');

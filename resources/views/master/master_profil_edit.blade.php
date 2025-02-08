@@ -27,7 +27,8 @@
                                 <div class="d-flex flex-column align-items-center justify-content-center p-4">
                                     <!-- Gambar profil berbentuk lingkaran -->
                                     <label for="image" class="position-relative">
-                                        <img id="profileImage" src="{{ auth()->user()->image ? asset('storage/profile/' . auth()->user()->image) : asset('admin/img/users/user.jpg') }}"
+                                        <img id="profileImage"
+                                            src="{{ auth()->user()->image ? asset('storage/profile/' . auth()->user()->image) : asset('admin/img/users/user.jpg') }}"
                                             class="rounded-circle shadow-2 img-thumbnail transition-transform duration-300 ease-in-out transform hover:scale-125"
                                             style="width: 120px; height: 120px;">
                                         <!-- Icon untuk mengganti gambar -->
@@ -49,6 +50,91 @@
                                         <input type="email" name="email" value="{{ auth()->user()->email }}"
                                             class="form-control text-center">
                                     </h5>
+                                    @if ($users->dosen != null)
+                                        {{-- <div id="dosenFields" style="display: none;"> --}}
+                                        <div class="form-group">
+                                            <label for="nip">NIP</label>
+                                            <input type="number" name="nip"
+                                                value="{{ old('nip', $users->dosen->nip) }}" id="nip"
+                                                class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <select name="gender" id="gender" class="form-control">
+                                                <option value="L" {{ $users->dosen->gender == 'L' ? 'selected' : '' }}>
+                                                    Laki-laki
+                                                </option>
+                                                <option value="P" {{ $users->dosen->gender == 'P' ? 'selected' : '' }}>
+                                                    Perempuan
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" name="phone" id="phone"
+                                                value="{{ old('phone', $users->dosen->phone) }}" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat</label>
+                                            <input type="text" name="alamat" id="alamat"
+                                                value="{{ old('alamat', $users->dosen->address) }}" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kampus">Kampus</label>
+                                            <input type="text" name="kampus" id="kampus"
+                                                value="{{ old('kampus', $users->dosen->kampus) }}" class="form-control">
+                                        </div>
+                                        {{-- </div> --}}
+                                    @elseif($users->mahasiswa != null)
+                                        {{-- <div id="mahasiswaFields" style="display: none;"> --}}
+                                        <div class="form-group">
+                                            <label for="nim">NIM</label>
+                                            <input type="number" name="nim" id="nim"
+                                                value="{{ old('nim', $users->mahasiswa->nim) }}" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <select name="gender" id="gender" class="form-control">
+                                                <option value="L"
+                                                    {{ $users->mahasiswa->gender == 'L' ? 'selected' : '' }}>Laki-laki
+                                                </option>
+                                                <option value="P"
+                                                    {{ $users->mahasiswa->gender == 'P' ? 'selected' : '' }}>Perempuan
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" name="phone" id="phone"
+                                                value="{{ old('phone', $users->mahasiswa->phone) }}"
+                                                class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alamat">Alamat</label>
+                                            <input type="text" name="alamat" id="alamat"
+                                                value="{{ old('alamat', $users->mahasiswa->address) }}"
+                                                class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kampus">Kampus</label>
+                                            <input type="text" name="kampus" id="kampus"
+                                                value="{{ old('kampus', $users->mahasiswa->kampus) }}"
+                                                class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prodi">Prodi</label>
+                                            <input type="text" name="prodi" id="prodi"
+                                                value="{{ old('prodi', $users->mahasiswa->prodi) }}"
+                                                class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="semester">Semester</label>
+                                            <input type="text" name="semester" id="semester"
+                                                value="{{ old('semester', $users->mahasiswa->semester) }}"
+                                                class="form-control">
+                                        </div>
+                                        {{-- </div> --}}
+                                    @endif
                                 </div>
                             </div>
                         </div>

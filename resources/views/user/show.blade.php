@@ -38,12 +38,20 @@
             <div class="card">
                 <div class="card-body">
                     <p><strong>ID users:</strong> {{ $user->id }}</p>
-                    <p><strong>Role:</strong> 
-                    @if($user->role == 'Admin')
-                        <span class="badge bg-danger text-white">Admin</span>
-                    @elseif($user->role == 'Gudang')
-                        <span><span class="badge bg-primary text-white">Gudang</span>
-                    @endif
+                    <p><strong>Role:</strong>
+                        @if ($user->roles->isNotEmpty())
+                            @foreach ($user->roles as $role)
+                                @if ($role->name == 'Admin')
+                                    <span class="badge bg-danger text-white">{{ $role->name }}</span>
+                                @elseif($role->name == 'Dosen')
+                                    <span class="badge bg-primary text-white">{{ $role->name }}</span>
+                                @else
+                                    <span class="badge bg-success text-white">{{ $role->name }}</span>
+                                @endif
+                            @endforeach
+                        @else
+                            <p>User ini belum memiliki role.</p>
+                        @endif
                     </p>
                     <p><strong>Nama:</strong> {{ $user->name }}</p>
                     <p><strong>Email:</strong> {{ $user->email }}</p>
@@ -51,10 +59,26 @@
                         @if ($user->image == null)
                             <span class="badge bg-primary text-white">No Image</span>
                         @else
-                            <img class="rounded" src="{{ asset('storage/profile/' . $user->image) }}" alt="{{ $user->name }}"
-                                style="max-width: 50px">
+                            <img class="rounded" src="{{ asset('storage/profile/' . $user->image) }}"
+                                alt="{{ $user->name }}" style="max-width: 50px">
                         @endif
                     </p>
+                    @if ($user->dosen != null)
+                        <p><strong>NIP:</strong> {{ $user->dosen->nip }}</p>
+                        <p><strong>Gender:</strong> {{ $user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
+                        <p><strong>Kampus:</strong> {{ $user->dosen->kampus }}</p>
+                        <p><strong>Alamat:</strong> {{ $user->dosen->address }}</p>
+                        <p><strong>No HP:</strong> {{ $user->dosen->phone }}</p>
+                    @elseif($user->Mahasiswa != null)
+                        <p><strong>NIM:</strong> {{ $user->Mahasiswa->nim }}</p>
+                        <p><strong>Gender:</strong> {{ $user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
+                        <p><strong>Kampus:</strong> {{ $user->Mahasiswa->kampus }}</p>
+                        <p><strong>Alamat:</strong> {{ $user->Mahasiswa->address }}</p>
+                        <p><strong>No HP:</strong> {{ $user->Mahasiswa->phone }}</p>
+                        <p><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</p>
+                        <p><strong>Semester:</strong> {{ $user->Mahasiswa->semester }}</p>
+                    @endif
+
                     <a href="{{ route('user.edit', $user) }}" class="btn btn-primary">Edit</a>
                     <form action="{{ route('user.destroy', $user) }}" method="POST" style="display:inline;">
                         @csrf

@@ -37,40 +37,110 @@
                 </x-slot>
                 <div class="form-group">
                     <label for="name">Nama</label>
-                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $users->name) }}">
+                    <input type="text" name="name" id="name" class="form-control"
+                        value="{{ old('name', $users->name) }}">
                     @error('name')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email" class="form-control" value="{{ old('email', $users->email) }}">
+                    <input type="text" name="email" id="email" class="form-control"
+                        value="{{ old('email', $users->email) }}">
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
                 {{-- <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control"
-                        value="{{ old('password') }}">
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div> --}}
-                <div class="form-group">
                     <label for="role">Role</label>
                     <select name="role" id="role" class="form-control" required>
                         <option value="Admin" {{ old('role', $users->role) == 'Admin' ? 'selected' : '' }}>Admin
                         </option>
-                        <option value="Purchasing" {{ old('role') == 'Purchasing' ? 'selected' : '' }}>Purchasing
+                        <option value="Dosen" {{ old('role') == 'Dosen' ? 'selected' : '' }}>Dosen
                         </option>
-                        <option value="Gudang" {{ old('role', $users->role) == 'Gudang' ? 'selected' : '' }}>Gudang
+                        <option value="Mahasiswa" {{ old('role', $users->role) == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa
                         </option>
                         @error('role')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </select>
-                </div>
+                </div> --}}
+                @if ($users->dosen != null)
+                    {{-- <div id="dosenFields" style="display: none;"> --}}
+                        <div class="form-group">
+                            <label for="nip">NIP</label>
+                            <input type="text" name="nip" value="{{ old('nip', $users->dosen->nip) }}"
+                                id="nip" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="L" {{ $users->dosen->gender == 'L' ? 'selected' : '' }}>Laki-laki
+                                </option>
+                                <option value="P" {{ $users->dosen->gender == 'P' ? 'selected' : '' }}>Perempuan
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone"
+                                value="{{ old('phone', $users->dosen->phone) }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" name="alamat" id="alamat"
+                                value="{{ old('alamat', $users->dosen->address) }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="kampus">Kampus</label>
+                            <input type="text" name="kampus" id="kampus"
+                                value="{{ old('kampus', $users->dosen->kampus) }}" class="form-control">
+                        </div>
+                    {{-- </div> --}}
+                @elseif($users->mahasiswa != null)
+                    {{-- <div id="mahasiswaFields" style="display: none;"> --}}
+                        <div class="form-group">
+                            <label for="nim">NIM</label>
+                            <input type="text" name="nim" id="nim"
+                                value="{{ old('nim', $users->mahasiswa->nim) }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="L" {{ $users->mahasiswa->gender == 'L' ? 'selected' : '' }}>Laki-laki
+                                </option>
+                                <option value="P" {{ $users->mahasiswa->gender == 'P' ? 'selected' : '' }}>Perempuan
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone"
+                                value="{{ old('phone', $users->mahasiswa->phone) }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" name="alamat" id="alamat"
+                                value="{{ old('alamat', $users->mahasiswa->address) }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="kampus">Kampus</label>
+                            <input type="text" name="kampus" id="kampus"
+                                value="{{ old('kampus', $users->mahasiswa->kampus) }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="prodi">Prodi</label>
+                            <input type="text" name="prodi" id="prodi"
+                                value="{{ old('prodi', $users->mahasiswa->prodi) }}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="semester">Semester</label>
+                            <input type="text" name="semester" id="semester"
+                                value="{{ old('semester', $users->mahasiswa->semester) }}" class="form-control">
+                        </div>
+                    {{-- </div> --}}
+                @endif
                 <x-slot name="panelcontentfoot">
                     <x-button type="submit" color="primary" :label="__('Save')" class="ml-auto" />
                 </x-slot>
@@ -78,3 +148,17 @@
         </form>
     </main>
 @endsection
+{{-- @section('pages-script')
+    <script>
+        function toggleRoleFields() {
+            var role = document.getElementById("role").value;
+            document.getElementById("dosenFields").style.display = (role === "Dosen") ? "block" : "none";
+            document.getElementById("mahasiswaFields").style.display = (role === "Mahasiswa") ? "block" : "none";
+        }
+
+        // Panggil fungsi saat halaman dimuat agar form yang sesuai tetap muncul saat validasi gagal
+        document.addEventListener("DOMContentLoaded", function() {
+            toggleRoleFields();
+        });
+    </script>
+@endsection --}}
