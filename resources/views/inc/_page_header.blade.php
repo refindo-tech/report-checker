@@ -79,7 +79,7 @@
                 -->
             </a>
             <div class="dropdown-menu dropdown-menu-animated dropdown-lg">
-                <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
+                <a href="{{ route('profil_admin') }}" class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                         <span class="mr-2">
                             @if (auth()->user()->image)
@@ -95,7 +95,7 @@
                             <span class="text-truncate text-truncate-md opacity-80">{{ auth()->user()->email }}</span>
                         </div>
                     </div>
-                </div>
+                </a>
                 <div class="dropdown-divider m-0"></div>
                 @if (auth()->user()->getRoleNames()->first() == 'Admin')
                     <a href="#" class="dropdown-item" data-action="app-reset">
