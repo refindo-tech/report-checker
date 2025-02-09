@@ -32,53 +32,46 @@
                             </div>
                         </x-panel.tool-bar>
                     </x-slot>
-                    <div class="row no-gutters row-grid">
-                        <div class="col-12">
-                            <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                                {{-- @dd(asset('public/storage/' . auth()->user()->image)) --}}
-                                <img src="{{ auth()->user()->image ? asset('storage/profile/' . auth()->user()->image) : asset('admin/img/users/user.jpg') }}"
-                                    class="rounded-circle shadow-2 img-thumbnail transition-transform duration-300 ease-in-out transform hover:scale-125"
-                                    style="width: 120px; height: 120px;" alt="User Profile Picture">
-                                <h5 class="mb-0 fw-700 text-center mt-3">
-                                    {{ auth()->user()->name }}
-                                    <small class="text-muted mb-0">{{ auth()->user()->email }}</small>
-                                </h5>
-                                <br>
-                                @if ($user->dosen != null)
-                                    <p><strong>NIP:</strong> {{ $user->dosen->nip }}</p>
-                                    <p><strong>Gender:</strong>
-                                        {{ $user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
-                                    <p><strong>Kampus:</strong> {{ $user->dosen->kampus }}</p>
-                                    <p><strong>Alamat:</strong> {{ $user->dosen->address }}</p>
-                                    <p><strong>No HP:</strong> {{ $user->dosen->phone }}</p>
-                                @elseif($user->Mahasiswa != null)
-                                    <p><strong>NIM:</strong> {{ $user->Mahasiswa->nim }}</p>
-                                    <p><strong>Gender:</strong>
-                                        {{ $user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
-                                    <p><strong>Kampus:</strong> {{ $user->Mahasiswa->kampus }}</p>
-                                    <p><strong>Alamat:</strong> {{ $user->Mahasiswa->address }}</p>
-                                    <p><strong>No HP:</strong> {{ $user->Mahasiswa->phone }}</p>
-                                    <p><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</p>
-                                    <p><strong>Semester:</strong> {{ $user->Mahasiswa->semester }}</p>
-                                @endif
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card shadow-lg border-0 rounded-lg">
+                                <div class="card-body text-center">
+                                    {{-- Foto Profil --}}
+                                    <img src="{{ auth()->user()->image ? asset('storage/profile/' . auth()->user()->image) : asset('admin/img/users/user.jpg') }}"
+                                        class="rounded-circle shadow img-thumbnail" style="width: 120px; height: 120px;" alt="User Profile Picture">
+                    
+                                    {{-- Nama dan Email --}}
+                                    <h4 class="mt-3 mb-1">{{ auth()->user()->name }}</h4>
+                                    <p class="text-muted">{{ auth()->user()->email }}</p>
+                    
+                                    <hr>
+                    
+                                    {{-- Informasi Tambahan --}}
+                                    <ul class="list-group list-group-flush text-left">
+                                        @if ($user->dosen != null)
+                                            <li class="list-group-item"><strong>NIP:</strong> {{ $user->dosen->nip }}</li>
+                                            <li class="list-group-item"><strong>Gender:</strong> {{ $user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</li>
+                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->dosen->kampus }}</li>
+                                            <li class="list-group-item"><strong>Alamat:</strong> {{ $user->dosen->address }}</li>
+                                            <li class="list-group-item"><strong>No HP:</strong> {{ $user->dosen->phone }}</li>
+                                        @elseif($user->Mahasiswa != null)
+                                            <li class="list-group-item"><strong>NIM:</strong> {{ $user->Mahasiswa->nim }}</li>
+                                            <li class="list-group-item"><strong>Gender:</strong> {{ $user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</li>
+                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->Mahasiswa->kampus }}</li>
+                                            <li class="list-group-item"><strong>Alamat:</strong> {{ $user->Mahasiswa->address }}</li>
+                                            <li class="list-group-item"><strong>No HP:</strong> {{ $user->Mahasiswa->phone }}</li>
+                                            <li class="list-group-item"><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</li>
+                                            <li class="list-group-item"><strong>Semester:</strong> {{ $user->Mahasiswa->semester }}</li>
+                                        @endif
+                                    </ul>
+                    
+                                    {{-- Tombol Edit Profil --}}
+                                    <a href="{{ route('profil_admin.edit') }}" class="btn btn-primary mt-3">
+                                        <i class="fas fa-edit"></i> Edit Profil
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        {{-- <div class="col-6">
-                            <div class="text-center py-3">
-                                <h5 class="mb-0 fw-700">
-                                    764
-                                    <small class="text-muted mb-0">Connections</small>
-                                </h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center py-3">
-                                <h5 class="mb-0 fw-700">
-                                    1,673
-                                    <small class="text-muted mb-0">Followers</small>
-                                </h5>
-                            </div>
-                        </div> --}}
                     </div>
                 </x-panel.show>
             </x-slot>
