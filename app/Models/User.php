@@ -69,4 +69,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Mahasiswa::class);
     }
+
+    public function report(){
+        return $this->hasMany(finalReport::class);
+    }
 }
