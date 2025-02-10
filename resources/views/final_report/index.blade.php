@@ -26,21 +26,13 @@
             <x-slot name="paneltoolbar">
                 @can('tambah-barang-masuk')
                     <x-panel.tool-bar>
-                        @if ($reports !== null)
-                            @if ($reports->berkas != null || $reports->status == 3)
-                                <!-- Jika berkas belum ada atau status Rejected -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadberkas">
-                                    Upload Berkas
-                                </button>
-                            @else
-                                <!-- Jika statusnya Waiting, Review, atau Accepted -->
-                                <button type="button" class="btn btn-secondary" disabled>
-                                    Berkas sudah diunggah
-                                </button>
-                            @endif
-                        @else
+                        @if ($reports?->berkas == null || $reports?->status == 3)
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadberkas">
                                 Upload Berkas
+                            </button>
+                        @else
+                            <button type="button" class="btn btn-secondary" disabled>
+                                Berkas sudah diunggah
                             </button>
                         @endif
                     </x-panel.tool-bar>

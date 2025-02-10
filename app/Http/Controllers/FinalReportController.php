@@ -17,6 +17,7 @@ class FinalReportController extends Controller
     {
         $report = finalReport::where('user_id', Auth::user()->id)->with('user')->orderBy('created_at', 'desc')->get();
         $reports = finalReport::where('user_id', Auth::user()->id)->with('user')->latest()->first();
+        // dd($reports);
         return view('final_report.index', compact('report', 'reports'));
     }
 

@@ -1,12 +1,12 @@
 <li class="nav-title">Unggah Berkas</li>
-@can('lihat-produk')
+{{-- @can('lihat-produk') --}}
 <li class="{{ Request::is('report/*') ? 'active' : '' }}">
     <a href="{{ route('report.index') }}" title="report Admin" data-filter-tags="admin profil">
         <i class="fa fa-flag"></i>
         <span class="nav-link-text" data-i18n="nav.admin_profil">Laporan Akhir</span>
     </a>
 </li>
-@endcan
+{{-- @endcan --}}
 @can('lihat-komponen')
 {{-- <li class="{{ Request::is('komponen/*') ? 'active' : '' }}">
     <a href="{{ route('komponen.index') }}" title="Komponen" data-filter-tags="admin profil">
