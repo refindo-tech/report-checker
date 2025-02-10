@@ -12,7 +12,7 @@
             @component('inc._page_heading', [
                 'icon' => 'user-circle',
                 'heading1' => 'Profil',
-                'heading2' => 'Admin',
+                'heading2' => 'Pengguna',
             ])
             @endcomponent
         </div>

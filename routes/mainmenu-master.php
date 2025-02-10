@@ -7,6 +7,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\ProfilSekolahController;
 use App\Http\Controllers\KompetensiKeahlianController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,8 +63,10 @@ Route::middleware(['auth', 'role:Admin', 'verified'])->prefix('tools')->group(fu
 // groups middleware
 Route::middleware('auth')->group(function () {
     Route::middleware('role:Admin|Dosen|Mahasiswa')->prefix('settings/profile')->group(function () {
-        Route::get('/profil_admin', [MasterController::class, 'master_profil'])->name('profil_admin');
-        Route::get('/profil_admin/edit', [MasterController::class, 'master_profil_edit'])->name('profil_admin.edit');
-        Route::put('/profil_admin', [MasterController::class, 'master_profil_update'])->name('profil_admin.update');
+        Route::get('/profil', [MasterController::class, 'master_profil'])->name('profil_admin');
+        Route::get('/profil/edit', [MasterController::class, 'master_profil_edit'])->name('profil_admin.edit');
+        Route::put('/profil', [MasterController::class, 'master_profil_update'])->name('profil_admin.update');
+        Route::put('/profil/password', [UserController::class, 'changePassword'])->name('profil_admin.password');
+
     });
 });
