@@ -23,14 +23,14 @@
     </a>
 </li> --}}
 @endcan
-<li class="nav-title">Transaksi</li>
+<li class="nav-title">Capaian Pembelajaran Lulusan (CPL)</li>
 @can('lihat-barang-masuk')
-{{-- <li class="{{ Request::is('incoming/*') ? 'active' : '' }}">
-    <a href="{{ route('incoming.index') }}" title="Profil Admin" data-filter-tags="admin profil">
+<li class="{{ Request::is('mikroskil/*') ? 'active' : '' }}">
+    <a href="{{ route('mikroskil.index') }}" title="cpl" data-filter-tags="admin profil">
         <i class="fa fa-sign-in"></i>
-        <span class="nav-link-text" data-i18n="nav.admin_profil">Stok Barang Masuk</span>
+        <span class="nav-link-text" data-i18n="nav.admin_profil">Rubrik CPL Mikroskill</span>
     </a>
-</li> --}}
+</li>
 @endcan
 @can('lihat-barang-keluar')
 {{-- <li class="{{ Request::is('outcoming/*') ? 'active' : '' }}">

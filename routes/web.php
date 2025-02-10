@@ -41,3 +41,4 @@ require __DIR__ . '/mainmenu-product.php';
 require __DIR__ . '/mainmenu-supplier.php';
 require __DIR__ . '/mainmenu-finalReport.php';
 require __DIR__ . '/mainmenu-outcoming.php';
+require __DIR__ . '/mainmenu-cplMikroskil.php';
