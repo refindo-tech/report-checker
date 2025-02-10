@@ -6,6 +6,8 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -171,6 +173,30 @@ class UserController extends Controller
 
         return redirect()->route('user.index')->with('success', 'Data berhasil diubah.');
     }
+
+    public function changePassword(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        // Ambil user yang sedang login
+        $user = User::find(Auth::id());
+
+        // Cek apakah password lama benar
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Password lama salah']);
+        }
+
+        // Update password baru
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('profil_admin')->with('success', 'Profile berhasil diperbarui.');
+    }
+
 
     public function show($id)
     {

@@ -2,7 +2,7 @@
     <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
         <a href="/dashboard" title="Dashboard" data-filter-tags="application dashboard">
             <i class="fal fa-home"></i>
-            <span class="nav-link-text" data-i18n="nav.application_dashboard">Stok Barang</span>
+            <span class="nav-link-text" data-i18n="nav.application_dashboard">Dashboard</span>
         </a>
     </li>
 
