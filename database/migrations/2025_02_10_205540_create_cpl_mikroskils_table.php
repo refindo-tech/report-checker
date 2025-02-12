@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('mikroskill', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('sks');
+            $table->bigInteger('id_kampus')->nullable();
+            $table->string('name')->nullable();
+            $table->integer('sks')->nullable();
             $table->timestamps();
         });
     }

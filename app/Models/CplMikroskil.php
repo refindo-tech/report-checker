@@ -12,6 +12,7 @@ class CplMikroskil extends Model
     protected $table = 'mikroskill';
 
     protected $fillable = [
+        'id_kampus',
         'name',
         'sks',
     ];

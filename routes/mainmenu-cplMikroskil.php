@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     });
     // Rute untuk menambah barang masuk (Admin, Gudang)
     Route::middleware('permission:tambah-barang-masuk')->prefix('mikroskil')->group(function () {
-        Route::post('/cpl-mikroskil/update-inline', [CplMikroskilController::class, 'updateInline'])->name('mikroskil.updateInline');
+        Route::post('/updateInline', [CplMikroskilController::class, 'updateInline'])->name('mikroskil.updateInline');
         Route::post('/create', [CplMikroskilController::class, 'store'])->name('mikroskil.store');
         // Route::post('/review{id}', [CplMikroskilController::class, 'reviewstore'])->name('mikroskil.reviewstore');
     });
@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 
     // Rute untuk menghapus barang masuk (Admin, Gudang)
     Route::middleware('permission:hapus-barang-masuk')->prefix('mikroskil')->group(function () {
-        Route::delete('/{id}', [CplMikroskilController::class, 'destroy'])->name('mikroskil.destroy');
+        Route::delete('/delete/{id}', [CplMikroskilController::class, 'destroy'])->name('mikroskil.destroy');
     });
 
     // Rute untuk melihat detail barang masuk (Admin, Gudang)

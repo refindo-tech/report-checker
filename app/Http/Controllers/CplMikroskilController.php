@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CplMikroskil;
+use App\Models\Kampus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,25 +15,24 @@ class CplMikroskilController extends Controller
     public function index()
     {
         $mikroskill = CplMikroskil::all();
+        $kampus = Kampus::all();
         // dd($mikroskill);
-        return view('cpl_mikroskil.index', compact('mikroskill'));
+        return view('cpl_mikroskil.index', compact('mikroskill', 'kampus'));
     }
+
 
     public function updateInline(Request $request)
     {
-        $request->validate([
-            'id' => 'required|exists:cpl_mikroskils,id',
-            'column' => 'required|string',
-            'value' => 'required',
-        ]);
-
-        $data = CplMikroskil::findOrFail($request->id);
-        $data->update([
-            $request->column => $request->value,
-        ]);
-
-        return response()->json(['success' => 'Data berhasil diperbarui!']);
+        $mikroskill = CplMikroskil::find($request->id);
+        if ($mikroskill) {
+            $mikroskill->{$request->column} = $request->value;
+            $mikroskill->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false], 400);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -61,6 +61,7 @@ class CplMikroskilController extends Controller
 
         foreach ($request->rubrik as $index => $rubrik) {
             CplMikroskil::create([
+                'id_kampus' => $request->id_kampus,
                 'name' => $request->rubrik[$index] ?? null,
                 'sks' => $request->sks[$index] ?? null, // Gunakan null jika sks tidak ada
             ]);
@@ -96,8 +97,11 @@ class CplMikroskilController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CplMikroskil $cplMikroskil)
+    public function destroy(CplMikroskil $cplMikroskil, $id)
     {
-        //
+        $cplMikroskil = CplMikroskil::findOrFail($id);
+        $cplMikroskil->delete();
+
+        return response()->json(['message' => 'Data berhasil dihapus!']);
     }
 }

@@ -23,10 +23,10 @@
             ])
             @endcomponent
         </div>
+        {{-- NOTED : TAMBAHKAN FILTERING BY KAMPUS atau nama cpl atau sks --}}
+        {{-- TINGGAL ngasih nilai ke student dengan cpl ini abis itu testing --}}
 
         <x-panel.show title="Rubrik" subtitle="Mikroskill">
-
-
             <x-slot name="paneltoolbar">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <!-- Button Upload -->
@@ -49,6 +49,21 @@
                                 <form action="{{ route('mikroskil.store') }}" method="POST" enctype="multipart/form-data"
                                     id="form-input">
                                     @csrf
+                                    @if ($kampus)
+                                        <div class="form-group">
+                                            <label for="kampus">Kampus</label>
+                                            <select class="select2 form-control w-100" id="single-default" name="id_kampus"
+                                                id="id_kampus" required>
+                                                <option value="" selected disabled>Pilih Kampus</option>
+                                                @foreach ($kampus as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('id_kampus')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    @endif
 
                                     <!-- Table -->
                                     <table class="table table-bordered">
@@ -69,7 +84,8 @@
                                                         min="1" max="10">
                                                 </td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-danger remove-field">X</button>
+                                                    <button type="button" class="btn btn-danger remove-field"><i
+                                                            class="fa fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -97,6 +113,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Kampus</th>
                         <th>Rubrik CPL</th>
                         <th>SKS</th>
                         <th>Aksi</th>
@@ -107,6 +124,25 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>
+                                @if ($kampus)
+                                    <div class="form-group">
+                                        <select class="select2 form-control w-100" id="single-default" name="id_kampus"
+                                            id="id_kampus" required>
+                                            <option value="" selected disabled>Pilih Kampus</option>
+                                            @foreach ($kampus as $text)
+                                                <option value="{{ $text->id }}"
+                                                    {{ old('id_kampus', $item->id_kampus ?? '') == $text->id ? 'selected' : '' }}>
+                                                    {{ $text->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_kampus')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                @endif
+                            </td>
+                            <td>
                                 <input type="text" class="form-control editable" data-id="{{ $item->id }}"
                                     data-column="name" value="{{ $item->name }}">
                             </td>
@@ -114,7 +150,8 @@
                                 <input type="number" class="form-control editable" data-id="{{ $item->id }}"
                                     data-column="sks" value="{{ $item->sks }}">
                             </td>
-                            <td>DELETE</td>
+                            <td><button class="btn btn-danger delete" data-id="{{ $item->id }}">
+                                    <i class="fa fa-trash"></i></button></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -124,14 +161,6 @@
 @endsection
 
 @section('pages-script')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            @if ($errors->any())
-                // Open the modal if there are validation errors
-                $('#importdata').modal('show');
-            @endif
-        });
-    </script>
     <script src="/admin/js/datagrid/datatables/datatables.bundle.js"></script>
     <script>
         /* demo scripts for change table color */
@@ -173,7 +202,7 @@
                         <input type="number" name="sks[]" class="form-control" required min="1" max="10">
                     </td>
                     <td class="text-center">
-                        <button type="button" class="btn btn-danger remove-field">X</button>
+                        <button type="button" class="btn btn-danger remove-field"><i class="fa fa-trash"></i></button>
                     </td>
                 `;
                 container.appendChild(newRow);
@@ -197,22 +226,23 @@
                             <input type="number" name="sks[]" class="form-control" required min="1" max="10">
                         </td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-danger remove-field">X</button>
+                            <button type="button" class="btn btn-danger remove-field"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
             });
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.editable').on('change', function() {
-                let id = $(this).data('id');
-                let column = $(this).data('column');
+            $(".editable").on("change", function() {
+                let id = $(this).data("id");
+                let column = $(this).data("column");
                 let value = $(this).val();
 
                 $.ajax({
-                    url: "{{ route('mikroskil.updateInline') }}",
+                    url: "{{ route('mikroskil.updateInline') }}", // Sesuaikan dengan rute update
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -221,11 +251,36 @@
                         value: value
                     },
                     success: function(response) {
-                        alert(response.success);
+                        alert("Data berhasil diperbarui!");
+                    },
+                    error: function() {
+                        alert("Terjadi kesalahan saat memperbarui data.");
                     }
                 });
             });
+
+            // Event untuk delete data
+            $('.delete').on('click', function() {
+                let id = $(this).data('id');
+                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                    $.ajax({
+                        url: '/mikroskil/delete/' + id,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            alert(response.message);
+                            location.reload(); // Refresh halaman
+                        },
+                        error: function(xhr) {
+                            alert("Gagal menghapus data!");
+                        }
+                    });
+                }
+            });
         });
     </script>
+
 
 @endsection
