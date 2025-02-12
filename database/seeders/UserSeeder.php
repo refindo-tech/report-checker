@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $admin = User::create([
+            'id_kampus' => 1,
             'name' => 'Rizky Apriansyah',
             'email' => 'admin@example.com',
             'email_verified_at' => now(),
@@ -23,6 +24,7 @@ class UserSeeder extends Seeder
         ]);
 
         $dosen = User::create([
+            'id_kampus' => 2,
             'name' => 'Rhein Kharnafis Dhirgam',
             'email' => 'dosen@example.com',
             'email_verified_at' => now(),
@@ -31,6 +33,7 @@ class UserSeeder extends Seeder
         ]);
 
         $mahasiswa = User::create([
+            'id_kampus' => 3,
             'name' => 'Akbar',
             'email' => 'mahasiswa@example.com',
             'email_verified_at' => now(),

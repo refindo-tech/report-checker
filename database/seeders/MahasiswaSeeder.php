@@ -17,7 +17,6 @@ class MahasiswaSeeder extends Seeder
             'user_id' => 3,
             'nim' => '123456789',
             'gender' => 'L',
-            'kampus' => 'STT Terpadu Nurul Fikri',
             'phone' => '08123456789',
             'address' => 'Jl. Jend. Sudirman No. 123, Jakarta Pusat, Indonesia',
             'prodi' => 'Teknik Informatika',

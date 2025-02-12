@@ -29,27 +29,27 @@ Route::middleware('auth')->group(function () {
     });
     });
     // Rute untuk menambah barang masuk (Admin, Gudang)
-    // Route::middleware('permission:tambah-barang-masuk')->prefix('report')->group(function () {
-    //     Route::get('/review/{id}', [FinalReportController::class, 'review'])->name('report.review');
-    //     Route::post('/create', [FinalReportController::class, 'store'])->name('report.store');
-    //     Route::post('/review{id}', [FinalReportController::class, 'reviewstore'])->name('report.reviewstore');
-    // });
+    Route::middleware('permission:tambah-barang-masuk')->prefix('mikroskil')->group(function () {
+        Route::post('/cpl-mikroskil/update-inline', [CplMikroskilController::class, 'updateInline'])->name('mikroskil.updateInline');
+        Route::post('/create', [CplMikroskilController::class, 'store'])->name('mikroskil.store');
+        // Route::post('/review{id}', [CplMikroskilController::class, 'reviewstore'])->name('mikroskil.reviewstore');
+    });
 
     // Rute untuk mengedit barang masuk (Admin, Gudang)
-    // Route::middleware('permission:edit-barang-masuk')->prefix('report')->group(function () {
-    //     Route::get('/edit/{id}', [FinalReportController::class, 'edit'])->name('report.edit');
-    //     Route::put('/{id}', [FinalReportController::class, 'update'])->name('report.update');
-    // });
+    Route::middleware('permission:edit-barang-masuk')->prefix('mikroskil')->group(function () {
+        Route::get('/edit/{id}', [CplMikroskilController::class, 'edit'])->name('mikroskil.edit');
+        Route::put('/{id}', [CplMikroskilController::class, 'update'])->name('mikroskil.update');
+    });
 
     // Rute untuk menghapus barang masuk (Admin, Gudang)
-    // Route::middleware('permission:hapus-barang-masuk')->prefix('report')->group(function () {
-    //     Route::delete('/{id}', [FinalReportController::class, 'destroy'])->name('report.destroy');
-    // });
+    Route::middleware('permission:hapus-barang-masuk')->prefix('mikroskil')->group(function () {
+        Route::delete('/{id}', [CplMikroskilController::class, 'destroy'])->name('mikroskil.destroy');
+    });
 
     // Rute untuk melihat detail barang masuk (Admin, Gudang)
-//     Route::middleware('permission:lihat-barang-masuk')->prefix('report')->group(function () {
-//         Route::get('/show/{id}', [FinalReportController::class, 'show'])->name('report.show');
-//     });
+    Route::middleware('permission:lihat-barang-masuk')->prefix('mikroskil')->group(function () {
+        Route::get('/show/{id}', [CplMikroskilController::class, 'show'])->name('mikroskil.show');
+    });
 // });
 
 

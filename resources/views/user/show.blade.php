@@ -37,7 +37,6 @@
             </x-slot>
             <div class="card">
                 <div class="card-body">
-                    <p><strong>ID users:</strong> {{ $user->id }}</p>
                     <p><strong>Role:</strong>
                         @if ($user->roles->isNotEmpty())
                             @foreach ($user->roles as $role)
@@ -53,6 +52,7 @@
                             <p>User ini belum memiliki role.</p>
                         @endif
                     </p>
+                    <p><strong>Kampus:</strong> {{ $user->kampus->name }}</p>
                     <p><strong>Nama:</strong> {{ $user->name }}</p>
                     <p><strong>Email:</strong> {{ $user->email }}</p>
                     <p><strong>Photo:</strong>
@@ -66,13 +66,11 @@
                     @if ($user->dosen != null)
                         <p><strong>NIP:</strong> {{ $user->dosen->nip }}</p>
                         <p><strong>Gender:</strong> {{ $user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
-                        <p><strong>Kampus:</strong> {{ $user->dosen->kampus }}</p>
                         <p><strong>Alamat:</strong> {{ $user->dosen->address }}</p>
                         <p><strong>No HP:</strong> {{ $user->dosen->phone }}</p>
                     @elseif($user->Mahasiswa != null)
                         <p><strong>NIM:</strong> {{ $user->Mahasiswa->nim }}</p>
                         <p><strong>Gender:</strong> {{ $user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</p>
-                        <p><strong>Kampus:</strong> {{ $user->Mahasiswa->kampus }}</p>
                         <p><strong>Alamat:</strong> {{ $user->Mahasiswa->address }}</p>
                         <p><strong>No HP:</strong> {{ $user->Mahasiswa->phone }}</p>
                         <p><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</p>

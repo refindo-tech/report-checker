@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Kampus;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,8 +20,9 @@ class MasterController extends Controller
     }
     public function master_profil_edit()
     {
-        $users = User::where('id', Auth::user()->id)->with('dosen', 'mahasiswa')->first();
-        return view('master.master_profil_edit', compact('users'));
+        $users = User::where('id', Auth::user()->id)->with('dosen', 'mahasiswa', 'kampus')->first();
+        $kampus = Kampus::all();
+        return view('master.master_profil_edit', compact('users', 'kampus'));
     }
     public function master_profil_update(Request $request)
     {
@@ -64,6 +66,7 @@ class MasterController extends Controller
 
             // update data product
             User::where('id', $id)->update([
+                'id_kampus' => $request->id_kampus,
                 'name' => $request->name,
                 'email' => $request->email,
                 'image' => $imageName,
@@ -78,7 +81,6 @@ class MasterController extends Controller
                     'gender' => $request->gender,
                     'phone' => $request->phone,
                     'address' => $request->alamat,
-                    'kampus' => $request->kampus,
                 ]);
             } else if ($user->mahasiswa != null) {
 
@@ -90,7 +92,6 @@ class MasterController extends Controller
                     'gender' => $request->gender,
                     'phone' => $request->phone,
                     'address' => $request->alamat,
-                    'kampus' => $request->kampus,
                     'prodi' => $request->prodi,
                     'semester' => $request->semester,
                 ]);
@@ -111,6 +112,7 @@ class MasterController extends Controller
 
             // update data product tanpa menyertakan file gambar
             User::where('id', $id)->update([
+                'id_kampus' => $request->id_kampus,
                 'name' => $request->name,
                 'email' => $request->email,
             ]);
@@ -124,7 +126,6 @@ class MasterController extends Controller
                     'gender' => $request->gender,
                     'phone' => $request->phone,
                     'address' => $request->alamat,
-                    'kampus' => $request->kampus,
                 ]);
             } else if ($user->mahasiswa != null) {
 
@@ -136,7 +137,6 @@ class MasterController extends Controller
                     'gender' => $request->gender,
                     'phone' => $request->phone,
                     'address' => $request->alamat,
-                    'kampus' => $request->kampus,
                     'prodi' => $request->prodi,
                     'semester' => $request->semester,
                 ]);

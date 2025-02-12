@@ -16,7 +16,6 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->string('nim')->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
-            $table->string('kampus')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->string('prodi')->nullable();

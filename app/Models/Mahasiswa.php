@@ -16,7 +16,6 @@ class Mahasiswa extends Model
         'gender',
         'phone',
         'address',
-        'kampus',
         'prodi',
         'semester',
         'user_id',

@@ -4,6 +4,10 @@
     <link rel="stylesheet" media="screen, print" href="/admin/css/fa-solid.css">
     <link rel="stylesheet" media="screen, print" href="/admin/css/theme-demo.css">
     <link rel="stylesheet" media="screen, print" href="/admin/css/notifications/toastr/toastr.css">
+    <!-- DEMO related CSS below -->
+    <link rel="stylesheet" media="screen, print" href="/admin/css/fa-brands.css">
+    <!-- page related CSS below -->
+    <link rel="stylesheet" media="screen, print" href="/admin/css/formplugins/select2/select2.bundle.css">
 @endsection
 @section('pages-content')
     <main id="js-page-content" role="main" class="page-content">
@@ -50,6 +54,24 @@
                                         class="form-control">
                                 </div>
                             </div>
+                            <div class="col-md-12 pt-2">
+                                <div class="form-group">
+                                    <label for="kampus">Kampus</label>
+                                    <select class="select2 form-control w-100" id="single-default" name="id_kampus"
+                                        required>
+                                        <option value="" disabled>Pilih Kampus</option>
+                                        @foreach ($kampus as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ old('id_kampus', $users->id_kampus ?? '') == $item->id ? 'selected' : '' }}>
+                                                {{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_kampus')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
 
                             @if ($users->dosen != null)
                                 <div class="col-md-6">
@@ -82,13 +104,6 @@
                                         <label for="alamat">Alamat</label>
                                         <input type="text" name="alamat"
                                             value="{{ old('alamat', $users->dosen->address) }}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="kampus">Kampus</label>
-                                        <input type="text" name="kampus"
-                                            value="{{ old('kampus', $users->dosen->kampus) }}" class="form-control">
                                     </div>
                                 </div>
                                 {{-- MAHASISWA --}}
@@ -124,13 +139,6 @@
                                         <input type="text" name="semester"
                                             value="{{ old('semester', $users->mahasiswa->semester) }}"
                                             class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="kampus">Kampus</label>
-                                        <input type="text" name="kampus"
-                                            value="{{ old('kampus', $users->mahasiswa->kampus) }}" class="form-control">
                                     </div>
                                 </div>
                             @endif
@@ -217,6 +225,7 @@
 @endsection
 
 @section('pages-script')
+    <script src="/admin/js/formplugins/select2/select2.bundle.js"></script>
     <script>
         function previewImage(event) {
             const reader = new FileReader();
@@ -226,6 +235,12 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+    </script>
+
+    <script>
+        $('.select2').select2({
+            placeholder: "Pilih Kampus",
+        });
     </script>
 
 @endsection

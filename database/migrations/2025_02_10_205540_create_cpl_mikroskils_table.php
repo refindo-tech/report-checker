@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
+        Schema::create('mikroskill', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->string('nip')->nullable();
-            $table->enum('gender', ['L', 'P'])->nullable();
-            $table->string('phone')->nullable();
-            $table->text('address')->nullable();
+            $table->string('name');
+            $table->integer('sks');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dosens');
+        Schema::dropIfExists('cpl_mikroskils');
     }
 };

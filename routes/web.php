@@ -37,7 +37,7 @@ Route::get('/about', [TemplateController::class, 'about'])->middleware(['auth', 
 require __DIR__ . '/mainmenu-template.php';
 require __DIR__ . '/mainmenu-master.php';
 require __DIR__ . '/mainmenu-settings.php';
-require __DIR__ . '/mainmenu-product.php';
+require __DIR__ . '/mainmenu-kampus.php';
 require __DIR__ . '/mainmenu-supplier.php';
 require __DIR__ . '/mainmenu-finalReport.php';
 require __DIR__ . '/mainmenu-outcoming.php';

@@ -5,6 +5,10 @@
     <link rel="stylesheet" media="screen, print" href="/admin/css/theme-demo.css">
     <link rel="stylesheet" media="screen, print" href="/admin/css/notifications/toastr/toastr.css">
     <link rel="stylesheet" media="screen, print" href="/admin/css/datagrid/datatables/datatables.bundle.css">
+    <!-- DEMO related CSS below -->
+    <link rel="stylesheet" media="screen, print" href="/admin/css/fa-brands.css">
+    <!-- page related CSS below -->
+    <link rel="stylesheet" media="screen, print" href="/admin/css/formplugins/select2/select2.bundle.css">
 @endsection
 @section('pages-content')
     <main id="js-page-content" role="main" class="page-content">
@@ -22,6 +26,23 @@
         <form action="{{ route('user.store') }}" method="POST">
             @csrf
             <x-panel.show title="Tambah" subtitle="Pengguna">
+                <div class="form-group">
+                    <label for="kampus">Kampus</label>
+                    <select class="select2 form-control w-100" id="single-default" name="id_kampus" id="id_kampus" required>
+                        <option value="" selected disabled>Pilih Kampus</option>
+                        @foreach ($kampus as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_kampus')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+
+                    {{-- <optgroup label="Alaskan/Hawaiian Time Zone">
+                                <option value="AK">Alaska</option>
+                                <option value="HI">Hawaii</option>
+                            </optgroup> --}}
+                </div>
                 <div class="form-group">
                     <label for="name">Nama</label>
                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
@@ -74,10 +95,6 @@
                         <label for="alamat">Alamat</label>
                         <input type="text" name="alamat" id="alamat" class="form-control">
                     </div>
-                    <div class="form-group">
-                        <label for="kampus">Kampus</label>
-                        <input type="text" name="kampus" id="kampus" class="form-control">
-                    </div>
                 </div>
 
                 <!-- Form tambahan untuk Mahasiswa -->
@@ -102,10 +119,6 @@
                         <input type="text" name="alamat" id="alamat" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="kampus">Kampus</label>
-                        <input type="text" name="kampus" id="kampus" class="form-control">
-                    </div>
-                    <div class="form-group">
                         <label for="prodi">Prodi</label>
                         <input type="text" name="prodi" id="prodi" class="form-control">
                     </div>
@@ -122,6 +135,9 @@
         </form>
     </main>
 
+@endsection
+@section('pages-script')
+    <script src="/admin/js/formplugins/select2/select2.bundle.js"></script>
     <script>
         function toggleRoleFields() {
             var role = document.getElementById("role").value;
@@ -132,6 +148,11 @@
         // Panggil fungsi saat halaman dimuat agar form yang sesuai tetap muncul saat validasi gagal
         document.addEventListener("DOMContentLoaded", function() {
             toggleRoleFields();
+        });
+    </script>
+    <script>
+        $('.select2').select2({
+            placeholder: "Pilih Kampus",
         });
     </script>
 @endsection

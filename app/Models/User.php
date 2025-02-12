@@ -26,6 +26,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id_kampus',
         'name',
         'email',
         'password',
@@ -70,7 +71,13 @@ class User extends Authenticatable
         return $this->hasOne(Mahasiswa::class);
     }
 
-    public function report(){
+    public function report()
+    {
         return $this->hasMany(finalReport::class);
+    }
+
+    public function kampus()
+    {
+        return $this->belongsTo(Kampus::class, 'id_kampus');
     }
 }

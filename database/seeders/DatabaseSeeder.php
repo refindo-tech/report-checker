@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             AppProfileSeeder::class,
             AppFiturSeeder::class,
             DosenSeeder::class,
-            MahasiswaSeeder::class
+            MahasiswaSeeder::class,
+            KampusSeeder::class,
         ]);
     }
 }
