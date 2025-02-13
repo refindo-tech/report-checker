@@ -16,4 +16,9 @@ class CplMikroskil extends Model
         'name',
         'sks',
     ];
+
+    public function kampus()
+    {
+        return $this->belongsTo(Kampus::class, 'id_kampus');
+    }
 }

@@ -28,6 +28,7 @@ class FinalReportController extends Controller
     {
         $report = finalReport::find($id)->latest()->first();
         $report->status = '2';
+        $report->reviewer_id = Auth::user()->id;
         $report->save();
         // dd($report, $id);
         return view('final_report.review', compact('report'));
@@ -88,17 +89,20 @@ class FinalReportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(finalReport $finalReport)
+    public function show(finalReport $finalReport, $id) 
     {
-        //
+        $finalReport = finalReport::with('user', 'reviewer')->find($id);
+        // dd($finalReport);
+        return view('final_report.show', compact('finalReport'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(finalReport $finalReport)
+    public function edit(finalReport $finalReport, $id)
     {
-        //
+        $report = finalReport::find($id);
+        return view('final_report.edit', compact('report'));
     }
 
     /**
@@ -112,8 +116,10 @@ class FinalReportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(finalReport $finalReport)
+    public function destroy(finalReport $finalReport, $id)
     {
-        //
+        $report = finalReport::find($id);
+        $report->delete();
+        return redirect()->route('report.index')->with('success', 'Berkas berhasil dihapus.');
     }
 }

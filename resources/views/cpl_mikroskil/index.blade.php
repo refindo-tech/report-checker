@@ -7,6 +7,7 @@
     <link rel="stylesheet" media="screen, print" href="/admin/css/datagrid/datatables/datatables.bundle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.2.2/css/dropify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
 
 @section('pages-content')
@@ -49,22 +50,6 @@
                                 <form action="{{ route('mikroskil.store') }}" method="POST" enctype="multipart/form-data"
                                     id="form-input">
                                     @csrf
-                                    @if ($kampus)
-                                        <div class="form-group">
-                                            <label for="kampus">Kampus</label>
-                                            <select class="select2 form-control w-100" id="single-default" name="id_kampus"
-                                                id="id_kampus" required>
-                                                <option value="" selected disabled>Pilih Kampus</option>
-                                                @foreach ($kampus as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('id_kampus')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    @endif
-
                                     <!-- Table -->
                                     <table class="table table-bordered">
                                         <thead>
@@ -120,27 +105,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($mikroskill as $index => $item)
+                    @foreach ($mikroskill as $item)
                         <tr>
-                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>
-                                @if ($kampus)
-                                    <div class="form-group">
-                                        <select class="select2 form-control w-100" id="single-default" name="id_kampus"
-                                            id="id_kampus" required>
-                                            <option value="" selected disabled>Pilih Kampus</option>
-                                            @foreach ($kampus as $text)
-                                                <option value="{{ $text->id }}"
-                                                    {{ old('id_kampus', $item->id_kampus ?? '') == $text->id ? 'selected' : '' }}>
-                                                    {{ $text->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('id_kampus')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                @endif
+                                <label for="">{{ optional($item->kampus)->name }}</label>
                             </td>
                             <td>
                                 <input type="text" class="form-control editable" data-id="{{ $item->id }}"
@@ -150,8 +119,19 @@
                                 <input type="number" class="form-control editable" data-id="{{ $item->id }}"
                                     data-column="sks" value="{{ $item->sks }}">
                             </td>
-                            <td><button class="btn btn-danger delete" data-id="{{ $item->id }}">
-                                    <i class="fa fa-trash"></i></button></td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="confirmDelete({{ $item->id }})"
+                                    class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+
+                                <form id="delete-form-{{ $item->id }}"
+                                    action="{{ route('mikroskil.destroy', $item->id) }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -162,6 +142,24 @@
 
 @section('pages-script')
     <script src="/admin/js/datagrid/datatables/datatables.bundle.js"></script>
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: "Apakah yakin akan dihapus Mikroskill ini?",
+                text: "Tindakan ini tidak dapat dibatalkan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#6c757d"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
+    </script>
     <script>
         /* demo scripts for change table color */
         /* change background */
@@ -233,7 +231,7 @@
             });
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
         $(document).ready(function() {
             $(".editable").on("change", function() {
@@ -251,10 +249,18 @@
                         value: value
                     },
                     success: function(response) {
-                        alert("Data berhasil diperbarui!");
-                    },
-                    error: function() {
-                        alert("Terjadi kesalahan saat memperbarui data.");
+                        toastr.options.timeOut = 2000; // Menunda toastr selama 2 detik
+                        toastr.success(response.message);
+                        $(this).next('span').text(statusText);
+
+                        // Menunda pengalihan halaman selama 2 detik sebelum mengarahkan ke halaman indeks
+                        setTimeout(function() {
+                            window.location.href =
+                                '{{ route('mikroskil.index') }}'; // Redirect to index page
+                        }, 2000);
+                    }.bind(this),
+                    error: function(xhr) {
+                        toastr.error('Something went wrong.');
                     }
                 });
             });

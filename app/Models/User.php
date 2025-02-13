@@ -75,6 +75,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(finalReport::class);
     }
+    public function reviewer()
+    {
+        return $this->hasMany(finalReport::class);
+    }
 
     public function kampus()
     {

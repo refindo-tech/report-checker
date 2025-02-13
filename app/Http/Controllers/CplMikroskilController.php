@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CplMikroskil;
 use App\Models\Kampus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CplMikroskilController extends Controller
@@ -14,7 +15,8 @@ class CplMikroskilController extends Controller
      */
     public function index()
     {
-        $mikroskill = CplMikroskil::all();
+        $mikroskill = CplMikroskil::with('kampus')->get();
+        // dd($mikroskill);
         $kampus = Kampus::all();
         // dd($mikroskill);
         return view('cpl_mikroskil.index', compact('mikroskill', 'kampus'));
@@ -27,7 +29,7 @@ class CplMikroskilController extends Controller
         if ($mikroskill) {
             $mikroskill->{$request->column} = $request->value;
             $mikroskill->save();
-            return response()->json(['success' => true]);
+            return response()->json(['message' => 'Mikroskill sukses di update.']);
         }
         return response()->json(['success' => false], 400);
     }
@@ -61,7 +63,7 @@ class CplMikroskilController extends Controller
 
         foreach ($request->rubrik as $index => $rubrik) {
             CplMikroskil::create([
-                'id_kampus' => $request->id_kampus,
+                'id_kampus' => Auth::user()->id_kampus,
                 'name' => $request->rubrik[$index] ?? null,
                 'sks' => $request->sks[$index] ?? null, // Gunakan null jika sks tidak ada
             ]);
@@ -102,6 +104,6 @@ class CplMikroskilController extends Controller
         $cplMikroskil = CplMikroskil::findOrFail($id);
         $cplMikroskil->delete();
 
-        return response()->json(['message' => 'Data berhasil dihapus!']);
+        return redirect()->route('mikroskil.index')->with('success', 'Data berhasil dihapus.');
     }
 }

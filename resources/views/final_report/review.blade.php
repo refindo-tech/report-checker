@@ -1,5 +1,5 @@
 @extends('inc.main')
-@section('title', 'incoming')
+@section('title', 'report')
 @section('pages-css')
     <link rel="stylesheet" media="screen, print" href="/admin/css/formplugins/bootstrap-datepicker/bootstrap-datepicker.css">
     <link rel="stylesheet" media="screen, print" href="/admin/css/fa-solid.css">
