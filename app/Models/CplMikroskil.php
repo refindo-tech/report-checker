@@ -17,6 +17,10 @@ class CplMikroskil extends Model
         'sks',
     ];
 
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
+  
     public function kampus()
     {
         return $this->belongsTo(Kampus::class, 'id_kampus');

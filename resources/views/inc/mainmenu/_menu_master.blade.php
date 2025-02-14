@@ -27,7 +27,7 @@
 @can('lihat-barang-masuk')
     <li class="{{ Request::is('mikroskil/*') ? 'active' : '' }}">
         <a href="{{ route('mikroskil.index') }}" title="cpl" data-filter-tags="admin profil">
-            <i class="fa fa-sign-in"></i>
+            <i class="fa-solid fa-check-to-slot"></i>
             <span class="nav-link-text" data-i18n="nav.admin_profil">Rubrik CPL Mikroskill</span>
         </a>
     </li>
@@ -38,6 +38,13 @@
     <a href="{{ route('kampus.index') }}" title="Profil Admin" data-filter-tags="admin profil">
         <i class="fa fa-building-columns"></i>
         <span class="nav-link-text" data-i18n="nav.admin_profil">Kampus</span>
+    </a>
+</li>
+{{-- @can('lihat-barang-keluar') --}}
+<li class="{{ Request::is('assessment/*') ? 'active' : '' }}">
+    <a href="{{ route('assessment.index') }}" title="penilaian" data-filter-tags="admin profil">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <span class="nav-link-text" data-i18n="nav.admin_profil">Penilaian</span>
     </a>
 </li>
 {{-- @endcan --}}

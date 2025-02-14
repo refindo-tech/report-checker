@@ -18,7 +18,7 @@
 
         <div class="subheader">
             @component('inc._page_heading', [
-                'icon' => 'fa-solid fa-check-to-slot',
+                'icon' => 'fa-solid fa-list-check',
                 'heading1' => 'Rubrik CPL',
                 'heading2' => 'Mikroskil',
             ])
