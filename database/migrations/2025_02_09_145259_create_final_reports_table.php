@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('final_reports', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
+            $table->bigInteger('reviewer_id');
             $table->string('status')->nullable();
             $table->string('berkas')->nullable();
             $table->string('feedback')->nullable();

@@ -1,5 +1,5 @@
 @extends('inc.main')
-@section('title', 'incoming')
+@section('title', 'Report')
 @section('pages-css')
     <link rel="stylesheet" media="screen, print" href="/admin/css/formplugins/bootstrap-datepicker/bootstrap-datepicker.css">
     <link rel="stylesheet" media="screen, print" href="/admin/css/fa-solid.css">
@@ -18,13 +18,13 @@
         ])
         <div class="subheader">
             @component('inc._page_heading', [
-                'icon' => 'sign-in',
-                'heading1' => 'Barang Masuk',
-                'heading2' => 'Karoseri',
+                'icon' => 'graduation-cap',
+                'heading1' => 'Laporan Akhir',
+                'heading2' => 'MBKM',
             ])
             @endcomponent
         </div>
-        <form action="{{ route('incoming.update', $incoming->id) }}" method="POST">
+        <form action="{{ route('report.update', $report->id) }}" method="POST">
             @csrf
             @method('PUT')
             <x-panel.show title="Edit" subtitle="Barang Masuk">
@@ -35,92 +35,16 @@
                             <i class="fal fa-ellipsis-v"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-animated dropdown-menu-right">
-                            <a class="dropdown-item" href="{{ route('incoming.index') }}">Kembali</a>
+                            <a class="dropdown-item" href="{{ route('report.index') }}">Kembali</a>
 
                         </div>
                     </x-panel.tool-bar>
                 </x-slot>
                 <div class="form-group">
-                    <label for="tanggal">Tanggal</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="tanggal" id="tanggal"
-                            value="{{ old('tanggal', $incoming->start_date) }}" readonly placeholder="Select date" id="datepicker-2">
-                        @error('tanggal')
-                            <span class="text-danger help-block">{{ $message }}</span>
-                        @enderror
-                        <div class="input-group-append">
-                            <span class="input-group-text fs-xl">
-                                <i class="fal fa-calendar"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="kode_masuk">Kode Barang Masuk</label>
-                    <input type="text" readonly name="kode_masuk" id="kode_masuk" class="form-control"
-                        value="{{ old('kode_masuk', $incoming->kode_penerimaan) }}">
-                    @error('kode_masuk')
-                        <span class="text-danger help-block">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="nama_supplier">Nama Supplier</label>
-                    <select class="select2 form-control w-100 @error('id_supplier') is-invalid @enderror"
-                        aria-label="id_supplier" id="id_supplier" name="id_supplier">
-                        <option selected disabled>- Pilih Supplier -</option>
-                        @foreach ($suppliers as $cat)
-                            <option value="{{ $cat->id }}" 
-                                {{ old('id_supplier', $incoming->supplier->id ?? '') == $cat->id ? 'selected' : '' }}>
-                                {{ $cat->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('id_supplier')
-                        <small class="text-danger help-block">{{ $message }}</small>
-                    @enderror
-                </div>                
-                <div class="form-group">
-                    <label for="nama_barang">Nama Barang</label>
-                    <select class="select2 form-control @error('id_product') is-invalid @enderror" aria-label="id_product"
-                        id="id_product" name="id_product">
-                        <option selected disabled>- Pilih Produk -</option>
-                        @foreach ($products as $cat)
-                            <option value="{{ $cat->id }}" {{ old('id_product', $incoming->product->id ?? '') == $cat->id ? 'selected' : '' }}>
-                                {{ $cat->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('id_product')
-                        <small class="text-danger help-block">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="kuantitas">Kuantitas</label>
-                    <input type="number" name="quantity" id="quantity" class="form-control" value="{{ old('quantity', $incoming->kuantitas) }}"
-                        required>
-                    @error('quantity')
-                        <span class="text-danger help-block">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="satuan">Satuan</label>
-                    <input type="text" name="unit" id="unit" class="form-control" value="{{ old('unit', $incoming->unit) }}">
-                    @error('unit')
-                        <span class="text-danger help-block">{{ $message }}</span>
-                    @enderror
-                </div>
-                {{-- <div class="form-group">
-                    <label for="price">Harga</label>
-                    <input type="text" name="price" id="price" class="form-control"
-                        value="{{ old('price') }}">
-                    @error('price')
-                        <span class="text-danger help-block">{{ $message }}</span>
-                    @enderror
-                </div> --}}
-                <div class="form-group">
-                    <label for="keterangan">Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" class="form-control"
-                        value="{{ old('keterangan', $incoming->keterangan) }}">
-                    @error('keterangan')
+                    <label for="name">status</label>
+                    <input type="text" name="name" id="name" class="form-control"
+                        value="{{ old('name', $report->status) }}">
+                    @error('name')
                         <span class="text-danger help-block">{{ $message }}</span>
                     @enderror
                 </div>

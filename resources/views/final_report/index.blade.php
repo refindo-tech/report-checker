@@ -109,15 +109,6 @@
                                     <span class="text-danger">Belum diisi</span>
                                 @endif
                             </td>
-                            {{-- @if ($report->status == 3 || $report->status == 0)
-                                <td>
-                                    @if ($report->feedback)
-                                        {{ $report->feedback }}
-                                    @else
-                                        <span class="text-danger">Belum diisi</span>
-                                    @endif
-                                </td>
-                            @endif --}}
                             @if ($report->status == 0)
                                 <td>
                                     @if ($report->sks)
@@ -129,17 +120,20 @@
                             @endif
                             {{-- @canany(['edit-komponen', 'hapus-komponen']) --}}
                             <td>
-                                <a href="{{ route('report.show', $report->id) }}" class="btn btn-info">Detail</a>
+                                <a href="{{ route('report.show', $report->id) }}" class="btn btn-info">
+                                    <i class="fa fa-eye"></i>
+                                </a>
 
                                 {{-- Tombol Edit --}}
-                                @can('edit-komponen')
+                                {{-- @can('edit-komponen')
                                     <a href="{{ route('report.edit', $report->id) }}" class="btn btn-warning">Edit</a>
-                                @endcan
+                                @endcan --}}
 
                                 {{-- Tombol Hapus --}}
                                 @can('hapus-komponen')
                                     <button type="button" class="btn btn-danger"
-                                        onclick="confirmDelete({{ $report->id }})">Hapus</button>
+                                        onclick="confirmDelete({{ $report->id }})">
+                                        <i class="fa fa-trash"></i></button>
                                 @endcan
 
                                 {{-- Form Hapus --}}
@@ -151,7 +145,9 @@
                                         @method('DELETE')
                                     </form>
                                 @endcan
-                                <a href="{{ route('report.review', $report->id) }}" class="btn btn-success">review</a>
+                                @if ($report->status == 1 || $report->status == 2)
+                                    <a href="{{ route('report.review', $report->id) }}" class="btn btn-success">review</a>
+                                @endif
                             </td>
                             {{-- @endcanany --}}
                         </tr>

@@ -13,6 +13,7 @@ class finalReport extends Model
 
     protected $fillable = [
         'user_id',
+        'reviewer_id',
         'status',
         'berkas',
         'feedback',
@@ -23,4 +24,9 @@ class finalReport extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function reviewer()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

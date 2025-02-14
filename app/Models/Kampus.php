@@ -19,4 +19,8 @@ class Kampus extends Model
     {
         return $this->hasMany(User::class);
     }
+    public function mikroskil()
+    {
+        return $this->hasMany(CplMikroskil::class);
+    }
 }
