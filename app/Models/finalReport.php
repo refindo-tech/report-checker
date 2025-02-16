@@ -29,4 +29,19 @@ class finalReport extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function mahasiswa()
+    {
+        return $this->hasOneThrough(Mahasiswa::class, User::class, 'id', 'user_id', 'user_id', 'id');
+    }
+
+
+    public function mikroskill()
+    {
+        return $this->belongsToMany(
+            CplMikroskil::class,  // Model terkait
+            'laprak_has_mikroskill', // Nama tabel pivot
+            'id_laprak', // Foreign key di tabel pivot untuk model ini
+            'id_mikroskill' // Foreign key di tabel pivot untuk model terkait
+        )->withPivot(['created_at', 'updated_at']);
+    }
 }

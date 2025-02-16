@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\finalReport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -15,10 +16,11 @@ class FinalReportController extends Controller
      */
     public function index()
     {
-        $report = finalReport::where('user_id', Auth::user()->id)->with('user')->orderBy('created_at', 'desc')->get();
+        $report = finalReport::with('user')->orderBy('created_at', 'desc')->get();
+        $reportUser = finalReport::where('user_id', Auth::user()->id)->with('user')->orderBy('created_at', 'desc')->get();
         $reports = finalReport::where('user_id', Auth::user()->id)->with('user')->latest()->first();
         // dd($reports);
-        return view('final_report.index', compact('report', 'reports'));
+        return view('final_report.index', compact('report', 'reports', 'reportUser'));
     }
 
     /**
@@ -36,19 +38,21 @@ class FinalReportController extends Controller
 
     public function reviewstore(Request $request, $id)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'status' => 'required',
-            'feedback' => 'string',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
+        // dd($request->all());
         $report = finalReport::find($id)->latest()->first();
+        if ($request->feedback != null) {
+            $report->feedback = $request->feedback;
+            $report->save();
+        }
         $report->status = $request->status;
-        $report->feedback = $request->feedback;
         $report->save();
 
         // alihkan halaman ke halaman slider.index  
@@ -89,7 +93,7 @@ class FinalReportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(finalReport $finalReport, $id) 
+    public function show(finalReport $finalReport, $id)
     {
         $finalReport = finalReport::with('user', 'reviewer')->find($id);
         // dd($finalReport);
@@ -121,5 +125,57 @@ class FinalReportController extends Controller
         $report = finalReport::find($id);
         $report->delete();
         return redirect()->route('report.index')->with('success', 'Berkas berhasil dihapus.');
+    }
+
+    public function cetak_pdf(finalReport $finalReport, $id)
+    {
+        // $PurchaseOrder = PurchaseOrder::with('product', 'supplier', 'user')->find($id);
+        // // dd($PurchaseOrder);
+
+        // // Ambil data pivot
+        // $pivotData = purchase_has_product_komponen::where('id_purchase', $PurchaseOrder->id)->get();
+        // $pivotDataPurchase = product_has_purchase::where('id_purchase', $PurchaseOrder->id)->with('product')->get();
+        // $pivotKomponen = Komponen_has_purchase::where('id_purchase', $PurchaseOrder->id)->with('komponen')->get();
+        // $pivotkompro = purchase_has_product_kompro::where('id_purchase', $PurchaseOrder->id)->with('product')->get();
+        // dd($pivotData, $pivotDataPurchase);
+
+        // Ambil data komponen
+        // $komponens = Komponen::whereIn('id', $pivotData->pluck('id_komponen'))->get();
+
+        // Ambil data product
+        // $products = Product::whereIn('id', $pivotDataPurchase->pluck('id_product'))->get();
+        // dd($komponens, $products);
+
+        $opciones_ssl = array(
+            "ssl" => array(
+                "verify_peer" => false,
+                "verify_peer_name" => false,
+            ),
+        );
+
+        $img_path = public_path('admin/img/logountirta.png');
+        $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
+        $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
+        $img_base_64 = base64_encode($data);
+        $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
+
+        if (file_exists($img_path)) {
+            $data = file_get_contents($img_path);
+            $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
+            $img_base_64 = base64_encode($data);
+            $path_img = "data:image/{$extencion};charset=utf-8;base64,{$img_base_64}";
+        } else {
+            dd("File tidak ditemukan!");
+        }
+
+
+
+        // Pastikan data dikirim sebagai array
+        $pdf = Pdf::loadView('final_report.print', [
+            'path_img' => $path_img,
+        ]);
+
+        // Download file PDF
+        return $pdf->stream();
     }
 }

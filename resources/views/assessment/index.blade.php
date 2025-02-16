@@ -24,19 +24,19 @@
             ])
             @endcomponent
         </div>
-        
+
         {{-- NOTED : TAMBAHKAN FILTERING BY KAMPUS atau nama cpl atau sks --}}
         {{-- TINGGAL ngasih nilai ke student dengan cpl ini abis itu testing --}}
 
         <x-panel.show title="Data Penilaian" subtitle="Silakan lakukan penilaian">
             <x-slot name="paneltoolbar">
-                <x-panel.tool-bar>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploaddata">
-                            <i class="fa fa-plus"></i> Tambah Data Penilaian
-                        </button>
-                </x-panel.tool-bar>
+                {{-- <x-panel.tool-bar>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploaddata">
+                        <i class="fa fa-plus"></i> Tambah Data Penilaian
+                    </button>
+                </x-panel.tool-bar> --}}
 
-            {{-- <!-- Modal Tambah Data -->
+                {{-- <!-- Modal Tambah Data -->
             <div class="modal fade" id="uploaddata" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -78,135 +78,169 @@
                     </div>
                 </div>
             </div> --}}
-        </x-slot>
+            </x-slot>
 
             <!-- Tabel Data -->
-            <div class="table-responsive">
-                <table id="dt-mahasiswa" class="table table-bordered">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Hasil Capaian</th>
-                            <th>Penilaian</th>
-                            <th>Jumlah SKS</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Baris Dummy 1 -->
-                        <tr>
-                            <td>2201001</td>
-                            <td>Ahmad Saputra</td>
-                            <td>
-                                <select class="form-control select-multiple" multiple>
-                                    <option value="1" selected>Komunikasi Efektif yang membuat mahasisewa pintas sekali danhbat</option>
-                                    <option value="2" selected>Pemrograman Web</option>
-                                    <option value="3">Data Science</option>
-                                </select>
-                            </td>
-                            <td><input type="number" class="form-control" value="3" min="1" max="10"></td>
-                            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-                        </tr>
-                        <!-- Baris Dummy 2 -->
-                        <tr>
-                            <td>2201002</td>
-                            <td>Budi Santoso</td>
-                            <td>
-                                <select class="form-control select-multiple" multiple>
-                                    <option value="1" selected>Komunikasi Efektif</option>
-                                    <option value="2">Pemrograman Web</option>
-                                    <option value="3" selected>Data Science</option>
-                                </select>
-                            </td>
-                            <td><input type="number" class="form-control" value="4" min="1" max="10"></td>
-                            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-                        </tr>
-                        <!-- Baris Dummy 3 -->
-                        <tr>
-                            <td>2201003</td>
-                            <td>Citra Lestari</td>
-                            <td>
-                                <select class="form-control select-multiple" multiple>
-                                    <option value="1">Komunikasi Efektif</option>
-                                    <option value="2">Pemrograman Web</option>
-                                    <option value="3" selected>Data Science</option>
-                                </select>
-                            </td>
-                            <td><input type="number" class="form-control" value="2" min="1" max="10"></td>
-                            <td><button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>          
+            @can('lihat-assessment')
+                <div class="table-responsive">
+                    <table id="dt-mahasiswa" class="table table-bordered">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Hasil Capaian</th>
+                                <th>Jumlah SKS</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($reports as $report)
+                                <tr>
+                                    <td>{{ $report->mahasiswa->nim ?? 'Data tidak tersedia' }}</td>
+                                    <td>{{ $report->user->name }}</td>
+                                    <td>
+                                        <select name="mikroskills[{{ $report->id }}][]"
+                                            class="select2-placeholder-multiple form-control select-product editable"
+                                            multiple="multiple">
+                                            @foreach ($mikroskill as $component)
+                                                <option value="{{ $component->id }}" data-sks="{{ $component->sks }}"
+                                                    data-id="{{ $component->id }}" data-column="mikroskills"
+                                                    @if (in_array($component->name, $reportMikroskill[$report->id] ?? [])) selected @endif>
+                                                    {{ $component->name }} ({{ $component->sks }} SKS)
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('mikroskills')
+                                            <small class="text-danger help-block">{{ $message }}</small>
+                                        @enderror
+
+                                    </td>
+                                    <td><input type="number" class="form-control editable total-sks" min="1"
+                                            max="10" data-id="{{ $component->id }}" value="{{ $report->nilai }}"
+                                            data-column="sks" readonly>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary submit-assessment" data-id="{{ $report->id }}">Simpan
+                                            Penilaian</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endcan
         </x-panel.show>
     </main>
 @endsection
 
 @section('pages-script')
     <script src="/admin/js/datagrid/datatables/datatables.bundle.js"></script>
-    
+
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Inisialisasi DataTable
             $('#dt-mahasiswa').DataTable({
                 responsive: true,
-                searching: true,
-                language: {
-                    lengthMenu: "Tampilkan _MENU_ data",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <!-- Tambahkan SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select-multiple').select2({
+                placeholder: "Pilih Capaian",
+                allowClear: true
+            });
+            // Inisialisasi Select2
+            // $(".select2-placeholder-multiple").select2({
+            //     placeholder: "Pilih Capaian",
+            //     allowClear: true
+            // });
+
+            function initSelect2() {
+                $(".select2-placeholder-multiple").select2({
+                    placeholder: "Pilih Capaian",
+                    allowClear: true
+                });
+            }
+
+            initSelect2(); // Jalankan saat halaman pertama dimuat
+
+            // Jika tabel di-refresh secara AJAX, re-inisialisasi Select2 setelah perubahan
+            $(document).on('DOMNodeInserted', function(e) {
+                if ($(e.target).hasClass('select2-placeholder-multiple')) {
+                    initSelect2();
                 }
             });
 
-            // Update jumlah SKS secara inline
-            $(".sks-editable").on("change", function () {
-                let id = $(this).data("id");
-                let value = $(this).val();
+            // Hitung total SKS saat mikroskill dipilih
+            $('.select2-placeholder-multiple').on('change', function() {
+                let row = $(this).closest('tr'); // Dapatkan baris terkait
+                let totalSKS = 0;
+                let selectedOptions = $(this).find('option:selected');
+                let lastSelected = selectedOptions.last(); // Opsi terakhir yang dipilih
 
-                $.ajax({
-                    url: "{{ route('mikroskil.updateInline') }}",
-                    type: "POST",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        id: id,
-                        sks: value
-                    },
-                    success: function () {
-                        alert("Data berhasil diperbarui!");
-                    },
-                    error: function () {
-                        alert("Terjadi kesalahan saat memperbarui data.");
-                    }
+                selectedOptions.each(function() {
+                    totalSKS += parseInt($(this).data('sks')) || 0;
                 });
-            });
 
-            // Hapus data
-            $('.delete').on('click', function () {
-                let id = $(this).data('id');
-                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                    $.ajax({
-                        url: '/mikroskil/delete/' + id,
-                        type: 'DELETE',
-                        data: { _token: '{{ csrf_token() }}' },
-                        success: function () {
-                            alert("Data berhasil dihapus!");
-                            location.reload();
-                        },
-                        error: function () {
-                            alert("Gagal menghapus data!");
-                        }
+                // Cek jika total SKS melebihi batas
+                if (totalSKS > 24) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Batas SKS Terlampaui!',
+                        text: 'Total SKS tidak boleh lebih dari 24!',
+                        confirmButtonText: 'OK'
+                    });
+
+                    // Hapus opsi terakhir
+                    lastSelected.prop('selected', false);
+                    $(this).trigger('change'); // Perbarui tampilan Select2
+                }
+
+                // Perbarui input SKS hanya untuk baris ini
+                row.find('.total-sks').val(totalSKS);
+            });
+        });
+    </script>
+    <script>
+        $(document).on("click", ".submit-assessment", function() {
+            let row = $(this).closest("tr"); // Cari baris tabel tempat tombol ditekan
+            let idLaprak = $(this).data("id"); // Ambil ID dari atribut data-id
+            let selectedMikroskills = row.find(".select2-placeholder-multiple")
+                .val(); // Ambil mikroskill yang dipilih
+            let totalSKS = row.find(".total-sks").val(); // Ambil total SKS
+
+            // Kirim data ke controller menggunakan AJAX
+            $.ajax({
+                url: "{{ route('assessment.updateInline') }}", // Sesuaikan dengan route Anda
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id_laprak: idLaprak,
+                    mikroskills: selectedMikroskills,
+                    total_sks: totalSKS
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Berhasil!",
+                        text: response.message
+                    });
+                    // Refresh halaman atau update tabel jika diperlukan
+                    location.reload();
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Terjadi kesalahan: " + xhr.responseText
                     });
                 }
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('.select-multiple').select2({
-                    placeholder: "Pilih Capaian",
-                    allowClear: true
-                });
-            });
-        </script>
 @endsection

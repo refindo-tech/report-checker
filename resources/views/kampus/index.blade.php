@@ -21,7 +21,7 @@
         </div>
         <x-panel.show title="Daftar" subtitle="Kampus">
             <x-slot name="paneltoolbar">
-                @can('tambah-barang-keluar')
+                @can('tambah-kampus')
                     <x-panel.tool-bar>
                         <a href="{{ route('kampus.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                     </x-panel.tool-bar>
@@ -32,7 +32,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        @canany(['edit-barang-keluar', 'hapus-barang-keluar'])
+                        @canany(['edit-kampus', 'hapus-kampus'])
                             <th>Aksi</th>
                         @endcanany
                     </tr>
@@ -43,25 +43,25 @@
                             <td>{{ $loop->iteration }}</td>
                             <td class="text-capitalize">{{ $item->name }}</td>
                             <td>
-                                {{-- @can('edit-kampus') --}}
+                                @can('edit-kampus')
                                 <a href="{{ route('kampus.edit', $item->id) }}" class="btn btn-primary btn-sm"><i
                                         class="fa fa-edit"></i></a>
-                                {{-- @endcan --}}
+                                @endcan
                                 {{-- Tombol Hapus --}}
-                                {{-- @can('hapus-role') --}}
+                                @can('hapus-kampus')
                                 <button type="button" class="btn btn-danger btn-sm"
                                     onclick="confirmDelete({{ $item->id }})">
                                     <i class="fa fa-trash"></i></button>
-                                {{-- @endcan --}}
+                                @endcan
 
                                 {{-- Form Hapus --}}
-                                {{-- @can('hapus-role') --}}
+                                @can('hapus-kampus')
                                 <form id="delete-form-{{ $item->id }}" action="{{ route('kampus.destroy', $item->id) }}"
                                     method="POST" style="display:none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
-                                {{-- @endcan --}}
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

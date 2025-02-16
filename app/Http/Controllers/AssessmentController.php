@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\CplMikroskil;
+use App\Models\finalReport;
 use App\Models\Kampus;
+use App\Models\laprak_has_mikroskill;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AssessmentController extends Controller
@@ -15,12 +18,28 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        $penilaian = CplMikroskil::all();
+        $mikroskill = CplMikroskil::all();
         $kampus = Kampus::all();
-        $mahasiswa = Mahasiswa::all();
 
-        return view('assessment.index', compact('penilaian', 'kampus', 'mahasiswa'));
+        // Ambil laporan dengan relasi ke mikroskill melalui pivot table
+        $reports = finalReport::with(['user', 'mahasiswa', 'mikroskill'])
+            ->where('status', '0')
+            ->where('reviewer_id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+            // dd($reports);
+        // Inisialisasi array untuk menyimpan permission role
+        $reportMikroskill = [];
+
+        foreach ($reports as $report) {
+            // Mengambil nama mikroskill yang terhubung melalui tabel pivot
+            $reportMikroskill[$report->id] = $report->mikroskill->pluck('name')->toArray();
+            // dd($reportMikroskill);
+        }
+
+        return view('assessment.index', compact('mikroskill', 'kampus', 'reports', 'reportMikroskill'));
     }
+
 
     /**
      * Mengambil data CPL Mikroskil dalam format JSON.
@@ -60,17 +79,39 @@ class AssessmentController extends Controller
      */
     public function updateInline(Request $request)
     {
-        $request->validate([
-            'id' => 'required|exists:cpl_mikroskil,id',
-            'sks' => 'required|integer|min:1|max:10',
-        ]);
+        DB::beginTransaction();
+        try {
+            $idLaprak = $request->id_laprak;
+            $mikroskills = $request->mikroskills;
+            $totalSKS = $request->total_sks;
 
-        $mikroskill = CplMikroskil::findOrFail($request->id);
-        $mikroskill->sks = $request->sks;
-        $mikroskill->save();
+            // Simpan data ke tabel laprak_has_mikroskill
+            foreach ($mikroskills as $idMikroskill) {
+                laprak_has_mikroskill::firstOrCreate([
+                    'id_laprak' => $idLaprak,
+                    'id_mikroskill' => $idMikroskill,
+                ]);
+            }
 
-        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui!']);
+            // Update total SKS di tabel final_report
+            $finalReport = FinalReport::findOrFail($idLaprak);
+            $finalReport->nilai = $totalSKS;
+            $finalReport->save();
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Data berhasil disimpan!'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
+
+
 
     /**
      * Menghapus data berdasarkan ID.

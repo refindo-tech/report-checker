@@ -30,31 +30,27 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'hapus-permission']);
         Permission::create(['name' => 'lihat-permission']);
 
-        Permission::create(['name' => 'tambah-produk']);
-        Permission::create(['name' => 'edit-produk']);
-        Permission::create(['name' => 'hapus-produk']);
-        Permission::create(['name' => 'lihat-produk']);
+        Permission::create(['name' => 'tambah-laporan-akhir']);
+        Permission::create(['name' => 'edit-laporan-akhir']);
+        Permission::create(['name' => 'hapus-laporan-akhir']);
+        Permission::create(['name' => 'lihat-laporan-akhir']);
+        Permission::create(['name' => 'review-laporan-akhir']);
 
-        Permission::create(['name' => 'tambah-supplier']);
-        Permission::create(['name' => 'edit-supplier']);
-        Permission::create(['name' => 'hapus-supplier']);
-        Permission::create(['name' => 'lihat-supplier']);
+        Permission::create(['name' => 'tambah-mikroskill']);
+        Permission::create(['name' => 'edit-mikroskill']);
+        Permission::create(['name' => 'hapus-mikroskill']);
+        Permission::create(['name' => 'lihat-mikroskill']);
 
-        Permission::create(['name' => 'tambah-barang-masuk']);
-        Permission::create(['name' => 'edit-barang-masuk']);
-        Permission::create(['name' => 'hapus-barang-masuk']);
-        Permission::create(['name' => 'lihat-barang-masuk']);
+        Permission::create(['name' => 'tambah-kampus']);
+        Permission::create(['name' => 'edit-kampus']);
+        Permission::create(['name' => 'hapus-kampus']);
+        Permission::create(['name' => 'lihat-kampus']);
 
-        Permission::create(['name' => 'tambah-barang-keluar']);
-        Permission::create(['name' => 'edit-barang-keluar']);
-        Permission::create(['name' => 'hapus-barang-keluar']);
-        Permission::create(['name' => 'lihat-barang-keluar']);
-        Permission::create(['name' => 'print-barang-keluar']);
-
-        Permission::create(['name' => 'tambah-komponen']);
-        Permission::create(['name' => 'edit-komponen']);
-        Permission::create(['name' => 'hapus-komponen']);
-        Permission::create(['name' => 'lihat-komponen']);
+        Permission::create(['name' => 'tambah-assessment']);
+        Permission::create(['name' => 'edit-assessment']);
+        Permission::create(['name' => 'hapus-assessment']);
+        Permission::create(['name' => 'lihat-assessment']);
+        Permission::create(['name' => 'print-assessment']);
 
         // buat role dengan spatie models
         Role::create(['name' => 'Admin']);
@@ -72,10 +68,8 @@ class RolePermissionSeeder extends Seeder
         $roleAdmin->givePermissionTo('hapus-user');
         $roleAdmin->givePermissionTo('lihat-user');
 
-        $roleAdmin->givePermissionTo('tambah-produk');
-        $roleAdmin->givePermissionTo('edit-produk');
-        $roleAdmin->givePermissionTo('hapus-produk');
-        $roleAdmin->givePermissionTo('lihat-produk');
+        $roleAdmin->givePermissionTo('hapus-laporan-akhir');
+        $roleAdmin->givePermissionTo('lihat-laporan-akhir');
 
         $roleAdmin->givePermissionTo('tambah-role');
         $roleAdmin->givePermissionTo('edit-role');
@@ -87,46 +81,31 @@ class RolePermissionSeeder extends Seeder
         $roleAdmin->givePermissionTo('hapus-permission');
         $roleAdmin->givePermissionTo('lihat-permission');
 
-        $roleAdmin->givePermissionTo('tambah-supplier');
-        $roleAdmin->givePermissionTo('edit-supplier');
-        $roleAdmin->givePermissionTo('hapus-supplier');
-        $roleAdmin->givePermissionTo('lihat-supplier');
+        $roleAdmin->givePermissionTo('tambah-mikroskill');
+        $roleAdmin->givePermissionTo('edit-mikroskill');
+        $roleAdmin->givePermissionTo('hapus-mikroskill');
+        $roleAdmin->givePermissionTo('lihat-mikroskill');
 
-        $roleAdmin->givePermissionTo('tambah-barang-masuk');
-        $roleAdmin->givePermissionTo('edit-barang-masuk');
-        $roleAdmin->givePermissionTo('hapus-barang-masuk');
-        $roleAdmin->givePermissionTo('lihat-barang-masuk');
+        $roleAdmin->givePermissionTo('tambah-kampus');
+        $roleAdmin->givePermissionTo('edit-kampus');
+        $roleAdmin->givePermissionTo('hapus-kampus');
+        $roleAdmin->givePermissionTo('lihat-kampus');
 
-        $roleAdmin->givePermissionTo('tambah-barang-keluar');
-        $roleAdmin->givePermissionTo('edit-barang-keluar');
-        $roleAdmin->givePermissionTo('hapus-barang-keluar');
-        $roleAdmin->givePermissionTo('lihat-barang-keluar');
-        $roleAdmin->givePermissionTo('print-barang-keluar');
+        $roleDosen->givePermissionTo('review-laporan-akhir');
+        $roleDosen->givePermissionTo('hapus-laporan-akhir');
+        $roleDosen->givePermissionTo('lihat-laporan-akhir');
 
-        $roleAdmin->givePermissionTo('tambah-komponen');
-        $roleAdmin->givePermissionTo('edit-komponen');
-        $roleAdmin->givePermissionTo('hapus-komponen');
-        $roleAdmin->givePermissionTo('lihat-komponen');
+        $roleDosen->givePermissionTo('tambah-mikroskill');
+        $roleDosen->givePermissionTo('edit-mikroskill');
+        $roleDosen->givePermissionTo('hapus-mikroskill');
+        $roleDosen->givePermissionTo('lihat-mikroskill');
 
-        $roleDosen->givePermissionTo('tambah-produk');
-        $roleDosen->givePermissionTo('edit-produk');
-        $roleDosen->givePermissionTo('hapus-produk');
-        $roleDosen->givePermissionTo('lihat-produk');
+        $roleDosen->givePermissionTo('tambah-kampus');
+        $roleDosen->givePermissionTo('edit-kampus');
+        $roleDosen->givePermissionTo('hapus-kampus');
+        $roleDosen->givePermissionTo('lihat-kampus');
 
-        $roleDosen->givePermissionTo('tambah-supplier');
-        $roleDosen->givePermissionTo('edit-supplier');
-        $roleDosen->givePermissionTo('hapus-supplier');
-        $roleDosen->givePermissionTo('lihat-supplier');
-
-        $roleDosen->givePermissionTo('tambah-barang-masuk');
-        $roleDosen->givePermissionTo('edit-barang-masuk');
-        $roleDosen->givePermissionTo('hapus-barang-masuk');
-        $roleDosen->givePermissionTo('lihat-barang-masuk');
-        $roleDosen->givePermissionTo('print-barang-keluar');
-
-        $roleMahasiswa->givePermissionTo('tambah-barang-masuk');
-        $roleMahasiswa->givePermissionTo('edit-barang-masuk');
-        $roleMahasiswa->givePermissionTo('hapus-barang-masuk');
-        $roleMahasiswa->givePermissionTo('lihat-barang-masuk');
+        $roleMahasiswa->givePermissionTo('tambah-laporan-akhir');
+        $roleMahasiswa->givePermissionTo('lihat-laporan-akhir');
     }
 }

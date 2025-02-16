@@ -42,13 +42,18 @@
                             <span class="badge bg-primary text-white">{{ $permission->name }}</span>
                         @endforeach
                     </p>
-
-                    <a href="{{ route('roles.edit', $role) }}" class="btn btn-primary">Edit</a>
-                    <form action="{{ route('roles.destroy', $role) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @canany(['edit-role', 'hapus-role'])
+                        @can('edit-role')
+                            <a href="{{ route('roles.edit', $role) }}" class="btn btn-primary">Edit</a>
+                        @endcan
+                        @can('hapus-role')
+                            <form action="{{ route('roles.destroy', $role) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        @endcan
+                    @endcanany
                     <a href="{{ route('roles.index') }}" class="btn btn-secondary">Back</a>
                 </div>
             </div>

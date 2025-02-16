@@ -1,30 +1,15 @@
-<li class="nav-title">Unggah Berkas</li>
-{{-- @can('lihat-produk') --}}
-<li class="{{ Request::is('report/*') ? 'active' : '' }}">
-    <a href="{{ route('report.index') }}" title="report Admin" data-filter-tags="admin profil">
-        <i class="fa fa-flag"></i>
-        <span class="nav-link-text" data-i18n="nav.admin_profil">Laporan Akhir</span>
-    </a>
-</li>
-{{-- @endcan --}}
-@can('lihat-komponen')
-    {{-- <li class="{{ Request::is('komponen/*') ? 'active' : '' }}">
-    <a href="{{ route('komponen.index') }}" title="Komponen" data-filter-tags="admin profil">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="nav-link-text" data-i18n="nav.admin_profil">Komponen</span>
-    </a>
-</li> --}}
+@can('lihat-laporan-akhir')
+    <li class="nav-title">Unggah Berkas</li>
+    {{-- @can('lihat-produk') --}}
+    <li class="{{ Request::is('report/*') ? 'active' : '' }}">
+        <a href="{{ route('report.index') }}" title="report Admin" data-filter-tags="admin profil">
+            <i class="fa fa-flag"></i>
+            <span class="nav-link-text" data-i18n="nav.admin_profil">Laporan Akhir</span>
+        </a>
+    </li>
 @endcan
-@can('lihat-supplier')
-    {{-- <li class="{{ Request::is('supplier/*') ? 'active' : '' }}">
-    <a href="{{ route('supplier.index') }}" title="Profil Admin" data-filter-tags="admin profil">
-        <i class="fa fa-cubes"></i>
-        <span class="nav-link-text" data-i18n="nav.admin_profil">Supplier</span>
-    </a>
-</li> --}}
-@endcan
-<li class="nav-title">Capaian Pembelajaran Lulusan (CPL)</li>
-@can('lihat-barang-masuk')
+@can('lihat-mikroskill')
+    <li class="nav-title">Capaian Pembelajaran Lulusan (CPL)</li>
     <li class="{{ Request::is('mikroskil/*') ? 'active' : '' }}">
         <a href="{{ route('mikroskil.index') }}" title="cpl" data-filter-tags="admin profil">
             <i class="fa-solid fa-check-to-slot"></i>
@@ -32,22 +17,25 @@
         </a>
     </li>
 @endcan
-<li class="nav-title">Master Data</li>
-{{-- @can('lihat-barang-keluar') --}}
-<li class="{{ Request::is('kampus/*') ? 'active' : '' }}">
-    <a href="{{ route('kampus.index') }}" title="Profil Admin" data-filter-tags="admin profil">
-        <i class="fa fa-building-columns"></i>
-        <span class="nav-link-text" data-i18n="nav.admin_profil">Kampus</span>
-    </a>
-</li>
-{{-- @can('lihat-barang-keluar') --}}
-<li class="{{ Request::is('assessment/*') ? 'active' : '' }}">
-    <a href="{{ route('assessment.index') }}" title="penilaian" data-filter-tags="admin profil">
-        <i class="fa-solid fa-clipboard-check"></i>
-        <span class="nav-link-text" data-i18n="nav.admin_profil">Penilaian</span>
-    </a>
-</li>
-{{-- @endcan --}}
+@can('lihat-kampus' || 'lihat-assessment')
+    <li class="nav-title">Master Data</li>
+@endcan
+@can('lihat-kampus')
+    <li class="{{ Request::is('kampus/*') ? 'active' : '' }}">
+        <a href="{{ route('kampus.index') }}" title="Profil Admin" data-filter-tags="admin profil">
+            <i class="fa fa-building-columns"></i>
+            <span class="nav-link-text" data-i18n="nav.admin_profil">Kampus</span>
+        </a>
+    </li>
+@endcan
+@can('lihat-assessment')
+    <li class="{{ Request::is('assessment/*') ? 'active' : '' }}">
+        <a href="{{ route('assessment.index') }}" title="penilaian" data-filter-tags="admin profil">
+            <i class="fa-solid fa-clipboard-check"></i>
+            <span class="nav-link-text" data-i18n="nav.admin_profil">Penilaian</span>
+        </a>
+    </li>
+@endcan
 <li class="nav-title">Settings</li>
 <li class="{{ Request::is('settings/*') ? 'active open' : '' }}">
     <a href="#" title="Settings" data-filter-tags="settings">
@@ -94,14 +82,13 @@
         @endcan
     </ul>
 </li>
-
-<li class="{{ Request::is('tools/*') ? 'active open' : '' }}">
-    <a href="#" title="Tools" data-filter-tags="tools">
-        <i class="fal fa-wrench"></i>
-        <span class="nav-link-text" data-i18n="nav.tools">Tools</span>
-    </a>
-    <ul>
-        @if (Auth::user()->getRoleNames()->first() == 'Admin')
+@if (Auth::user()->getRoleNames()->first() == 'Admin')
+    <li class="{{ Request::is('tools/*') ? 'active open' : '' }}">
+        <a href="#" title="Tools" data-filter-tags="tools">
+            <i class="fal fa-wrench"></i>
+            <span class="nav-link-text" data-i18n="nav.tools">Tools</span>
+        </a>
+        <ul>
             <li class="{{ Request::is('tools/app_profiles*') ? 'active' : '' }}">
                 <a href="/tools/app_profiles" title="App Profiles" data-filter-tags="tools app profiles">
                     <span class="nav-link-text" data-i18n="nav.tools_app_profiles">Profil Aplikasi</span>
@@ -112,29 +99,6 @@
                     <span class="nav-link-text" data-i18n="nav.tools_app_fiturs">Fitur Aplikasi</span>
                 </a>
             </li>
-        @endif
-        {{-- <li class="{{ Request::is('tools/impor_data_master*') ? 'active' : '' }}">
-            <a href="{{ route('impor_data_master') }}" title="Impor Data Master"
-                data-filter-tags="tools impor data master">
-                <span class="nav-link-text" data-i18n="nav.tools_impor_data_master">Impor Data Master</span>
-            </a>
-        </li>
-        <li class="{{ Request::is('tools/ekspor_data_master*') ? 'active' : '' }}">
-            <a href="{{ route('ekspor_data_master') }}" title="Ekspor Data Master"
-                data-filter-tags="tools ekspor data master">
-                <span class="nav-link-text" data-i18n="nav.tools_ekspor_data_master">Ekspor Data Master</span>
-            </a>
-        </li>
-        <li class="{{ Request::is('tools/backup_database*') ? 'active' : '' }}">
-            <a href="{{ route('backup_database') }}" title="Backup Database" data-filter-tags="tools backup database">
-                <span class="nav-link-text" data-i18n="nav.tools_backup_database">Backup Database</span>
-            </a>
-        </li>
-        <li class="{{ Request::is('tools/data_login*') ? 'active' : '' }}">
-            <a href="{{ route('data_login') }}" title="Data Login" data-filter-tags="tools data login">
-                <span class="nav-link-text" data-i18n="nav.tools_data_login">Data Login</span>
-            </a>
-        </li> --}}
-    </ul>
-</li>
-</li>
+        </ul>
+    </li>
+@endif

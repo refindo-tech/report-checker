@@ -38,30 +38,30 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
     // Rute untuk melihat barang keluar (role: Admin, Purchasing, Gudang)
-    Route::middleware('permission:lihat-barang-keluar')->prefix('kampus')->group(function () {
+    Route::middleware('permission:lihat-kampus')->prefix('kampus')->group(function () {
         Route::get('/index', [KampusController::class, 'index'])->name('kampus.index');
         Route::get('/cetak/{id}', [KampusController::class, 'cetak_pdf'])->name('kampus.print');
     });
 
     // Rute untuk menambah barang keluar (hanya Admin)
-    Route::middleware('permission:tambah-barang-keluar')->prefix('kampus')->group(function () {
+    Route::middleware('permission:tambah-kampus')->prefix('kampus')->group(function () {
         Route::get('/create', [KampusController::class, 'create'])->name('kampus.create');
         Route::post('/create', [KampusController::class, 'store'])->name('kampus.store');
     });
 
     // Rute untuk mengedit barang keluar (hanya Admin)
-    Route::middleware('permission:edit-barang-keluar')->prefix('kampus')->group(function () {
+    Route::middleware('permission:edit-kampus')->prefix('kampus')->group(function () {
         Route::get('/edit/{id}', [KampusController::class, 'edit'])->name('kampus.edit');
         Route::put('/{id}', [KampusController::class, 'update'])->name('kampus.update');
     });
 
     // Rute untuk menghapus barang keluar (hanya Admin)
-    Route::middleware('permission:hapus-barang-keluar')->prefix('kampus')->group(function () {
+    Route::middleware('permission:hapus-kampus')->prefix('kampus')->group(function () {
         Route::delete('/{id}', [KampusController::class, 'destroy'])->name('kampus.destroy');
     });
 
     // Rute untuk melihat detail barang keluar (hanya Admin)
-    Route::middleware('permission:lihat-barang-keluar')->prefix('kampus')->group(function () {
+    Route::middleware('permission:lihat-kampus')->prefix('kampus')->group(function () {
         Route::get('/show/{id}', [KampusController::class, 'show'])->name('kampus.show');
     });
 });

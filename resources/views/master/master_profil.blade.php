@@ -51,17 +51,20 @@
                                         @if ($user->dosen != null)
                                             <li class="list-group-item"><strong>NIP:</strong> {{ $user->dosen->nip }}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{ $user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</li>
-                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->dosen->kampus }}</li>
+                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->kampus->name }}</li>
                                             <li class="list-group-item"><strong>Alamat:</strong> {{ $user->dosen->address }}</li>
                                             <li class="list-group-item"><strong>No HP:</strong> {{ $user->dosen->phone }}</li>
                                         @elseif($user->Mahasiswa != null)
                                             <li class="list-group-item"><strong>NIM:</strong> {{ $user->Mahasiswa->nim }}</li>
                                             <li class="list-group-item"><strong>Gender:</strong> {{ $user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</li>
-                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->Mahasiswa->kampus }}</li>
+                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->kampus->name }}</li>
                                             <li class="list-group-item"><strong>Alamat:</strong> {{ $user->Mahasiswa->address }}</li>
                                             <li class="list-group-item"><strong>No HP:</strong> {{ $user->Mahasiswa->phone }}</li>
                                             <li class="list-group-item"><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</li>
+                                            <li class="list-group-item"><strong>Fakultas:</strong> {{ $user->Mahasiswa->fakultas }}</li>
                                             <li class="list-group-item"><strong>Semester:</strong> {{ $user->Mahasiswa->semester }}</li>
+                                            <li class="list-group-item"><strong>Mitra:</strong> {{ $user->Mahasiswa->mitra }}</li>
+                                            <li class="list-group-item"><strong>Alamat Mitra:</strong> {{ $user->Mahasiswa->alamatMitra }}</li>
                                         @endif
                                     </ul>
                     

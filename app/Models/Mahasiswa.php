@@ -17,12 +17,20 @@ class Mahasiswa extends Model
         'phone',
         'address',
         'prodi',
+        'fakultas',
         'semester',
+        'mitra',
+        'alamatMitra',
         'user_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function report()
+    {
+        return $this->hasMany(finalReport::class);
     }
 }

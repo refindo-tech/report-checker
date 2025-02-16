@@ -135,9 +135,48 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="fakultas">Fakultas</label>
+                                        <input type="text" name="fakultas"
+                                            value="{{ old('fakultas', $users->mahasiswa->fakultas) }}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="semester">Semester</label>
                                         <input type="text" name="semester"
                                             value="{{ old('semester', $users->mahasiswa->semester) }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Telepon</label>
+                                        <input type="text" name="phone"
+                                            value="{{ old('phone', $users->mahasiswa->phone) }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="address">Alamat</label>
+                                        <input type="text" name="address"
+                                            value="{{ old('address', $users->mahasiswa->address) }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="mitra">Mitra</label>
+                                        <input type="text" name="mitra"
+                                            value="{{ old('mitra', $users->mahasiswa->mitra) }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="mitra">Alamat Mitra</label>
+                                        <input type="text" name="alamatMitra"
+                                            value="{{ old('alamatMitra', $users->mahasiswa->alamatMitra) }}"
                                             class="form-control">
                                     </div>
                                 </div>

@@ -20,7 +20,10 @@ class MahasiswaSeeder extends Seeder
             'phone' => '08123456789',
             'address' => 'Jl. Jend. Sudirman No. 123, Jakarta Pusat, Indonesia',
             'prodi' => 'Teknik Informatika',
+            'fakultas' => 'Fakultas Teknik',
             'semester' => '5',
+            'mitra' => 'PT. Microsoft Indonesia',
+            'alamatMitra' => 'Jakarta Stock Exchange Building Tower II, lantai 18 Sudirman Central Business District, Jl. Jenderal Sudirman No.Kav. 52-53, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190',
         ]);
     }
 }

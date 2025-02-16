@@ -91,9 +91,12 @@ class MasterController extends Controller
                     'nim' => $request->nim,
                     'gender' => $request->gender,
                     'phone' => $request->phone,
-                    'address' => $request->alamat,
+                    'address' => $request->address,
                     'prodi' => $request->prodi,
+                    'fakultas' => $request->fakultas,
                     'semester' => $request->semester,
+                    'mitra' => $request->mitra,
+                    'alamatMitra' => $request->alamatMitra,
                 ]);
             }
         } else {
@@ -136,9 +139,12 @@ class MasterController extends Controller
                     'nim' => $request->nim,
                     'gender' => $request->gender,
                     'phone' => $request->phone,
-                    'address' => $request->alamat,
+                    'address' => $request->address,
                     'prodi' => $request->prodi,
+                    'fakultas' => $request->fakultas,
                     'semester' => $request->semester,
+                    'mitra' => $request->mitra,
+                    'alamatMitra' => $request->alamatMitra,
                 ]);
             }
         }

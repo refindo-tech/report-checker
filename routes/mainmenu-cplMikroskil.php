@@ -24,30 +24,30 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
     // Rute untuk melihat barang masuk (Admin, Gudang, Purchasing)
-    Route::middleware('permission:lihat-barang-masuk')->prefix('mikroskil')->group(function () {
+    Route::middleware('permission:lihat-mikroskill')->prefix('mikroskil')->group(function () {
         Route::get('/index', [CplMikroskilController::class, 'index'])->name('mikroskil.index');
     });
     });
     // Rute untuk menambah barang masuk (Admin, Gudang)
-    Route::middleware('permission:tambah-barang-masuk')->prefix('mikroskil')->group(function () {
+    Route::middleware('permission:tambah-mikroskill')->prefix('mikroskil')->group(function () {
         Route::post('/updateInline', [CplMikroskilController::class, 'updateInline'])->name('mikroskil.updateInline');
         Route::post('/create', [CplMikroskilController::class, 'store'])->name('mikroskil.store');
         // Route::post('/review{id}', [CplMikroskilController::class, 'reviewstore'])->name('mikroskil.reviewstore');
     });
 
     // Rute untuk mengedit barang masuk (Admin, Gudang)
-    Route::middleware('permission:edit-barang-masuk')->prefix('mikroskil')->group(function () {
+    Route::middleware('permission:edit-mikroskill')->prefix('mikroskil')->group(function () {
         Route::get('/edit/{id}', [CplMikroskilController::class, 'edit'])->name('mikroskil.edit');
         Route::put('/{id}', [CplMikroskilController::class, 'update'])->name('mikroskil.update');
     });
 
     // Rute untuk menghapus barang masuk (Admin, Gudang)
-    Route::middleware('permission:hapus-barang-masuk')->prefix('mikroskil')->group(function () {
+    Route::middleware('permission:hapus-mikroskill')->prefix('mikroskil')->group(function () {
         Route::delete('/delete/{id}', [CplMikroskilController::class, 'destroy'])->name('mikroskil.destroy');
     });
 
     // Rute untuk melihat detail barang masuk (Admin, Gudang)
-    Route::middleware('permission:lihat-barang-masuk')->prefix('mikroskil')->group(function () {
+    Route::middleware('permission:lihat-mikroskill')->prefix('mikroskil')->group(function () {
         Route::get('/show/{id}', [CplMikroskilController::class, 'show'])->name('mikroskil.show');
     });
 // });

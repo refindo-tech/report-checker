@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
+            $table->bigInteger('user_id')->nullable();
             $table->string('nip')->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('phone')->nullable();

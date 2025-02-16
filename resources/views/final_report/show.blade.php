@@ -39,7 +39,7 @@
                     <!-- Bagian Kiri: Dibuat oleh -->
                     <div class="flex items-center">
                         <p class="text-sm text-gray-600 mr-4">
-                            <strong>Di tinjau oleh:</strong> {{ $finalReport->reviewer->name ?? 'Tidak diketahui' }}
+                            <strong>Ditinjau oleh:</strong> {{ $finalReport->reviewer->name ?? 'Tidak diketahui' }}
                         </p>
                         <p class="text-xs text-gray-500">
                             {{-- <em>{{ $Laporan->created_at ? $Laporan->created_at->format('d M Y, H:i') : '-' }}</em> --}}
@@ -84,13 +84,13 @@
                         @if ($finalReport->nilai != null)
                             {{ $finalReport->nilai }}
                         @else
-                        @if($finalReport->status == 1 || $finalReport->status == 2)
-                            <span class="text-danger">Sedang Proses</span>
-                        @elseif($finalReport->status == 3)
-                            <span class="text-danger">Belum memenuhi syarat</span>
-                        @else
-                            <span class="text-danger">Belum diisi</span>
-                        @endif
+                            @if ($finalReport->status == 1 || $finalReport->status == 2)
+                                <span class="text-danger">Sedang Proses</span>
+                            @elseif($finalReport->status == 3)
+                                <span class="text-danger">Belum memenuhi syarat</span>
+                            @else
+                                <span class="text-danger">Belum diisi</span>
+                            @endif
                         @endif
                     </p>
                     <p><strong>status:</strong>
@@ -104,12 +104,18 @@
                             <span class="badge badge-success">Accepted</span>
                         @endif
                     </p>
-                    <a href="{{ route('report.edit', $finalReport->id) }}" class="btn btn-primary">Edit</a>
-                    <form action="{{ route('report.destroy', $finalReport->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @canany(['edit-laporan-akhir', 'hapus-laporan-akhir'])
+                        @can('edit-laporan-akhir')
+                            <a href="{{ route('report.edit', $finalReport->id) }}" class="btn btn-primary">Edit</a>
+                        @endcan
+                        @can('hapus-laporan-akhir')
+                            <form action="{{ route('report.destroy', $finalReport->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        @endcan
+                    @endcanany
                     <a href="{{ route('report.index') }}" class="btn btn-secondary">Back</a>
                 </div>
             </div>

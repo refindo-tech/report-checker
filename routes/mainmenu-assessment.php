@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\AssessmentController;
-use App\Http\Controllers\IncomingController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,47 +22,47 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
     // Rute untuk melihat barang masuk (Admin, Gudang, Purchasing)
-    Route::middleware('permission:lihat-barang-masuk')->prefix('assessment')->group(function () {
+    Route::middleware('permission:lihat-assessment')->prefix('assessment')->group(function () {
         Route::get('/index', [AssessmentController::class, 'index'])->name('assessment.index');
     });
     });
     
     // Rute untuk menambah data penilaian
-    Route::middleware('permission:tambah-barang-masuk')->prefix('assessment')->group(function () {
+    Route::middleware('permission:tambah-assessment')->prefix('assessment')->group(function () {
         Route::post('/updateInline', [AssessmentController::class, 'updateInline'])->name('assessment.updateInline');
         Route::post('/create', [AssessmentController::class, 'store'])->name('assessment.store');
         // Route::post('/review{id}', [CplMikroskilController::class, 'reviewstore'])->name('mikroskil.reviewstore');
     });
 
     // Rute untuk mengedit peniliain
-    Route::middleware('permission:edit-barang-masuk')->prefix('assessment')->group(function () {
+    Route::middleware('permission:edit-assessment')->prefix('assessment')->group(function () {
         Route::get('/edit/{id}', [AssessmentController::class, 'edit'])->name('assessment.edit');
         Route::put('/{id}', [AssessmentController::class, 'update'])->name('assessment.update');
     });
 
     // Rute untuk menghapus barang masuk (Admin, Gudang)
-    Route::middleware('permission:hapus-barang-masuk')->prefix('assessment')->group(function () {
+    Route::middleware('permission:hapus-assessment')->prefix('assessment')->group(function () {
         Route::delete('/delete/{id}', [AssessmentController::class, 'destroy'])->name('assessment.destroy');
     });
 
     // Rute untuk melihat detail barang masuk (Admin, Gudang)
-    Route::middleware('permission:lihat-barang-masuk')->prefix('assessment')->group(function () {
+    Route::middleware('permission:lihat-assessment')->prefix('assessment')->group(function () {
         Route::get('/show/{id}', [AssessmentController::class, 'show'])->name('assessment.show');
     });
 
     // Rute untuk mengedit barang masuk (Admin, Gudang)
-    // Route::middleware('permission:edit-barang-masuk')->prefix('mikroskil')->group(function () {
+    // Route::middleware('permission:edit-assessment')->prefix('mikroskil')->group(function () {
     //     Route::get('/edit/{id}', [CplMikroskilController::class, 'edit'])->name('mikroskil.edit');
     //     Route::put('/{id}', [CplMikroskilController::class, 'update'])->name('mikroskil.update');
     // });
 
     // Rute untuk menghapus barang masuk (Admin, Gudang)
-    // Route::middleware('permission:hapus-barang-masuk')->prefix('mikroskil')->group(function () {
+    // Route::middleware('permission:hapus-assessment')->prefix('mikroskil')->group(function () {
     //     Route::delete('/delete/{id}', [CplMikroskilController::class, 'destroy'])->name('mikroskil.destroy');
     // });
 
     // Rute untuk melihat detail barang masuk (Admin, Gudang)
-    // Route::middleware('permission:lihat-barang-masuk')->prefix('mikroskil')->group(function () {
+    // Route::middleware('permission:lihat-assessment')->prefix('mikroskil')->group(function () {
     //     Route::get('/show/{id}', [CplMikroskilController::class, 'show'])->name('mikroskil.show');
     // });
 // });

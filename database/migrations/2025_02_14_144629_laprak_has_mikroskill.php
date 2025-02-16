@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kampuses', function (Blueprint $table) {
+        Schema::create('laprak_has_mikroskill', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->bigInteger('id_laprak')->nullable();
+            $table->bigInteger('id_mikroskill')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kampuses');
+        Schema::dropIfExists('laprak_has_mikroskill');
     }
 };
