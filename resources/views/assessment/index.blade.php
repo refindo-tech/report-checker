@@ -116,7 +116,7 @@
 
                                     </td>
                                     <td><input type="number" class="form-control editable total-sks" min="1"
-                                            max="10" data-id="{{ $component->id }}" value="{{ $report->nilai }}"
+                                            max="10" data-id="{{ $report->id }}" value="{{ $report->nilai }}"
                                             data-column="sks" readonly>
                                     </td>
                                     <td>

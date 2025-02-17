@@ -37,11 +37,6 @@
                     @error('id_kampus')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-
-                    {{-- <optgroup label="Alaskan/Hawaiian Time Zone">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                            </optgroup> --}}
                 </div>
                 <div class="form-group">
                     <label for="name">Nama</label>

@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             DosenSeeder::class,
             MahasiswaSeeder::class,
             KampusSeeder::class,
+            MikroskillSeeder::class
         ]);
     }
 }

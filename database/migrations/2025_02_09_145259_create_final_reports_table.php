@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('berkas')->nullable();
             $table->string('feedback')->nullable();
             $table->integer('nilai')->nullable();
+            $table->string('mitra')->nullable();
+            $table->string('addressMitra')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('JenisKegiatan')->nullable();
             $table->timestamps();
         });
     }

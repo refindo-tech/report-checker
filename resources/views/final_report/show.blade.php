@@ -47,16 +47,16 @@
                     </div>
 
                     <!-- Bagian Kanan: Diperbarui oleh -->
-                    {{-- @if ($Laporan->updater_id)
+                    @if ($finalReport->nilai != null)
                         <div class="flex items-center text-right">
                             <p class="text-sm text-gray-600 mr-4">
-                                <strong>Diperbarui oleh:</strong> {{ $Laporan->updater->name ?? 'Tidak diketahui' }}
+                                <strong>Cetak Surat Konversi:</strong>
                             </p>
-                            <p class="text-xs text-gray-500">
-                                <em>{{ $Laporan->updated_at ? $Laporan->updated_at->format('d M Y, H:i') : '-' }}</em>
-                            </p>
+                            <a href="{{ route('report.print', $finalReport->id) }}" class="btn btn-info">
+                                <i class="fa fa-download"></i>
+                            </a>
                         </div>
-                    @endif --}}
+                    @endif
                 </div>
             </x-slot>
             <div class="card">
@@ -92,6 +92,19 @@
                                 <span class="text-danger">Belum diisi</span>
                             @endif
                         @endif
+                    </p>
+                    <p><strong>Mitra:</strong>
+                        {{ $finalReport->mitra }}
+                    </p>
+                    <p><strong>Alamat Mitra:</strong>
+                        {{ $finalReport->addressMitra }}
+                    </p>
+                    <p><strong>Waktu Kegiatan:</strong>
+                        {{ \Carbon\Carbon::parse($finalReport->start_date)->translatedFormat('j F Y') }} -
+                        {{ \Carbon\Carbon::parse($finalReport->end_date)->translatedFormat('j F Y') }}
+                    </p>
+                    <p><strong>Jenis Kegiatan:</strong>
+                        {{ $finalReport->JenisKegiatan }}
                     </p>
                     <p><strong>status:</strong>
                         @if ($finalReport->status == 1)

@@ -63,8 +63,8 @@
                                             <li class="list-group-item"><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</li>
                                             <li class="list-group-item"><strong>Fakultas:</strong> {{ $user->Mahasiswa->fakultas }}</li>
                                             <li class="list-group-item"><strong>Semester:</strong> {{ $user->Mahasiswa->semester }}</li>
-                                            <li class="list-group-item"><strong>Mitra:</strong> {{ $user->Mahasiswa->mitra }}</li>
-                                            <li class="list-group-item"><strong>Alamat Mitra:</strong> {{ $user->Mahasiswa->alamatMitra }}</li>
+                                            {{-- <li class="list-group-item"><strong>Mitra:</strong> {{ $user->Mahasiswa->mitra }}</li>
+                                            <li class="list-group-item"><strong>Alamat Mitra:</strong> {{ $user->Mahasiswa->alamatMitra }}</li> --}}
                                         @endif
                                     </ul>
                     

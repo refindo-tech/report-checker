@@ -95,8 +95,6 @@ class MasterController extends Controller
                     'prodi' => $request->prodi,
                     'fakultas' => $request->fakultas,
                     'semester' => $request->semester,
-                    'mitra' => $request->mitra,
-                    'alamatMitra' => $request->alamatMitra,
                 ]);
             }
         } else {
@@ -143,8 +141,6 @@ class MasterController extends Controller
                     'prodi' => $request->prodi,
                     'fakultas' => $request->fakultas,
                     'semester' => $request->semester,
-                    'mitra' => $request->mitra,
-                    'alamatMitra' => $request->alamatMitra,
                 ]);
             }
         }
