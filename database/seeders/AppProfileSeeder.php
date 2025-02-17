@@ -15,12 +15,12 @@ class AppProfileSeeder extends Seeder
     {
         DB::table('app_profiles')->insert([
             [
-                'app_nama' => 'Karoseri',
+                'app_nama' => 'Penilaian MBKM',
                 'app_deskripsi' => 'Dashboard yang bisa di gunakan untuk manajemen aplikasi',
-                'app_tahun' => 2024,
-                'app_pengembang' => 'Team K2 Nexus',
+                'app_tahun' => 2025,
+                'app_pengembang' => 'Team R2 Commander',
                 'app_icon' => 'logoTRB.png',
-                'app_logo' => 'logoTRB.png',
+                'app_logo' => 'admin/img/logoTRB.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
