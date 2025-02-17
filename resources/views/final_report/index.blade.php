@@ -206,34 +206,6 @@
                                         <a href="{{ route('report.print', $report->id) }}" class="btn btn-info">
                                             <i class="fa fa-download"></i>
                                         </a>
-
-                                        {{-- Tombol Edit --}}
-                                        {{-- @can('edit-laporan-akhir')
-                                <a href="{{ route('report.edit', $report->id) }}" class="btn btn-warning">Edit</a>
-                            @endcan --}}
-
-                                        {{-- Tombol Hapus --}}
-                                        @can('hapus-laporan-akhir')
-                                            <button type="button" class="btn btn-danger"
-                                                onclick="confirmDelete({{ $report->id }})">
-                                                <i class="fa fa-trash"></i></button>
-                                        @endcan
-
-                                        {{-- Form Hapus --}}
-                                        @can('hapus-laporan-akhir')
-                                            <form id="delete-form-{{ $report->id }}"
-                                                action="{{ route('report.destroy', $report->id) }}" method="POST"
-                                                style="display:none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        @endcan
-                                        @can('review-laporan-akhir')
-                                            @if ($report->status == 1 || $report->status == 2)
-                                                <a href="{{ route('report.review', $report->id) }}"
-                                                    class="btn btn-success">review</a>
-                                            @endif
-                                        @endcan
                                     </td>
                                 @endcanany
                             </tr>
