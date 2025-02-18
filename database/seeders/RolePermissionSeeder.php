@@ -100,6 +100,11 @@ class RolePermissionSeeder extends Seeder
         $roleDosen->givePermissionTo('hapus-mikroskill');
         $roleDosen->givePermissionTo('lihat-mikroskill');
 
+        $roleDosen->givePermissionTo('tambah-assessment');
+        $roleDosen->givePermissionTo('edit-assessment');
+        $roleDosen->givePermissionTo('hapus-assessment');
+        $roleDosen->givePermissionTo('lihat-assessment');
+
         $roleDosen->givePermissionTo('tambah-kampus');
         $roleDosen->givePermissionTo('edit-kampus');
         $roleDosen->givePermissionTo('hapus-kampus');

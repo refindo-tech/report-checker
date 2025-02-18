@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('prodi')->nullable();
             $table->string('fakultas')->nullable();
             $table->string('semester')->nullable();
-            $table->string('mitra')->nullable();
-            $table->string('alamatMitra')->nullable();
             $table->timestamps();
         });
     }

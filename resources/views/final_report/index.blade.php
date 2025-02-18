@@ -51,15 +51,66 @@
                                     <form action="{{ route('report.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
-                                            <input class="dropify" name="file" type="file" id="file"
+                                            <input class="form-control" name="file" type="file" id="file"
                                                 accept=".pdf .doc, .docx" data-show-errors="true" required>
                                         </div>
                                         @error('file')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
+                                        <div class="form-group">
+                                            <label for="mitra">Mitra</label>
+                                            <input type="text" name="mitra" id="mitra" class="form-control"
+                                                value="{{ old('mitra') }}" required>
+                                            @error('mitra')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addressMitra">Alamat Mitra</label>
+                                            <input type="text" name="addressMitra" id="addressMitra" class="form-control"
+                                                value="{{ old('addressMitra') }}" required>
+                                            @error('addressMitra')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="start_date">Tanggal Mulai</label>
+                                            <input type="date" name="start_date" id="start_date" class="form-control"
+                                                value="{{ old('start_date') }}" required>
+                                            @error('start_date')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end_date">Tanggal Akhir</label>
+                                            <input type="date" name="end_date" id="end_date" class="form-control"
+                                                value="{{ old('end_date') }}" required>
+                                            @error('end_date')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jenisKegiatan">Jenis Kegiatan</label>
+                                            <select class="select2 form-control w-100" id="single-default" name="jenisKegiatan"
+                                                id="jenisKegiatan" required>
+                                                <option value="" selected disabled>Pilih Kampus</option>
+                                                <option value="Magang Bersertifikat">Magang</option>
+                                                <option value="Studi Independen">Studi Independen</option>
+                                                <option value="Pertukan Mahasiswa Merdeka">Pertukan Mahasiswa Merdeka</option>
+                                                <option value="Kampus Mengajar">Kampus Mengajar</option>
+                                                <option value="Wirausaha Merdeka">Wirausaha Merdeka</option>
+                                                <option value="Praktisi Mengajar">Praktisi Mengajar</option>
+                                                <option value="Magang Mandiri">Magang Mandiri</option>
+                                            </select>
+                                            @error('jenisKegiatan')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-primary">Upload</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
                                         </div>
                                     </form>
                                 </div>
@@ -76,9 +127,7 @@
                         <th>Status</th>
                         <th>Berkas</th>
                         <th>SKS Terkonversi</th>
-                        @canany(['edit-laporan-akhir', 'hapus-laporan-akhir'])
-                            <th>Aksi</th>
-                        @endcan
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,9 +174,11 @@
                                         <a href="{{ route('report.show', $report->id) }}" class="btn btn-info">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('report.print', $report->id) }}" class="btn btn-info">
-                                            <i class="fa fa-download"></i>
-                                        </a>
+                                        @if ($report->nilai != null)
+                                            <a href="{{ route('report.print', $report->id) }}" class="btn btn-info">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        @endif
 
                                         {{-- Tombol Edit --}}
                                         {{-- @can('edit-laporan-akhir')
@@ -197,45 +248,16 @@
                                         <span class="text-danger">Belum memenuhi syarat</span>
                                     @endif
                                 </td>
-                                {{-- @endif --}}
-                                @canany(['edit-laporan-akhir', 'hapus-laporan-akhir', 'review-laporan-akhir'])
-                                    <td>
-                                        <a href="{{ route('report.show', $report->id) }}" class="btn btn-info">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                <td>
+                                    <a href="{{ route('report.show', $report->id) }}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    @if ($report->nilai != null)
                                         <a href="{{ route('report.print', $report->id) }}" class="btn btn-info">
                                             <i class="fa fa-download"></i>
                                         </a>
-
-                                        {{-- Tombol Edit --}}
-                                        {{-- @can('edit-laporan-akhir')
-                                <a href="{{ route('report.edit', $report->id) }}" class="btn btn-warning">Edit</a>
-                            @endcan --}}
-
-                                        {{-- Tombol Hapus --}}
-                                        @can('hapus-laporan-akhir')
-                                            <button type="button" class="btn btn-danger"
-                                                onclick="confirmDelete({{ $report->id }})">
-                                                <i class="fa fa-trash"></i></button>
-                                        @endcan
-
-                                        {{-- Form Hapus --}}
-                                        @can('hapus-laporan-akhir')
-                                            <form id="delete-form-{{ $report->id }}"
-                                                action="{{ route('report.destroy', $report->id) }}" method="POST"
-                                                style="display:none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        @endcan
-                                        @can('review-laporan-akhir')
-                                            @if ($report->status == 1 || $report->status == 2)
-                                                <a href="{{ route('report.review', $report->id) }}"
-                                                    class="btn btn-success">review</a>
-                                            @endif
-                                        @endcan
-                                    </td>
-                                @endcanany
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     @endif
@@ -245,27 +267,6 @@
     </main>
 @endsection
 @section('pages-script')
-    <script>
-        $(document).ready(function() {
-            // Inisialisasi Dropify
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Seret & Letakkan atau Klik untuk Memilih',
-                    'replace': 'Seret & Letakkan atau Klik untuk Mengganti',
-                    'remove': 'Hapus',
-                    'error': 'Oops, ada kesalahan!'
-                }
-            });
-
-            // Animasi ketika file dipilih
-            $('#file').on('change', function() {
-                $(this).closest('.dropify-wrapper').css({
-                    'box-shadow': '0px 0px 15px rgba(0, 123, 255, 0.5)',
-                    'transition': '0.3s ease-in-out'
-                });
-            });
-        });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmDelete(id) {

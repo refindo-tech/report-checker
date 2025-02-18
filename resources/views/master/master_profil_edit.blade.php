@@ -164,7 +164,7 @@
                                             class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="mitra">Mitra</label>
                                         <input type="text" name="mitra"
@@ -179,7 +179,7 @@
                                             value="{{ old('alamatMitra', $users->mahasiswa->alamatMitra) }}"
                                             class="form-control">
                                     </div>
-                                </div>
+                                </div> --}}
                             @endif
 
                             <div class="col-12 text-center mt-4">

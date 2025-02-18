@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\finalReport;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\laprak_has_mikroskill;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -74,7 +75,7 @@ class FinalReportController extends Controller
         }
 
         // ubah nama file gambar dengan angka random
-        $fileName = time() . '.' . $request->file->extension();
+        $fileName = Auth()->user()->name . '-' . time() . '.' . $request->file->extension();
 
         // upload file gambar ke folder slider
         Storage::putFileAs('public/report', $request->file('file'), $fileName);
@@ -84,6 +85,11 @@ class FinalReportController extends Controller
             'user_id' => Auth::user()->id,
             'status' => '1',
             'berkas' => $fileName,
+            'mitra' => $request->mitra,
+            'addressMitra' => $request->addressMitra,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'JenisKegiatan' => $request->jenisKegiatan,
         ]);
 
         // alihkan halaman ke halaman slider.index
@@ -127,24 +133,12 @@ class FinalReportController extends Controller
         return redirect()->route('report.index')->with('success', 'Berkas berhasil dihapus.');
     }
 
-    public function cetak_pdf(finalReport $finalReport, $id)
+    public function cetak_pdf($id)
     {
-        // $PurchaseOrder = PurchaseOrder::with('product', 'supplier', 'user')->find($id);
-        // // dd($PurchaseOrder);
+        $report = finalReport::with('user', 'reviewer', 'mahasiswa', 'dosen')->find($id);
 
-        // // Ambil data pivot
-        // $pivotData = purchase_has_product_komponen::where('id_purchase', $PurchaseOrder->id)->get();
-        // $pivotDataPurchase = product_has_purchase::where('id_purchase', $PurchaseOrder->id)->with('product')->get();
-        // $pivotKomponen = Komponen_has_purchase::where('id_purchase', $PurchaseOrder->id)->with('komponen')->get();
-        // $pivotkompro = purchase_has_product_kompro::where('id_purchase', $PurchaseOrder->id)->with('product')->get();
-        // dd($pivotData, $pivotDataPurchase);
-
-        // Ambil data komponen
-        // $komponens = Komponen::whereIn('id', $pivotData->pluck('id_komponen'))->get();
-
-        // Ambil data product
-        // $products = Product::whereIn('id', $pivotDataPurchase->pluck('id_product'))->get();
-        // dd($komponens, $products);
+        $pivotData = laprak_has_mikroskill::with('mikroskill', 'report')->where('id_laprak', $report->id)->get();
+        // dd($pivotData);
 
         $opciones_ssl = array(
             "ssl" => array(
@@ -154,25 +148,18 @@ class FinalReportController extends Controller
         );
 
         $img_path = public_path('admin/img/logountirta.png');
-        $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
-        $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
-        $img_base_64 = base64_encode($data);
-        $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
+        // $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
+        // $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
+        // $img_base_64 = base64_encode($data);
+        // $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
 
-        if (file_exists($img_path)) {
-            $data = file_get_contents($img_path);
-            $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
-            $img_base_64 = base64_encode($data);
-            $path_img = "data:image/{$extencion};charset=utf-8;base64,{$img_base_64}";
-        } else {
-            dd("File tidak ditemukan!");
-        }
-
-
+        // $path_img = asset('admin/img/logountirta.png');
 
         // Pastikan data dikirim sebagai array
-        $pdf = Pdf::loadView('final_report.print', [
-            'path_img' => $path_img,
+        $pdf = PDF::loadView('final_report.print', [
+            'report' => $report,
+            'pivotData' => $pivotData,
+            'path_img' => $img_path,
         ]);
 
         // Download file PDF

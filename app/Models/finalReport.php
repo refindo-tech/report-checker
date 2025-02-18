@@ -17,7 +17,12 @@ class finalReport extends Model
         'status',
         'berkas',
         'feedback',
-        'nilai'
+        'nilai',
+        'mitra',
+        'addressMitra',
+        'start_date',
+        'end_date',
+        'jenisKegiatan',
     ];
 
     public function user()
@@ -27,6 +32,11 @@ class finalReport extends Model
     public function reviewer()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function dosen()
+    {
+        return $this->hasOneThrough(Dosen::class, User::class, 'id', 'user_id', 'reviewer_id', 'id');
     }
 
     public function mahasiswa()
