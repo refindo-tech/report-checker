@@ -23,167 +23,33 @@
             @endcomponent
         </div>
         <x-panel.show title="Daftar" subtitle="Laporan Akhir">
-            {{-- <x-slot name="paneltoolbar">
-                @can('tambah-laporan-akhir')
-                    <x-panel.tool-bar>
-                        @if ($reports?->berkas == null || $reports?->status == 3 || $reports?->status == 0)
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadberkas">
-                                Upload Berkas
-                            </button>
-                        @else
-                            <button type="button" class="btn btn-secondary" disabled>
-                                Berkas sudah diunggah
-                            </button>
-                        @endif
-                    </x-panel.tool-bar>
-                    <!-- Modal -->
-                    <div class="modal fade @if ($errors->any()) show @endif" id="uploadberkas" tabindex="-1"
-                        role="dialog" aria-labelledby="importdatalabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Upload Berkas</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ route('report.store') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <input class="form-control" name="file" type="file" id="file"
-                                                accept=".pdf .doc, .docx" data-show-errors="true" required>
-                                        </div>
-                                        @error('file')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                        <div class="form-group">
-                                            <label for="mitra">Mitra</label>
-                                            <input type="text" name="mitra" id="mitra" class="form-control"
-                                                value="{{ old('mitra') }}" required>
-                                            @error('mitra')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="addressMitra">Alamat Mitra</label>
-                                            <input type="text" name="addressMitra" id="addressMitra" class="form-control"
-                                                value="{{ old('addressMitra') }}" required>
-                                            @error('addressMitra')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="start_date">Tanggal Mulai</label>
-                                            <input type="date" name="start_date" id="start_date" class="form-control"
-                                                value="{{ old('start_date') }}" required>
-                                            @error('start_date')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="end_date">Tanggal Akhir</label>
-                                            <input type="date" name="end_date" id="end_date" class="form-control"
-                                                value="{{ old('end_date') }}" required>
-                                            @error('end_date')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="jenisKegiatan">Jenis Kegiatan</label>
-                                            <select class="select2 form-control w-100" id="single-default" name="jenisKegiatan"
-                                                id="jenisKegiatan" required>
-                                                <option value="" selected disabled>Pilih Kampus</option>
-                                                <option value="Magang Bersertifikat">Magang</option>
-                                                <option value="Studi Independen">Studi Independen</option>
-                                                <option value="Pertukan Mahasiswa Merdeka">Pertukan Mahasiswa Merdeka</option>
-                                                <option value="Kampus Mengajar">Kampus Mengajar</option>
-                                                <option value="Wirausaha Merdeka">Wirausaha Merdeka</option>
-                                                <option value="Praktisi Mengajar">Praktisi Mengajar</option>
-                                                <option value="Magang Mandiri">Magang Mandiri</option>
-                                            </select>
-                                            @error('jenisKegiatan')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Upload</button>
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endcan
-            </x-slot> --}}
             <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
-                <thead>
+                <thead class="bg-primary text-white">
                     <tr>
                         <th>NIM</th>
-                        <th>Nama</th>
+                        <th>Nama Mahasiswa</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            <a href="" class="btn btn-primary"> Akbar</a>
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-primary"> Akbar</a>
-                        </td>
+                        <td>210001</td>
+                        <td>Akbar</td>
                     </tr>
                     <tr>
-                        <td>
-                            <a href="" class="btn btn-primary"> Akbar</a>
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-primary"> Akbar</a>
-                        </td>
+                        <td>210002</td>
+                        <td>Budi</td>
                     </tr>
                     <tr>
-                        <td>
-                            <a href="" class="btn btn-primary"> Akbar</a>
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-primary"> Akbar</a>
-                        </td>
+                        <td>210003</td>
+                        <td>Chandra</td>
                     </tr>
                 </tbody>
             </table>
         </x-panel.show>
     </main>
 @endsection
-{{-- @section('pages-script')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function confirmDelete(id) {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + id).submit();
-                }
-            });
-        }
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            @if ($errors->any())
-                // Open the modal if there are validation errors
-                $('#importdata').modal('show');
-            @endif
-        });
-    </script>
+
+@section('pages-script')
     <script src="/admin/js/datagrid/datatables/datatables.bundle.js"></script>
     <script>
         /* demo scripts for change table color */
@@ -191,6 +57,7 @@
         $(document).ready(function() {
             $('#dt-basic-example').dataTable({
                 responsive: true,
+                searching: true,
             });
 
             $('.js-thead-colors a').on('click', function() {
@@ -207,4 +74,4 @@
 
         });
     </script>
-@endsection --}}
+@endsection
