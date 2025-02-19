@@ -1,17 +1,51 @@
 @extends('inc.main_auth')
 @section('title', 'Welcome')
 @section('pages-css')
-    {{-- <link rel="stylesheet" media="screen, print" href="/admin/css/fa-brands.css"> --}}
     <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
         .logo-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: auto;
+            margin-top: -50px;
+            margin-bottom: 50px;
+            animation: fadeIn 1.5s ease-in-out;
         }
         .logo-container img {
-            max-width: 100%;
+            max-width: 30%;
             height: auto;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .hero-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        .btn-primary {
+            background: #ff6f61;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #e63946;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 @endsection
@@ -21,29 +55,14 @@
             Login
         </a>
     @endcomponent
-    <div class="flex-1"
-        style="background: url(/admin/img/svg/pattern-3.svg) no-repeat center bottom fixed; background-size: cover;">
-        <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
-            <div class="row">
-                <div class="col col-md-6 col-lg-7">
-                    <h2 class="fs-xxl fw-500 mt-4 text-white">
-                        MIKROSKILL LAPORAN AKHIR MBKM
-                        <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60">
-                            Aplikasi ini dirancang untuk proses penilaian laporan MBKM sesuai dengan capaian Mikroskill
-                        </small>
-                    </h2>
-                    <p class="text-white opacity-50">Evaluasi laporan MBKM berdasarkan capaian dan kriteria yang telah ditetapkan</p>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto hidden-sm-down">
-                    <div class="py-4 logo-container">
-                        <img src="/admin/img/AA/twh.png" alt="Logo MBKM">
-                    </div>
-                </div>
-            </div>
-            <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
-                {{ $profileApp->app_tahun ?? '' }} - @php echo date('Y'); @endphp © {{ $profileApp->app_pengembang ?? '' }}
-                &nbsp;
-            </div>
-        </div>
+    <div class="flex-1 hero-section">
+        <h2>MIKROSKILL LAPORAN AKHIR MBKM</h2>
+        <p>Aplikasi ini dirancang untuk proses penilaian laporan MBKM sesuai dengan capaian Mikroskill</p>
+    </div>
+    <div class="logo-container">
+        <img src="/admin/img/AA/twh.png" alt="Logo MBKM">
+    </div>
+    <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
+        {{ $profileApp->app_tahun ?? '' }} - @php echo date('Y'); @endphp © {{ $profileApp->app_pengembang ?? '' }}
     </div>
 @endsection
