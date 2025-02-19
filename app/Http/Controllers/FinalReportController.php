@@ -30,7 +30,7 @@ class FinalReportController extends Controller
         $reportUser = finalReport::where('user_id', Auth::user()->id)->with('user')->get();
         $reports = finalReport::where('user_id', Auth::user()->id)->with('user')->latest()->first();
         // dd($reports);
-        return view('final_report.index_dosen', compact('report', 'reports', 'reportUser'));
+        return view('final_report.dosenview', compact('report', 'reports', 'reportUser'));
     }
 
     /**

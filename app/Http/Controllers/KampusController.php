@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kampus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class KampusController extends Controller
@@ -50,9 +51,10 @@ class KampusController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kampus $kampus)
+    public function show(Kampus $kampus, $id)
     {
-        //
+        $kampus = Kampus::find($id);
+        return view('kampus.show', compact('kampus'));
     }
 
     /**
@@ -69,19 +71,72 @@ class KampusController extends Controller
      */
     public function update(Request $request, Kampus $kampus, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:kampuses,name,' . $id,
-        ]);
+        // dd($request->all());
+        if ($request->hasFile('image')) {
+            // dd($request->all());
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|min:3',
+                'address' => 'required|string|min:3',
+                'phone' => 'required|string|min:3',
+                'fax' => 'required|string|min:3',
+                'website' => 'required|string|min:3',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+            ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator->errors())->withInput();
+            }
+
+            // ambil nama file gambar lama dari database
+            $kampus = Kampus::where('id', $id)->first();
+
+            $old_image = $kampus->image;
+
+            // dd($old_image);
+
+            // hapus file gambar lama dari folder slider
+            Storage::delete('public/kampus/' . $old_image);
+
+            // ubah nama file
+            $imageName = time() . '.' . $request->image->extension();
+
+            // simpan file ke folder public/product
+            Storage::putFileAs('public/kampus', $request->image, $imageName);
+
+            // update data product
+            Kampus::where('id', $id)->update([
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'fax' => $request->fax,
+                'website' => $request->website,
+                'image' => $imageName,
+            ]);
+        } else {
+            // dd($request->all());
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|min:3',
+                'address' => 'required|string|min:3',
+                'phone' => 'required|string|min:3',
+                'fax' => 'required|string|min:3',
+                'website' => 'required|string|min:3',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator->errors())->withInput();
+            }
+
+            // update data product tanpa menyertakan file gambar
+            Kampus::where('id', $id)->update([
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'fax' => $request->fax,
+                'website' => $request->website,
+            ]);
         }
-
-        $kampus = Kampus::findorFail($id);
-        $kampus->update([
-            'name' => $request->name,
-        ]);
-        return redirect()->route('kampus.index')->with('success', 'Nama kampus berhasil diperbarui.');
+        return redirect()->route('kampus.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**

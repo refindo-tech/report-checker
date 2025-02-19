@@ -13,6 +13,10 @@ class Kampus extends Model
 
     protected $fillable = [
         'name',
+        'address',
+        'phone',
+        'website',
+        'image',
     ];
 
     public function user()

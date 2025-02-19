@@ -43,25 +43,28 @@
                             <td>{{ $loop->iteration }}</td>
                             <td class="text-capitalize">{{ $item->name }}</td>
                             <td>
+                                <a href="{{ route('kampus.show', $item->id) }}" class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>
+                                </a>
                                 @can('edit-kampus')
-                                <a href="{{ route('kampus.edit', $item->id) }}" class="btn btn-primary btn-sm"><i
-                                        class="fa fa-edit"></i></a>
+                                    <a href="{{ route('kampus.edit', $item->id) }}" class="btn btn-primary btn-sm"><i
+                                            class="fa fa-edit"></i></a>
                                 @endcan
                                 {{-- Tombol Hapus --}}
-                                @can('hapus-kampus')
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    onclick="confirmDelete({{ $item->id }})">
-                                    <i class="fa fa-trash"></i></button>
-                                @endcan
+                                {{-- @can('hapus-kampus')
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="confirmDelete({{ $item->id }})">
+                                        <i class="fa fa-trash"></i></button>
+                                @endcan --}}
 
                                 {{-- Form Hapus --}}
-                                @can('hapus-kampus')
-                                <form id="delete-form-{{ $item->id }}" action="{{ route('kampus.destroy', $item->id) }}"
-                                    method="POST" style="display:none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
-                                @endcan
+                                {{-- @can('hapus-kampus')
+                                    <form id="delete-form-{{ $item->id }}" action="{{ route('kampus.destroy', $item->id) }}"
+                                        method="POST" style="display:none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endcan --}}
                             </td>
                         </tr>
                     @endforeach

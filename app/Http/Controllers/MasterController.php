@@ -26,14 +26,6 @@ class MasterController extends Controller
     }
     public function master_profil_update(Request $request)
     {
-        // dd($request->all());
-        // Validasi input
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:users,email,',
-        //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:12048',
-        // ]);
-        // Ambil data pengguna saat ini
         $user = Auth::user();
         $id = $user->id;
         // dd($id);
