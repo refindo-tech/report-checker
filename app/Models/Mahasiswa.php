@@ -19,8 +19,6 @@ class Mahasiswa extends Model
         'prodi',
         'fakultas',
         'semester',
-        'mitra',
-        'alamatMitra',
         'user_id',
     ];
 

@@ -17,11 +17,20 @@ class FinalReportController extends Controller
      */
     public function index()
     {
-        $report = finalReport::with('user')->orderBy('created_at', 'desc')->get();
-        $reportUser = finalReport::where('user_id', Auth::user()->id)->with('user')->orderBy('created_at', 'desc')->get();
+        $report = finalReport::with('user')->get();
+        $reportUser = finalReport::where('user_id', Auth::user()->id)->with('user')->get();
         $reports = finalReport::where('user_id', Auth::user()->id)->with('user')->latest()->first();
         // dd($reports);
         return view('final_report.index', compact('report', 'reports', 'reportUser'));
+    }
+
+    public function indexDosen()
+    {
+        $report = finalReport::with('user')->get();
+        $reportUser = finalReport::where('user_id', Auth::user()->id)->with('user')->get();
+        $reports = finalReport::where('user_id', Auth::user()->id)->with('user')->latest()->first();
+        // dd($reports);
+        return view('final_report.index_dosen', compact('report', 'reports', 'reportUser'));
     }
 
     /**

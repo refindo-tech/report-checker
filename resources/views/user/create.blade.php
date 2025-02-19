@@ -67,6 +67,9 @@
                         <option value="Dosen" {{ old('role') == 'Dosen' ? 'selected' : '' }}>Dosen</option>
                         <option value="Mahasiswa" {{ old('role') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
                     </select>
+                    @error('role')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Form tambahan untuk Dosen -->
@@ -74,6 +77,9 @@
                     <div class="form-group">
                         <label for="nip">NIP</label>
                         <input type="text" name="nip" id="nip" class="form-control">
+                        @error('nip')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>
@@ -81,14 +87,23 @@
                             <option value="L">Laki-laki</option>
                             <option value="P">Perempuan</option>
                         </select>
+                        @error('gender')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone</label>
                         <input type="text" name="phone" id="phone" class="form-control">
+                        @error('phone')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
+                        <label for="alamat">Alamat Tinggal</label>
                         <input type="text" name="alamat" id="alamat" class="form-control">
+                        @error('alamat')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
@@ -97,6 +112,9 @@
                     <div class="form-group">
                         <label for="nim">NIM</label>
                         <input type="text" name="nim" id="nim" class="form-control">
+                        @error('nim')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>
@@ -104,22 +122,44 @@
                             <option value="L">Laki-laki</option>
                             <option value="P">Perempuan</option>
                         </select>
+                        @error('gender')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone</label>
                         <input type="text" name="phone" id="phone" class="form-control">
+                        @error('phone')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
+                        <label for="alamat">Alamat Tinggal</label>
                         <input type="text" name="alamat" id="alamat" class="form-control">
+                        @error('alamat')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="prodi">Prodi</label>
+                        <label for="prodi">Program Studi</label>
                         <input type="text" name="prodi" id="prodi" class="form-control">
+                        @error('prodi')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="fakultas">Fakultas</label>
+                        <input type="text" name="fakultas" id="fakultas" class="form-control">
+                        @error('fakultas')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="semester">Semester</label>
                         <input type="text" name="semester" id="semester" class="form-control">
+                        @error('semester')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 

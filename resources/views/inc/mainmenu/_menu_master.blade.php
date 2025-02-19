@@ -1,13 +1,24 @@
-@can('lihat-laporan-akhir')
+@if (Auth::user()->getRoleNames()->first() == 'Admin' || Auth::user()->getRoleNames()->first() == 'Dosen')
     <li class="nav-title">Unggah Berkas</li>
     {{-- @can('lihat-produk') --}}
     <li class="{{ Request::is('report/*') ? 'active' : '' }}">
-        <a href="{{ route('report.index') }}" title="report Admin" data-filter-tags="admin profil">
+        <a href="{{ route('report.indexDosen') }}" title="report Admin" data-filter-tags="admin profil">
             <i class="fa fa-flag"></i>
             <span class="nav-link-text" data-i18n="nav.admin_profil">Laporan Akhir</span>
         </a>
     </li>
-@endcan
+@else
+    @can('lihat-laporan-akhir')
+        <li class="nav-title">Unggah Berkas</li>
+        {{-- @can('lihat-produk') --}}
+        <li class="{{ Request::is('report/*') ? 'active' : '' }}">
+            <a href="{{ route('report.index') }}" title="report Admin" data-filter-tags="admin profil">
+                <i class="fa fa-flag"></i>
+                <span class="nav-link-text" data-i18n="nav.admin_profil">Laporan Akhir</span>
+            </a>
+        </li>
+    @endcan
+@endif
 @can('lihat-mikroskill')
     <li class="nav-title">Capaian Pembelajaran Lulusan (CPL)</li>
     <li class="{{ Request::is('mikroskil/*') ? 'active' : '' }}">

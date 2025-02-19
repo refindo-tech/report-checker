@@ -39,7 +39,20 @@
                     <!-- Bagian Kiri: Dibuat oleh -->
                     <div class="flex items-center">
                         <p class="text-sm text-gray-600 mr-4">
-                            <strong>Ditinjau oleh:</strong> {{ $finalReport->reviewer->name ?? 'Tidak diketahui' }}
+                            <strong>Ditinjau oleh:</strong> {{ $finalReport->reviewer->name ?? 'Belum Di Tinjau' }}
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            {{-- <em>{{ $Laporan->created_at ? $Laporan->created_at->format('d M Y, H:i') : '-' }}</em> --}}
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <p class="text-sm text-gray-600 mr-4">
+                            <strong>Tanggapan: <br/></strong>
+                            @if ($finalReport->feedback != null)
+                                {!! nl2br(e($finalReport->feedback)) !!}
+                            @else
+                                <span class="text-danger">Tidak ada tanggapan</span>
+                            @endif
                         </p>
                         <p class="text-xs text-gray-500">
                             {{-- <em>{{ $Laporan->created_at ? $Laporan->created_at->format('d M Y, H:i') : '-' }}</em> --}}
@@ -70,15 +83,6 @@
                         @else
                             <span class="text-danger">Belum diisi</span>
                         @endif
-                    </p>
-                    <p><strong>Tanggapan:</strong>
-                        {{-- @if ($finalReport->status == 3 || $finalReport->status == 0) --}}
-                        @if ($finalReport->feedback != null)
-                            {{ $finalReport->feedback }}
-                        @else
-                            <span class="text-danger">Tidak ada tanggapan</span>
-                        @endif
-                        {{-- @endif --}}
                     </p>
                     <p><strong>Total Konversi:</strong>
                         @if ($finalReport->nilai != null)

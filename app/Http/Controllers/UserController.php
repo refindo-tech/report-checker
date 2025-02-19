@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -27,21 +28,23 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        dd(request()->all());
+        // dd(request()->all());
 
-        $rules = [
-            'id_kampus ' => ['required'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'role' => ['required', 'string', 'max:255'],
-        ];
-
-        $validated = $request->validate($rules, [
-            'email.unique' => 'Email already exists.',
+        $validator = Validator::make($request->all(), [
+            'id_kampus' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'role' => 'required|string',
         ]);
 
-        if (request()->role == 'Dosen') {
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->role == 'Dosen') {
+
+            // dd(request()->all());
             // Simpan data ke database
             $user = User::create([
                 'id_kampus' => $request->id_kampus,
@@ -61,7 +64,8 @@ class UserController extends Controller
                 'phone' => $request->phone,
                 'address' => $request->alamat,
             ]);
-        } else if (request()->role == 'Mahasiswa') {
+        } elseif ($request->role == 'Mahasiswa') {
+            // dd($request->all());
             // Simpan data ke database
             $user = User::create([
                 'id_kampus' => $request->id_kampus,
@@ -80,6 +84,7 @@ class UserController extends Controller
                 'phone' => $request->phone,
                 'address' => $request->alamat,
                 'prodi' => $request->prodi,
+                'fakultas' => $request->fakultas,
                 'semester' => $request->semester,
             ]);
         } else {
@@ -97,7 +102,7 @@ class UserController extends Controller
 
 
         // menampilkan message success
-        session()->flash('added', 'Data Berhasil Ditambahkan.');
+        // session()->flash('added', 'Data Berhasil Ditambahkan.');
 
         // Arahkan ke halaman
         return redirect()->route('user.index')->with('success', 'Data berhasil ditambahkan.');;
