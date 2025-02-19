@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kampus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class KampusController extends Controller
@@ -13,7 +14,8 @@ class KampusController extends Controller
      */
     public function index()
     {
-        $kampus = Kampus::all();
+        $kampus = Kampus::where('id', Auth::user()->id_kampus)->get();
+        // dd($kampuses);
         return view('kampus.index', compact('kampus'));
     }
 

@@ -62,7 +62,8 @@
         }
 
         .biodata-table td {
-            padding: 2px 5px; /* Mengurangi padding agar teks lebih dekat */
+            padding: 2px 5px;
+            /* Mengurangi padding agar teks lebih dekat */
         }
 
         .biodata-table td:first-child {
@@ -86,6 +87,7 @@
         .penilaian-table th {
             background-color: #d3d3d3;
         }
+
         .penilaian-table tr:last-child {
             font-weight: bold;
             background-color: #f0f0f0;
@@ -109,50 +111,82 @@
             </td>
         </tr>
     </table>
+    <table class="penilaian-table">
 
+    </table>
+    </div>
     <div class="content">
         <h2>PENILAIAN MIKROSKILL KEGIATAN MBKM</h2>
-        
+
         <table class="biodata-table">
-            <tr><td>Nama Reviewer</td><td>: ...........................................</td></tr>
-            <tr><td>NIP</td><td>: ...........................................</td></tr>
+            <tr>
+                <td>Nama Reviewer</td>
+                <td>: {{ $report->reviewer->name }}</td>
+            </tr>
+            <tr>
+                <td>NIP</td>
+                <td>: {{ $report->dosen->nip }}</td>
+            </tr>
             <br>
-            <tr><td>Nama Mahasiswa</td><td>: ...........................................</td></tr>
-            <tr><td>NIM</td><td>: ...........................................</td></tr>
-            <tr><td>Fakultas</td><td>: ...........................................</td></tr>
-            <tr><td>Program Studi</td><td>: ...........................................</td></tr>
+            <tr>
+                <td>Nama Mahasiswa</td>
+                <td>: {{ $report->user->name }}</td>
+            </tr>
+            <tr>
+                <td>NIM</td>
+                <td>: {{ $report->Mahasiswa->nim }}</td>
+            </tr>
+            <tr>
+                <td>Fakultas</td>
+                <td>: {{ $report->Mahasiswa->fakultas }}</td>
+            </tr>
+            <tr>
+                <td>Program Studi</td>
+                <td>: {{ $report->Mahasiswa->prodi }}</td>
+            </tr>
             <br>
-            <tr><td>Nama Mitra MBKM</td><td>: ...........................................</td></tr>
-            <tr><td>Alamat Mitra MBKM</td><td>: ...........................................</td></tr>
-            <tr><td>Waktu Kegiatan</td><td>: ...........................................</td></tr>
-            <tr><td>Jenis Kegiatan</td><td>: ...........................................</td></tr>
+            <tr>
+                <td>Nama Mitra MBKM</td>
+                <td>: {{ $report->mitra }}</td>
+            </tr>
+            <tr>
+                <td>Alamat Mitra MBKM</td>
+                <td>: {{ $report->addressMitra }}</td>
+            </tr>
+            <tr>
+                <td>Waktu Kegiatan</td>
+                <td>: {{ \Carbon\Carbon::parse($report->start_date)->translatedFormat('j F Y') }} -
+                    {{ \Carbon\Carbon::parse($report->end_date)->translatedFormat('j F Y') }}</td>
+            </tr>
+            <tr>
+                <td>Jenis Kegiatan</td>
+                <td>: {{ $report->JenisKegiatan }}</td>
+            </tr>
         </table>
 
         <table class="penilaian-table">
-            <tr>
-                <th>NO</th>
-                <th>Capaian Mikroskill</th>
-                <th>SKS</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>...........................................</td>
-                <td>...........................................</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>...........................................</td>
-                <td>...........................................</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>...........................................</td>
-                <td>...........................................</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-weight: bold; text-align: center;">Jumlah SKS</td>
-                <td>...........................................</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>Capaian Mikroskill</th>
+                    <th>SKS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $totalSks = 0; @endphp
+                @foreach ($pivotData as $data)
+                    @php $totalSks += $data->Mikroskill->sks; @endphp
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $data->Mikroskill->name }}</td>
+                        <td>{{ $data->Mikroskill->sks }}</td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <td colspan="2" style="font-weight: bold; text-align: center;">Jumlah SKS Terkonversi</td>
+                    <td style="text-align: center; font-weight: bold;">{{ $totalSks }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>

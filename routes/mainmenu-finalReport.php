@@ -29,6 +29,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/cetak/{id}', [FinalReportController::class, 'cetak_pdf'])->name('report.print');
     });
 
+    Route::middleware('role:Admin|Dosen')->prefix('report')->group(function () {
+        Route::get('/indexDosen', [FinalReportController::class, 'indexDosen'])->name('report.indexDosen');
+    });
+
     // Rute untuk menambah barang masuk (Admin, Gudang)
     Route::middleware('permission:tambah-laporan-akhir')->prefix('report')->group(function () {
         Route::post('/create', [FinalReportController::class, 'store'])->name('report.store');

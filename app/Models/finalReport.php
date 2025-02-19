@@ -22,7 +22,7 @@ class finalReport extends Model
         'addressMitra',
         'start_date',
         'end_date',
-        'jenisKegiatan',
+        'JenisKegiatan',
     ];
 
     public function user()
