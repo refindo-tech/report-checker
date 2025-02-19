@@ -23,10 +23,10 @@
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
                                     {{ $users }}
-                                    <small class="m-0 l-h-n">Pengguna Terdaftar</small>
+                                    <small class="m-0 l-h-n">Admin</small>
                                 </h3>
                             </div>
-                            <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
+                            <i class="fal fa-user-shield position-absolute pos-right pos-bottom opacity-50 mb-n1 mr-n1"
                                 style="font-size:6rem"></i>
                         </div>
                     </div>
@@ -34,11 +34,10 @@
                         <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    {{-- {{ $components }} --}}
-                                    <small class="m-0 l-h-n">Komponen</small>
+                                    <small class="m-0 l-h-n">Dosen</small>
                                 </h3>
                             </div>
-                            <i class="fa-solid fa-cart-shopping position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4"
+                            <i class="fa-solid fa-chalkboard-teacher position-absolute pos-right pos-bottom opacity-50  mb-n1 mr-n4"
                                 style="font-size: 6rem;"></i>
                         </div>
                     </div>
@@ -46,11 +45,10 @@
                         <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    {{-- {{ $suppliers }} --}}
-                                    <small class="m-0 l-h-n">supplier</small>
+                                    <small class="m-0 l-h-n">Mahasiswa</small>
                                 </h3>
                             </div>
-                            <i class="fa fa-cubes position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6"
+                            <i class="fa fa-user-graduate position-absolute pos-right pos-bottom opacity-50 mb-n5 mr-n6"
                                 style="font-size: 8rem;"></i>
                         </div>
                     </div>
@@ -58,11 +56,10 @@
                         <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    {{-- {{ $products }} --}}
-                                    <small class="m-0 l-h-n">Produk</small>
+                                    <small class="m-0 l-h-n">Laporan</small>
                                 </h3>
                             </div>
-                            <i class="fal fa-shopping-bag position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4"
+                            <i class="fal fa-file-alt position-absolute pos-right pos-bottom opacity-50 mb-n1 mr-n4"
                                 style="font-size: 6rem;"></i>
                         </div>
                     </div>
