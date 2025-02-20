@@ -24,13 +24,24 @@ class FinalReportController extends Controller
         return view('final_report.index', compact('report', 'reports', 'reportUser'));
     }
 
-    public function indexDosen()
+    public function indexMahasiswa($id)
     {
         $report = finalReport::with('user')->get();
         $reportUser = finalReport::where('user_id', Auth::user()->id)->with('user')->get();
         $reports = finalReport::where('user_id', Auth::user()->id)->with('user')->latest()->first();
         // dd($reports);
-        return view('final_report.dosenview', compact('report', 'reports', 'reportUser'));
+        return view('final_report.mahasiswaview', compact('report', 'reports', 'reportUser'));
+    }
+
+    public function indexDosen()
+    {
+        $report = finalReport::selectRaw('user_id, COUNT(*) as total')
+            ->with('user.mahasiswa') // Ambil relasi mahasiswa
+            ->groupBy('user_id')
+            ->get();
+
+        // dd($reports);
+        return view('final_report.dosenview', compact('report',));
     }
 
     /**

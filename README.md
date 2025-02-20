@@ -10,14 +10,11 @@
 <div align="center">
   
 [![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=rizkyapri&data=followers,repositories,stars,commits&theme=viridescent)](https://github.com/rizkyapri)
-<!-- <h3 align ="center"> <strong> Let`s Code.Build & FUN </strong> </h3>  -->
 
-<!-- ![](https://komarev.com/ghpvc/?username=abdoelmadjid&color=brightgreen&style=for-the-badge)
-[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abdoelmadjid/)
-[![Gmail](https://img.shields.io/badge/%20-Send%20Mail-black?color=14171A&labelColor=ef5350&logo=gmail&logoColor=ffffff&style=for-the-badge)](mailto:abdulmadjid.mpd@gmail.com)
-[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://facebook.com/abdulmadjid.mpd)
-[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://x.com/AbdoelMadjid)
-[![Instagram](https://img.shields.io/badge/Instagram-%405DE6.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://x.com/AbdoelMadjid) -->
+---
+
+[![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=rhekhar&data=followers,repositories,stars,commits&theme=viridescent)](https://github.com/rhekhar)
+
 
 </div>
 <a id="readme-top"></a>
@@ -35,46 +32,83 @@
   </ol>
 </details>
 
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-This application is an application for student competency achievements which is used as a report card for independent curriculum students. 
+This application is an application for student competency achievements which is used as a report card for independent curriculum students.
 This application uses the <a href="https://wrapbootstrap.com/user/MyOrange" target="_blank"> smartadmin </a> template.
 The Student Competency Achievement application was created to simplify the process of assessing teaching and learning activities at SMKN 1 Kadipaten.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FLAT FORM -->
-## Flat Form
-- <a href="https://laravel.com/docs/10.x" target="_blank">Laravel v10.42.0</a>
-- <a href="https://www.php.net/releases/8_2_3.php" target="_blank">PHP v8.2.3</a>
-- Template <a href="https://wrapbootstrap.com/user/MyOrange" target="_blank">SmartAdmin</a> 
-- <a href="https://sweetalert2.github.io/#usage" target="_blank"> Sweetalert2 </a>
-- <a href="https://github.com/CodeSeven/toastr" target="_blank"> Toastr </a>
 
+## Flat Form
+
+-   <a href="https://laravel.com/docs/10.x" target="_blank">Laravel v10.42.0</a>
+-   <a href="https://www.php.net/releases/8_2_3.php" target="_blank">PHP v8.2.3</a>
+-   Template <a href="https://wrapbootstrap.com/user/MyOrange" target="_blank">SmartAdmin</a>
+-   <a href="https://sweetalert2.github.io/#usage" target="_blank"> Sweetalert2 </a>
+-   <a href="https://github.com/CodeSeven/toastr" target="_blank"> Toastr </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Application Development Plan
+
 The following is the development plan, the points of which will continue to be updated.
-- Role (more than 2 users)
-- User access is limited by active and inactive
-- On and off options of some features
-- Menu options to be displayed or not
-- ...
+
+### User Management
+
+-   **Login to Account** – All users
+-   **Logout from Account** – All users
+-   **Add New Account** – Admin
+-   **Account Settings** – Admin
+-   **View Profile** – All users
+-   **Edit Profile** – All users
+
+### Final Report Management
+
+-   **Upload Final Report** – Student
+-   **View Report Status** – All users
+    -   Waiting
+    -   Review
+    -   Rejected
+    -   Approved
+-   **Revise Report** – Student
+
+### CPL Mikroskill Management
+
+-   **Add CPL Mikroskill Rubric** – Admin & Reviewer
+-   **Edit CPL Mikroskill Rubric** – Admin & Reviewer
+-   **Delete CPL Mikroskill Rubric** – Admin & Reviewer
+
+### Final Report Assessment
+
+-   **Assess Report Based on CPL Mikroskill** – Reviewer
+-   **Update Report Status** – Admin & Reviewer
+    -   Waiting
+    -   Review
+    -   Rejected
+    -   Approved
+-   **Provide Feedback or Comments** – Admin & Reviewer
+
+### Assessment Conversion
+
+-   **View SKS Credit Conversion Results** – All users
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- INSTALLATION -->
+
 ## Installation
 
 ```console
-git clone https://github.com/rizkyapri/karoseri.git
+git clone https://github.com/rizkyapri/laporanMbkm.git
 ```
 
 ```console
-cd karoseri
+cd laporanMbkm
 ```
 
 ```console
@@ -94,12 +128,8 @@ php artisan key:generate
 ```
 
 ```html
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=??
-DB_USERNAME=root
-DB_PASSWORD=
+DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=??
+DB_USERNAME=root DB_PASSWORD=
 ```
 
 ```console
@@ -113,152 +143,20 @@ php artisan db:seed
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Roadmap Project
+
 ### Multi User
+
 Role : <br>
-- Admin : admin@example.com/password <br>
-- Purchasing : purchasing@example.com/password <br>
-- Gudang : gudang@example.com/password <br>
+
+-   Admin : admin@example.com/password <br>
+-   Dosen : dosen@example.com/password <br>
+-   Mahasiswa : mahasiswa@example.com/password <br>
 
 ### User Access
+
 The access used is to sort roles, by filtering the submenu section with the following script:
-    
-<!-- ```console
-@if (auth()->user()->role == 'Admin')
-    @include('inc.mainmenu._menu_master')
-@endif
-@if (auth()->user()->role == 'Wali Kelas')
-    @include('inc.mainmenu._menu_walikelas')
-@endif
-@if (auth()->user()->role == 'Guru Mapel')
-    @include('inc.mainmenu._menu_gurumapel')
-@endif
-@if (auth()->user()->role == 'Siswa')
-    @include('inc.mainmenu._menu_siswa')
-@endif
-``` -->
-    
-<!-- Active and Deactivated Login Options, for roles if the position is inactive you cannot log in
-    
--   Middleware CheckRoleStatus
-
-```console
-    public function handle(Request $request, Closure $next)
-    {
-        if (Auth::check()) {
-            $user = Auth::user();
-            $roleStatus = OpsiLogin::where('peran', $user->role)->first();
-
-            if ($roleStatus && $roleStatus->aktif === 'N') {
-                Auth::logout();
-                return back()->with('error', 'Peran Anda sedang dinonaktifkan. Silakan hubungi administrator.');
-            }
-        }
-
-        return $next($request);
-    }
-```
-
--   Implementation
-
-```console
-Route::get('/dashboard', [TemplateController::class, 'index'])->middleware(['auth', 'check.role.status']);
-``` -->
-
-<!-- ### Show feature
--   Content Setting and Other Features
-
-Several features are set to be displayed or not
-
-<i>Helper Fitures.php</i>
-```console
-    public static function getFiturAktif()
-    {
-        $fitur = AppFitur::where('aktif', 'Y')->get();
-        $hasil = [];
-
-        foreach ($fitur as $f) {
-            // Mengambil view berdasarkan nama_fitur
-            if (view()->exists("inc.fitur.{$f->nama_fitur}")) {
-                $hasil[] = "inc.fitur.{$f->nama_fitur}";
-            }
-        }
-
-        return $hasil;
-    }
-```
-
-<i>Implementation</i>
-```console
-    @foreach (App\Helpers\Fitures::getFiturAktif() as $fiturView)
-        @include($fiturView)
-    @endforeach
-```
-feature files are saved in View -> inc -> fitur
-
--   Mainmenu Show   
-Several menu groups are created so that they can be displayed or not.
-
-<i>Helper Fitures.php</i>
-```console
-    public static function isMainMenuTemplateActive()
-    {
-        $fitur = AppFitur::where('nama_fitur', '_mainmenu_template')->first();
-        return $fitur && $fitur->aktif === 'Y';
-    }
-```
-<i>Implementation</i>
-```console
-   @if (App\Helpers\Fitures::isMainMenuTemplateActive())
-        @include('inc.mainmenu._menu_depelover')
-        @include('inc.mainmenu._menu_intel_app')
-        @include('inc.mainmenu._menu_tools_component_app')
-        @include('inc.mainmenu._menu_plugin_addon_app')
-        @include('inc.mainmenu._menu_layouts_app')
-    @endif
-``` -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Example
-<!-- <table>
-    <tr>
-        <td width='70%'>
-            <center>
-            Halaman Awal <br>
-            <img src="https://github.com/user-attachments/assets/496c4633-fff1-486b-bba3-e8bbe789ebdf" width="80%" />
-                </center>
-        </td>
-        <td>
-            Halaman Login <br>
-            <img src="https://github.com/user-attachments/assets/08c1fb4f-26e3-4b06-aefc-08664d10fc52" />
-        </td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td valign="top">
-            Sidebar <br>
-            <img src="https://github.com/user-attachments/assets/d924923a-cb37-469b-ad24-05ccf83c9e68"  width="100%" />
-        </td>        
-        <td>
-            Features <br>
-            <img src="https://github.com/user-attachments/assets/0d218750-807e-4846-a32a-1ff28f9884a5" /> <br><br>
-            CRUD Features <br>
-            <img src="https://github.com/user-attachments/assets/a382728a-af23-40fb-b2e6-dacbd5db1471" width="85%" />
-        </td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <td valign="top">
-            Notification <br>
-            <img src="https://github.com/user-attachments/assets/2c95dd69-2afb-44a8-a612-ff22e4b18c3b"  width="100%" />
-        </td>
-    </tr>
-</table> -->
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## License
 

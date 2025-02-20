@@ -31,18 +31,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>210001</td>
-                        <td>Akbar</td>
-                    </tr>
-                    <tr>
-                        <td>210002</td>
-                        <td>Budi</td>
-                    </tr>
-                    <tr>
-                        <td>210003</td>
-                        <td>Chandra</td>
-                    </tr>
+                    @foreach ($report as $item)
+                        <tr onclick="window.location='{{ route('report.indexMahasiswa', $item->user_id) }}';" style="cursor: pointer;">
+                            <td>{{ $item->user->mahasiswa->nim ?? '-' }}</td> <!-- NIM -->
+                            <td>{{ $item->user->name ?? '-' }}</td> <!-- Nama Mahasiswa -->
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </x-panel.show>

@@ -22,7 +22,7 @@
                         <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    {{ $users }}
+                                    {{ $jumlahAdmin }}
                                     <small class="m-0 l-h-n">Admin</small>
                                 </h3>
                             </div>
@@ -34,6 +34,7 @@
                         <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                    {{ $jumlahDosen }}
                                     <small class="m-0 l-h-n">Dosen</small>
                                 </h3>
                             </div>
@@ -45,6 +46,7 @@
                         <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                    {{ $jumlahMahasiswa }}
                                     <small class="m-0 l-h-n">Mahasiswa</small>
                                 </h3>
                             </div>
@@ -56,7 +58,8 @@
                         <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
                             <div class="">
                                 <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                    <small class="m-0 l-h-n">Laporan</small>
+                                    {{ $jumlahReport }}
+                                    <small class="m-0 l-h-n">Laporan Akhir</small>
                                 </h3>
                             </div>
                             <i class="fal fa-file-alt position-absolute pos-right pos-bottom opacity-50 mb-n1 mr-n4"

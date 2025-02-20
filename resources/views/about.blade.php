@@ -17,17 +17,17 @@
         </div>
         <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g shadow-5">
             <h3>
-                KAROSERI TEAM K2 NEXUS
+                R2 Commander Team
                 <small class="mb-0">We build cool things...</small>
             </h3>
             <div class="d-flex flex-wrap demo demo-h-spacing mt-3 mb-3">
                 <div
                     class="rounded-pill bg-white shadow-sm p-2 border-faded mr-3 d-flex flex-row align-items-center justify-content-center flex-shrink-0">
-                    <img src="{{ asset('/admin/img/krisna.png') }}" alt="Sunny A."
+                    <img src="{{ asset('/admin/img/rhekhar.png') }}" alt="Sunny A."
                         class="img-thumbnail img-responsive rounded-circle" style="width:5rem; height: 5rem;">
                     <div class="ml-2 mr-3">
                         <h5 class="m-0">
-                            Krisna Aji Prakoso (UI/UX Expert)
+                            Rhein Kharnafis Dhirgam (Frontend Expert)
                             <small class="m-0 fw-300">
                                 Author
                             </small>
@@ -47,7 +47,7 @@
                         <h5 class="m-0">
                             Rizky Apriansyah (Fullstack Developer)
                             <small class="m-0 fw-300">
-                                Partner &amp; Contributor
+                                Author
                             </small>
                         </h5>
                     </div>
@@ -85,14 +85,13 @@
                     </div>
                 </div> --}}
             </div>
-
             <p>
                 Last but not least, we would like to thank each and everyone of you, our loyal customers, for your patience
                 and continued support in Smart Admin. Without you this would not have been possible!
             </p>
             <p>
                 Sincerely,<br>
-                The K2 Team<br>
+                R2 Commander Team<br>
             </p>
         </div>
 

@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         ]);
 
         $dosen = User::create([
-            'id_kampus' => 2,
+            'id_kampus' => 1,
             'name' => 'Rhein Kharnafis Dhirgam',
             'email' => 'dosen@example.com',
             'email_verified_at' => now(),
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
         ]);
 
         $mahasiswa = User::create([
-            'id_kampus' => 3,
+            'id_kampus' => 1,
             'name' => 'Akbar',
             'email' => 'mahasiswa@example.com',
             'email_verified_at' => now(),

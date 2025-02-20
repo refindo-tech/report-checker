@@ -3,19 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\finalReport;
 use App\Models\Komponen;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
 {
     // intel
     public function index()
     {
-        $users = User::all()->count();
-        return view('dashboard', compact('users'));
+        $jumlahAdmin = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Admin');
+        })->where('id_kampus', Auth::user()->id_kampus)->count();
+
+        $jumlahDosen = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Dosen');
+        })->where('id_kampus', Auth::user()->id_kampus)->count();
+
+        $jumlahMahasiswa = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Mahasiswa');
+        })->where('id_kampus', Auth::user()->id_kampus)->count();
+
+        $jumlahReport = finalReport::whereHas('user', function ($query) {
+            $query->where('id_kampus', Auth::user()->id_kampus);
+        })->count();
+        
+
+        return view('dashboard', compact('jumlahAdmin', 'jumlahDosen', 'jumlahMahasiswa', 'jumlahReport'));
     }
     public function about()
     {

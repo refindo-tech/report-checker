@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
 
     // Rute untuk melihat barang masuk (Admin, Gudang, Purchasing)
     Route::middleware('permission:lihat-laporan-akhir')->prefix('report')->group(function () {
+        Route::get('/index/{id}', [FinalReportController::class, 'indexMahasiswa'])->name('report.indexMahasiswa');
         Route::get('/index', [FinalReportController::class, 'index'])->name('report.index');
         Route::get('/cetak/{id}', [FinalReportController::class, 'cetak_pdf'])->name('report.print');
     });

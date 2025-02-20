@@ -14,16 +14,32 @@ class KampusSeeder extends Seeder
     public function run(): void
     {
         Kampus::create([
-            'name' => 'Institut Teknologi Sepuluh Nopember',
+            'name' => 'UNIVERSITAS SULTAN AGENG TIRTAYASA',
+            'address' => 'Jl. Jend. Sudirman No. 123, Jakarta Pusat, Indonesia',
+            'phone' => '123-456-7890',
+            'website' => 'www.fti.ac.id',
+            'fax' => '123-456-7890',
         ]);
         Kampus::create([
-            'name' => 'Institut Teknologi Bandung',
+            'name' => 'UNIVERSITAS INDONESIA',
+            'address' => 'Jl. Jend. Sudirman No. 123, Jakarta Pusat, Indonesia',
+            'phone' => '123-456-7890',
+            'website' => 'www.fti.ac.id',
+            'fax' => '123-456-7890',
         ]);
         Kampus::create([
-            'name' => 'Institut Teknologi Yogyakarta',
+            'name' => 'UNIVERSITAS GADJAH MADA',
+            'address' => 'Jl. Jend. Sudirman No. 123, Jakarta Pusat, Indonesia',
+            'phone' => '123-456-7890',
+            'website' => 'www.fti.ac.id',
+            'fax' => '123-456-7890',
         ]);
         Kampus::create([
-            'name' => 'Institut Teknologi Surabaya',
+            'name' => 'UNIVERSITAS GUNADARMA',
+            'address' => 'Jl. Jend. Sudirman No. 123, Jakarta Pusat, Indonesia',
+            'phone' => '123-456-7890',
+            'website' => 'www.fti.ac.id',
+            'fax' => '123-456-7890',
         ]);
     }
 }
