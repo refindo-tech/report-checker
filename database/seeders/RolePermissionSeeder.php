@@ -72,7 +72,6 @@ class RolePermissionSeeder extends Seeder
         $roleAdmin->givePermissionTo('lihat-laporan-akhir');
 
         $roleAdmin->givePermissionTo('lihat-role');
-
         $roleAdmin->givePermissionTo('lihat-permission');
 
         $roleAdmin->givePermissionTo('tambah-mikroskill');

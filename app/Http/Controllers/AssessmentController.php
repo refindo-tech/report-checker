@@ -8,6 +8,7 @@ use App\Models\Kampus;
 use App\Models\laprak_has_mikroskill;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +19,7 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        $mikroskill = CplMikroskil::all();
+        $mikroskill = CplMikroskil::where('id_kampus', Auth::user()->id_kampus)->get();
         $kampus = Kampus::all();
 
         // Ambil laporan dengan relasi ke mikroskill melalui pivot table

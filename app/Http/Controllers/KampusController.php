@@ -80,7 +80,7 @@ class KampusController extends Controller
                 'phone' => 'required|string|min:3',
                 'fax' => 'required|string|min:3',
                 'website' => 'required|string|min:3',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024',
             ]);
 
 

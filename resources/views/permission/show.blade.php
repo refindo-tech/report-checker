@@ -40,12 +40,16 @@
                     <p><strong>Menjaga bagian:</strong>
                         <span class="badge bg-danger text-white">{{ $permission->guard_name }}</span>
                     </p>
+                    @can('edit-permission')
                     <a href="{{ route('permissions.edit', $permission) }}" class="btn btn-primary">Edit</a>
+                    @endcan
+                    @can('hapus-permission')
                     <form action="{{ route('permissions.destroy', $permission) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
+                    @endcan
                     <a href="{{ route('permissions.index') }}" class="btn btn-secondary">Back</a>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\finalReport;
+use App\Models\Kampus;
 use App\Models\laprak_has_mikroskill;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
@@ -26,19 +27,28 @@ class FinalReportController extends Controller
 
     public function indexMahasiswa($id)
     {
-        $report = finalReport::with('user')->get();
-        $reportUser = finalReport::where('user_id', Auth::user()->id)->with('user')->get();
+        $report = finalReport::where('user_id', $id)
+            ->whereHas('user', function ($query) {
+                $query->where('id_kampus', Auth::user()->id_kampus);
+            })
+            ->with('user') // Ambil relasi user
+            ->get();
+            // dd($report);
+
         $reports = finalReport::where('user_id', Auth::user()->id)->with('user')->latest()->first();
         // dd($reports);
-        return view('final_report.mahasiswaview', compact('report', 'reports', 'reportUser'));
+        return view('final_report.mahasiswaview', compact('report', 'reports'));
     }
 
     public function indexDosen()
     {
-        $report = finalReport::selectRaw('user_id, COUNT(*) as total')
+        $report = finalReport::selectRaw('final_reports.user_id, COUNT(*) as total')
+            ->join('users', 'users.id', '=', 'final_reports.user_id') // Join dengan tabel users
+            ->where('users.id_kampus', Auth::user()->id_kampus) // Filter berdasarkan id_kampus di tabel users
+            ->groupBy('final_reports.user_id')
             ->with('user.mahasiswa') // Ambil relasi mahasiswa
-            ->groupBy('user_id')
             ->get();
+
 
         // dd($reports);
         return view('final_report.dosenview', compact('report',));
@@ -49,7 +59,8 @@ class FinalReportController extends Controller
      */
     public function review(Request $request, $id)
     {
-        $report = finalReport::find($id)->latest()->first();
+        $report = finalReport::findorFail($id);
+        // dd($id, $report);
         $report->status = '2';
         $report->reviewer_id = Auth::user()->id;
         $report->save();
@@ -68,7 +79,7 @@ class FinalReportController extends Controller
         }
 
         // dd($request->all());
-        $report = finalReport::find($id)->latest()->first();
+        $report = finalReport::find($id);
         if ($request->feedback != null) {
             $report->feedback = $request->feedback;
             $report->save();
@@ -77,7 +88,7 @@ class FinalReportController extends Controller
         $report->save();
 
         // alihkan halaman ke halaman slider.index  
-        return redirect()->route('report.index')->with('success', 'Berkas berhasil diupload.');
+        return redirect()->route('report.indexMahasiswa', $report->user_id)->with('success', 'Berkas berhasil direview.');
     }
 
     /**
@@ -156,7 +167,8 @@ class FinalReportController extends Controller
     public function cetak_pdf($id)
     {
         $report = finalReport::with('user', 'reviewer', 'mahasiswa', 'dosen')->find($id);
-
+        $kampus = Kampus::where('id', $report->user->id_kampus)->first();
+        // dd($report, $kampus);    
         $pivotData = laprak_has_mikroskill::with('mikroskill', 'report')->where('id_laprak', $report->id)->get();
         // dd($pivotData);
 
@@ -168,6 +180,7 @@ class FinalReportController extends Controller
         );
 
         $img_path = public_path('admin/img/logountirta.png');
+        $img_kampus = public_path('storage/kampus/' . $kampus->image);
         // $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
         // $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
         // $img_base_64 = base64_encode($data);
@@ -178,8 +191,10 @@ class FinalReportController extends Controller
         // Pastikan data dikirim sebagai array
         $pdf = PDF::loadView('final_report.print', [
             'report' => $report,
+            'kampus' => $kampus,
             'pivotData' => $pivotData,
             'path_img' => $img_path,
+            'img_kampus' => $img_kampus,
         ]);
 
         // Download file PDF

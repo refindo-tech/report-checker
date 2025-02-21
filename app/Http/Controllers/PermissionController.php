@@ -8,6 +8,20 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+
+    /**
+     * Initialize the middleware for the controller.
+     *
+     * @return void
+     */
+
+    public function __construct()
+    {
+        $this->middleware('permission:lihat-permission')->only(['index', 'show']);
+        $this->middleware('permission:tambah-permission')->only(['create', 'store']);
+        $this->middleware('permission:edit-permission')->only(['update', 'edit']);
+        $this->middleware('permission:hapus-permission')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

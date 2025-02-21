@@ -37,32 +37,30 @@
                     @foreach ($permissions as $permission)
                         <tr>
                             <td>{{ $permission->name }}</td>
-                            @canany(['edit-permission', 'hapus-permission'])
-                                <td>
-                                    <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-info">Detail</a>
+                            <td>
+                                <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-info">Detail</a>
 
-                                    {{-- Tombol Edit --}}
-                                    @can('edit-permission')
-                                        <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-warning">Edit</a>
-                                    @endcan
+                                {{-- Tombol Edit --}}
+                                @can('edit-permission')
+                                    <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-warning">Edit</a>
+                                @endcan
 
-                                    {{-- Tombol Hapus --}}
-                                    @can('hapus-permission')
-                                        <button type="button" class="btn btn-danger"
-                                            onclick="confirmDelete({{ $permission->id }})">Hapus</button>
-                                    @endcan
+                                {{-- Tombol Hapus --}}
+                                @can('hapus-permission')
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="confirmDelete({{ $permission->id }})">Hapus</button>
+                                @endcan
 
-                                    {{-- Form Hapus --}}
-                                    @can('hapus-permission')
-                                        <form id="delete-form-{{ $permission->id }}"
-                                            action="{{ route('permissions.destroy', $permission->id) }}" method="POST"
-                                            style="display:none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    @endcan
-                                </td>
-                            @endcanany
+                                {{-- Form Hapus --}}
+                                @can('hapus-permission')
+                                    <form id="delete-form-{{ $permission->id }}"
+                                        action="{{ route('permissions.destroy', $permission->id) }}" method="POST"
+                                        style="display:none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endcan
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

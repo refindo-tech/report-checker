@@ -30,40 +30,36 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        @canany(['edit-role', 'hapus-role'])
-                            <th>Aksi</th>
-                        @endcanany
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($roles as $role)
                         <tr>
                             <td>{{ $role->name }}</td>
-                            @canany(['edit-role', 'hapus-role'])
-                                <td>
-                                    <a href="{{ route('roles.show', $role->id) }}" class="btn btn-info">Detail</a>
+                            <td>
+                                <a href="{{ route('roles.show', $role->id) }}" class="btn btn-info">Detail</a>
 
-                                    {{-- Tombol Edit --}}
-                                    @can('edit-role')
-                                        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning">Edit</a>
-                                    @endcan
+                                {{-- Tombol Edit --}}
+                                @can('edit-role')
+                                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-warning">Edit</a>
+                                @endcan
 
-                                    {{-- Tombol Hapus --}}
-                                    @can('hapus-role')
-                                        <button type="button" class="btn btn-danger"
-                                            onclick="confirmDelete({{ $role->id }})">Hapus</button>
-                                    @endcan
+                                {{-- Tombol Hapus --}}
+                                @can('hapus-role')
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="confirmDelete({{ $role->id }})">Hapus</button>
+                                @endcan
 
-                                    {{-- Form Hapus --}}
-                                    @can('hapus-role')
-                                        <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy', $role->id) }}"
-                                            method="POST" style="display:none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    @endcan
-                                </td>
-                            @endcanany
+                                {{-- Form Hapus --}}
+                                @can('hapus-role')
+                                    <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy', $role->id) }}"
+                                        method="POST" style="display:none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endcan
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     
     Route::middleware('permission:review-laporan-akhir')->prefix('report')->group(function () {
         Route::get('/review/{id}', [FinalReportController::class, 'review'])->name('report.review');
-        Route::post('/review{id}', [FinalReportController::class, 'reviewstore'])->name('report.reviewstore');
+        Route::post('/review/{id}', [FinalReportController::class, 'reviewstore'])->name('report.reviewstore');
     });
 
     // Rute untuk mengedit barang masuk (Admin, Gudang)

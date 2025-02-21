@@ -10,6 +10,20 @@ use Spatie\Permission\Models\Role;
 class RoleController extends Controller
 {
     /**
+     * Initialize the middleware for the controller.
+     *
+     * @return void
+     */
+    
+    public function __construct()
+    {
+        $this->middleware('permission:lihat-role')->only(['index', 'show']);
+        $this->middleware('permission:tambah-role')->only(['create', 'store']);
+        $this->middleware('permission:edit-role')->only(['update', 'edit']);
+        $this->middleware('permission:hapus-role')->only('destroy');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()

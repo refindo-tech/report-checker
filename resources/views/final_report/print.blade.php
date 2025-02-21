@@ -100,14 +100,14 @@
     <table class="header-table">
         <tr>
             <td class="left">
-                <img src="{{ $path_img }}" alt="Logo Kampus">
+                <img src="{{ $img_kampus }}" alt="Logo Kampus">
             </td>
             <td class="center">
                 <h1>KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN</h1>
-                <h1>UNIVERSITAS SULTAN AGENG TIRTAYASA</h1>
-                <h2>Jl. Jendral Sudirman KM 03, Cilegon 42435</h2>
-                <h2>Telp. (0254) 395502, 376712, Fax. (0254) 395440, 376712</h2>
-                <h2>Website: www.ft.untirta.ac.id</h2>
+                <h1>{{ strtoupper($kampus->name) }}</h1>
+                <h2>{{ $kampus->address }}</h2>
+                <h2>Telp. {{ $kampus->phone }}, Fax. {{ $kampus->fax }}</h2>
+                <h2>Website: {{ $kampus->website }}</h2>
             </td>
         </tr>
     </table>
