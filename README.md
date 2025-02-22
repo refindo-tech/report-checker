@@ -9,10 +9,6 @@
 
 <div align="center">
 
-[![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=refindo-tech&data=followers,repositories,stars,commits&theme=viridescent)](https://github.com/refindo-tech)
-
----
-
 [![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=rizkyapri&data=followers,repositories,stars,commits&theme=viridescent)](https://github.com/rizkyapri)
 
 ---
