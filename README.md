@@ -8,13 +8,16 @@
 </p>
 
 <div align="center">
-  
+
+[![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=refindo-tech&data=followers,repositories,stars,commits&theme=viridescent)](https://github.com/refindo-tech)
+
+---
+
 [![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=rizkyapri&data=followers,repositories,stars,commits&theme=viridescent)](https://github.com/rizkyapri)
 
 ---
 
 [![GitHub WidgetBox](https://github-widgetbox.vercel.app/api/profile?username=rhekhar&data=followers,repositories,stars,commits&theme=viridescent)](https://github.com/rhekhar)
-
 
 </div>
 <a id="readme-top"></a>
@@ -36,9 +39,9 @@
 
 ## About The Project
 
-This application is an application for student competency achievements which is used as a report card for independent curriculum students.
-This application uses the <a href="https://wrapbootstrap.com/user/MyOrange" target="_blank"> smartadmin </a> template.
-The Student Competency Achievement application was created to simplify the process of assessing teaching and learning activities at SMKN 1 Kadipaten.
+This application is used for reporting student competency achievements in the Merdeka Belajar Kampus Merdeka (MBKM) program at various universities.
+It utilizes the <a href="https://wrapbootstrap.com/user/MyOrange" target="_blank"> SmartAdmin </a> template.
+The main purpose of this application is to simplify the reporting and assessment process of learning activities within the MBKM program across different universities.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -104,11 +107,11 @@ The following is the development plan, the points of which will continue to be u
 ## Installation
 
 ```console
-git clone https://github.com/rizkyapri/laporanMbkm.git
+git clone https://github.com/refindo-tech/report-checker.git
 ```
 
 ```console
-cd laporanMbkm
+cd report-checker
 ```
 
 ```console
@@ -151,12 +154,6 @@ Role : <br>
 -   Admin : admin@example.com/password <br>
 -   Dosen : dosen@example.com/password <br>
 -   Mahasiswa : mahasiswa@example.com/password <br>
-
-### User Access
-
-The access used is to sort roles, by filtering the submenu section with the following script:
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
 

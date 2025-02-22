@@ -104,7 +104,9 @@
                             <th>Kampus</th>
                             <th>Rubrik CPL</th>
                             <th>SKS</th>
-                            <th>Aksi</th>
+                            @can('hapus-mikroskill')
+                                <th>Aksi</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
