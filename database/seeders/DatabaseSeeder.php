@@ -21,13 +21,13 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
+            KampusSeeder::class,
             RolePermissionSeeder::class,
             UserSeeder::class,
             AppProfileSeeder::class,
             AppFiturSeeder::class,
             DosenSeeder::class,
             MahasiswaSeeder::class,
-            KampusSeeder::class,
             MikroskillSeeder::class
         ]);
     }
