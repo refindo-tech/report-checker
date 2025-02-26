@@ -15,7 +15,7 @@
     @if (auth()->user()->getRoleNames()->first() == 'Gudang')
         @include('inc.mainmenu._menu_gudang')
     @endif --}}
-    @if (auth()->user()->getRoleNames()->first() == 'Admin')
+    {{-- @if (auth()->user()->getRoleNames()->first() == 'Admin')
         @if (App\Helpers\Fitures::isMainMenuTemplateActive())
             @include('inc.mainmenu._menu_depelover')
             @include('inc.mainmenu._menu_intel_app')
@@ -23,7 +23,7 @@
             @include('inc.mainmenu._menu_plugin_addon_app')
             @include('inc.mainmenu._menu_layouts_app')
         @endif
-    @endif
+    @endif --}}
     <div class="m-0 w-100 p-2"></div>
     <li class="{{ Request::is('about') ? 'active' : '' }}">
         <a href="/about" title="About" data-filter-tags="application about">

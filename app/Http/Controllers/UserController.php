@@ -98,6 +98,14 @@ class UserController extends Controller
             ]);
             // assign Role menggunakan spatie
             $user->assignRole('Admin');
+
+            Dosen::create([
+                'user_id' => $user->id,
+                'nip' => $request->nip,
+                'gender' => $request->gender,
+                'phone' => $request->phone,
+                'address' => $request->alamat,
+            ]);
         }
 
 

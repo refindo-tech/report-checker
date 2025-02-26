@@ -56,8 +56,9 @@
         </a>
     @endcomponent
     <div class="flex-1 hero-section">
-        <h2>MIKROSKILL LAPORAN AKHIR MBKM</h2>
-        <p>Aplikasi ini dirancang untuk proses penilaian laporan MBKM sesuai dengan capaian Mikroskill</p>
+        <h2>Simikro</h2>
+        <p>Simikro adalah sebuah sistem digital yang dirancang untuk mempermudah evaluasi capaian microskill dalam program Merdeka Belajar Kampus Merdeka (MBKM). Aplikasi ini menyediakan mekanisme yang transparan dan efisien bagi mahasiswa dan dosen dalam menilai, melacak, serta mengonversi capaian microskill ke dalam Sistem Kredit Semester (SKS).</p>
+        <p>Dengan Simikro, mahasiswa dapat mengakses hasil evaluasi secara real-time, memahami standar penilaian, serta mendapatkan umpan balik dari dosen secara langsung. Di sisi lain, dosen dapat melakukan penilaian dengan lebih sistematis, memanfaatkan format standar, serta mengelola rekapitulasi evaluasi secara otomatis. Simikro bertujuan untuk meningkatkan transparansi, akurasi, dan efisiensi dalam proses evaluasi capaian pembelajaran mahasiswa.</p>
     </div>
     <div class="logo-container">
         <img src="/admin/img/AA/twh.png" alt="Logo MBKM">

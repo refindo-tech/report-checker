@@ -16,7 +16,7 @@
             @component('inc._page_heading', [
                 'icon' => 'user-circle',
                 'heading1' => 'Edit Profil',
-                'heading2' => 'Admin',
+                'heading2' => 'Pengguna',
             ])
             @endcomponent
         </div>
@@ -72,47 +72,12 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            @if ($users->dosen != null)
+                            @if (Auth::user()->getRoleNames()->first() == 'Dosen' || Auth::user()->getRoleNames()->first() == 'Admin')
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nip">NIP</label>
-                                        <input type="number" name="nip" value="{{ old('nip', $users->dosen->nip) }}"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="gender">Gender</label>
-                                        <select name="gender" class="form-control">
-                                            <option value="L" {{ $users->dosen->gender == 'L' ? 'selected' : '' }}>
-                                                Laki-laki</option>
-                                            <option value="P" {{ $users->dosen->gender == 'P' ? 'selected' : '' }}>
-                                                Perempuan</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" name="phone"
-                                            value="{{ old('phone', $users->dosen->phone) }}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="alamat">Alamat</label>
-                                        <input type="text" name="alamat"
-                                            value="{{ old('alamat', $users->dosen->address) }}" class="form-control">
-                                    </div>
-                                </div>
-                                {{-- MAHASISWA --}}
-                            @elseif($users->mahasiswa != null)
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nim">NIM</label>
-                                        <input type="number" name="nim"
-                                            value="{{ old('nim', $users->mahasiswa->nim) }}" class="form-control">
+                                        <input type="number" name="nip"
+                                            value="{{ old('nip', $users->dosen->nip ?? '') }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -120,9 +85,46 @@
                                         <label for="gender">Gender</label>
                                         <select name="gender" class="form-control">
                                             <option value="L"
-                                                {{ $users->mahasiswa->gender == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                                {{ ($users->dosen->gender ?? '') == 'L' ? 'selected' : '' }}>Laki-laki
+                                            </option>
                                             <option value="P"
-                                                {{ $users->mahasiswa->gender == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                                {{ ($users->dosen->gender ?? '') == 'P' ? 'selected' : '' }}>Perempuan
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" name="phone"
+                                            value="{{ old('phone', $users->dosen->phone ?? '') }}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="alamat">Alamat</label>
+                                        <input type="text" name="alamat"
+                                            value="{{ old('alamat', $users->dosen->address ?? '') }}" class="form-control">
+                                    </div>
+                                </div>
+                            @elseif(Auth::user()->getRoleNames()->first() == 'Mahasiswa')
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nim">NIM</label>
+                                        <input type="number" name="nim"
+                                            value="{{ old('nim', $users->mahasiswa->nim ?? '') }}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <select name="gender" class="form-control">
+                                            <option value="L"
+                                                {{ ($users->mahasiswa->gender ?? '') == 'L' ? 'selected' : '' }}>Laki-laki
+                                            </option>
+                                            <option value="P"
+                                                {{ ($users->mahasiswa->gender ?? '') == 'P' ? 'selected' : '' }}>Perempuan
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -130,21 +132,23 @@
                                     <div class="form-group">
                                         <label for="prodi">Prodi</label>
                                         <input type="text" name="prodi"
-                                            value="{{ old('prodi', $users->mahasiswa->prodi) }}" class="form-control">
+                                            value="{{ old('prodi', $users->mahasiswa->prodi ?? '') }}"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="fakultas">Fakultas</label>
                                         <input type="text" name="fakultas"
-                                            value="{{ old('fakultas', $users->mahasiswa->fakultas) }}" class="form-control">
+                                            value="{{ old('fakultas', $users->mahasiswa->fakultas ?? '') }}"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="semester">Semester</label>
                                         <input type="text" name="semester"
-                                            value="{{ old('semester', $users->mahasiswa->semester) }}"
+                                            value="{{ old('semester', $users->mahasiswa->semester ?? '') }}"
                                             class="form-control">
                                     </div>
                                 </div>
@@ -152,7 +156,7 @@
                                     <div class="form-group">
                                         <label for="phone">Telepon</label>
                                         <input type="text" name="phone"
-                                            value="{{ old('phone', $users->mahasiswa->phone) }}"
+                                            value="{{ old('phone', $users->mahasiswa->phone ?? '') }}"
                                             class="form-control">
                                     </div>
                                 </div>
@@ -160,28 +164,11 @@
                                     <div class="form-group">
                                         <label for="address">Alamat</label>
                                         <input type="text" name="address"
-                                            value="{{ old('address', $users->mahasiswa->address) }}"
+                                            value="{{ old('address', $users->mahasiswa->address ?? '') }}"
                                             class="form-control">
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="mitra">Mitra</label>
-                                        <input type="text" name="mitra"
-                                            value="{{ old('mitra', $users->mahasiswa->mitra) }}"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="mitra">Alamat Mitra</label>
-                                        <input type="text" name="alamatMitra"
-                                            value="{{ old('alamatMitra', $users->mahasiswa->alamatMitra) }}"
-                                            class="form-control">
-                                    </div>
-                                </div> --}}
                             @endif
-
                             <div class="col-12 text-center mt-4">
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                             </div>

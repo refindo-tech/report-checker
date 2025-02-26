@@ -124,8 +124,8 @@
                                     <input type="number" class="form-control editable" data-id="{{ $item->id }}"
                                         data-column="sks" value="{{ $item->sks }}">
                                 </td>
-                                <td>
-                                    @can('hapus-mikroskill')
+                                @can('hapus-mikroskill')
+                                    <td>
                                         <a href="javascript:void(0);" onclick="confirmDelete({{ $item->id }})"
                                             class="btn btn-danger">
                                             <i class="fa fa-trash"></i>
@@ -137,8 +137,8 @@
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                    @endcan
-                                </td>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>

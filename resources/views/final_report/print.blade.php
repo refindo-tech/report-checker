@@ -104,10 +104,10 @@
             </td>
             <td class="center">
                 <h1>KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN</h1>
-                <h1>{{ strtoupper($kampus->name) }}</h1>
-                <h2>{{ $kampus->address }}</h2>
-                <h2>Telp. {{ $kampus->phone }}, Fax. {{ $kampus->fax }}</h2>
-                <h2>Website: {{ $kampus->website }}</h2>
+                <h1>{{ strtoupper($kampus->name ?? '-') }}</h1>
+                <h2>{{ $kampus->address ?? '-' }}</h2>
+                <h2>Telp. {{ $kampus->phone ?? '-' }}, Fax. {{ $kampus->fax ?? '-' }}</h2>
+                <h2>Website: {{ $kampus->website ?? '-' }}</h2>
             </td>
         </tr>
     </table>
@@ -121,46 +121,50 @@
         <table class="biodata-table">
             <tr>
                 <td>Nama Reviewer</td>
-                <td>: {{ $report->reviewer->name }}</td>
+                <td>: {{ $report->reviewer->name ?? '-' }}</td>
             </tr>
             <tr>
                 <td>NIP</td>
-                <td>: {{ $report->dosen->nip }}</td>
+                <td>: {{ $report->dosen->nip ?? '-' }}</td>
             </tr>
-            <br>
             <tr>
                 <td>Nama Mahasiswa</td>
-                <td>: {{ $report->user->name }}</td>
+                <td>: {{ $report->user->name ?? '-' }}</td>
             </tr>
             <tr>
                 <td>NIM</td>
-                <td>: {{ $report->Mahasiswa->nim }}</td>
+                <td>: {{ $report->Mahasiswa->nim ?? '-' }}</td>
             </tr>
             <tr>
                 <td>Fakultas</td>
-                <td>: {{ $report->Mahasiswa->fakultas }}</td>
+                <td>: {{ $report->Mahasiswa->fakultas ?? '-' }}</td>
             </tr>
             <tr>
                 <td>Program Studi</td>
-                <td>: {{ $report->Mahasiswa->prodi }}</td>
+                <td>: {{ $report->Mahasiswa->prodi ?? '-' }}</td>
             </tr>
-            <br>
             <tr>
                 <td>Nama Mitra MBKM</td>
-                <td>: {{ $report->mitra }}</td>
+                <td>: {{ $report->mitra ?? '-' }}</td>
             </tr>
             <tr>
                 <td>Alamat Mitra MBKM</td>
-                <td>: {{ $report->addressMitra }}</td>
+                <td>: {{ $report->addressMitra ?? '-' }}</td>
             </tr>
             <tr>
                 <td>Waktu Kegiatan</td>
-                <td>: {{ \Carbon\Carbon::parse($report->start_date)->translatedFormat('j F Y') }} -
-                    {{ \Carbon\Carbon::parse($report->end_date)->translatedFormat('j F Y') }}</td>
+                <td>:
+                    @if ($report->start_date && $report->end_date)
+                        {{ \Carbon\Carbon::parse($report->start_date)->translatedFormat('j F Y') }} -
+                        {{ \Carbon\Carbon::parse($report->end_date)->translatedFormat('j F Y') }}
+                    @else
+                        -
+                    @endif
+                </td>
             </tr>
             <tr>
                 <td>Jenis Kegiatan</td>
-                <td>: {{ $report->JenisKegiatan }}</td>
+                <td>: {{ $report->JenisKegiatan ?? '-' }}</td>
             </tr>
         </table>
 
@@ -178,7 +182,7 @@
                     @php $totalSks += $data->Mikroskill->sks; @endphp
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $data->Mikroskill->name }}</td>
+                        <td>{{ $data->Mikroskill->name ?? '-' }}</td>
                         <td>{{ $data->Mikroskill->sks }}</td>
                     </tr>
                 @endforeach
