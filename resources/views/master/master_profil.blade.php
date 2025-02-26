@@ -38,36 +38,63 @@
                                 <div class="card-body text-center">
                                     {{-- Foto Profil --}}
                                     <img src="{{ auth()->user()->image ? asset('storage/profile/' . auth()->user()->image) : asset('admin/img/users/user.jpg') }}"
-                                        class="rounded-circle shadow img-thumbnail" style="width: 120px; height: 120px;" alt="User Profile Picture">
-                    
+                                        class="rounded-circle shadow img-thumbnail" style="width: 120px; height: 120px;"
+                                        alt="User Profile Picture">
+
                                     {{-- Nama dan Email --}}
                                     <h4 class="mt-3 mb-1">{{ auth()->user()->name }}</h4>
                                     <p class="text-muted">{{ auth()->user()->email }}</p>
-                    
+
                                     <hr>
-                    
+
                                     {{-- Informasi Tambahan --}}
                                     <ul class="list-group list-group-flush text-left">
-                                        @if ($user->dosen != null)
-                                            <li class="list-group-item"><strong>NIP:</strong> {{ $user->dosen->nip }}</li>
-                                            <li class="list-group-item"><strong>Gender:</strong> {{ $user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</li>
-                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->kampus->name }}</li>
-                                            <li class="list-group-item"><strong>Alamat:</strong> {{ $user->dosen->address }}</li>
-                                            <li class="list-group-item"><strong>No HP:</strong> {{ $user->dosen->phone }}</li>
-                                        @elseif($user->Mahasiswa != null)
-                                            <li class="list-group-item"><strong>NIM:</strong> {{ $user->Mahasiswa->nim }}</li>
-                                            <li class="list-group-item"><strong>Gender:</strong> {{ $user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan' }}</li>
-                                            <li class="list-group-item"><strong>Kampus:</strong> {{ $user->kampus->name }}</li>
-                                            <li class="list-group-item"><strong>Alamat:</strong> {{ $user->Mahasiswa->address }}</li>
-                                            <li class="list-group-item"><strong>No HP:</strong> {{ $user->Mahasiswa->phone }}</li>
-                                            <li class="list-group-item"><strong>Prodi:</strong> {{ $user->Mahasiswa->prodi }}</li>
-                                            <li class="list-group-item"><strong>Fakultas:</strong> {{ $user->Mahasiswa->fakultas }}</li>
-                                            <li class="list-group-item"><strong>Semester:</strong> {{ $user->Mahasiswa->semester }}</li>
-                                            {{-- <li class="list-group-item"><strong>Mitra:</strong> {{ $user->Mahasiswa->mitra }}</li>
-                                            <li class="list-group-item"><strong>Alamat Mitra:</strong> {{ $user->Mahasiswa->alamatMitra }}</li> --}}
+                                        @if (Auth::user()->getRoleNames()->first() == 'Dosen' || Auth::user()->getRoleNames()->first() == 'Admin')
+                                            <li class="list-group-item">
+                                                <strong>NIP:</strong> {{ $user->dosen->nip ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Gender:</strong>
+                                                {{ isset($user->dosen->gender) ? ($user->dosen->gender === 'L' ? 'Laki-Laki' : 'Perempuan') : '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Kampus:</strong> {{ $user->kampus->name ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Alamat:</strong> {{ $user->dosen->address ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>No HP:</strong> {{ $user->dosen->phone ?? '-' }}
+                                            </li>
+                                        @elseif(Auth::user()->getRoleNames()->first() == 'Mahasiswa')
+                                            <li class="list-group-item">
+                                                <strong>NIM:</strong> {{ $user->Mahasiswa->nim ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Gender:</strong>
+                                                {{ isset($user->Mahasiswa->gender) ? ($user->Mahasiswa->gender === 'L' ? 'Laki-Laki' : 'Perempuan') : '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Kampus:</strong> {{ $user->kampus->name ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Alamat:</strong> {{ $user->Mahasiswa->address ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>No HP:</strong> {{ $user->Mahasiswa->phone ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Prodi:</strong> {{ $user->Mahasiswa->prodi ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Fakultas:</strong> {{ $user->Mahasiswa->fakultas ?? '-' }}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Semester:</strong> {{ $user->Mahasiswa->semester ?? '-' }}
+                                            </li>
                                         @endif
                                     </ul>
-                    
+
                                     {{-- Tombol Edit Profil --}}
                                     <a href="{{ route('profil_admin.edit') }}" class="btn btn-primary mt-3">
                                         <i class="fas fa-edit"></i> Edit Profil

@@ -176,7 +176,12 @@
     <script>
         function toggleRoleFields() {
             var role = document.getElementById("role").value;
-            document.getElementById("dosenFields").style.display = (role === "Dosen") ? "block" : "none";
+
+            // Tampilkan dosenFields jika role adalah "Dosen" atau "Admin"
+            document.getElementById("dosenFields").style.display = (role === "Dosen" || role === "Admin") ? "block" :
+            "none";
+
+            // Tampilkan mahasiswaFields hanya jika role adalah "Mahasiswa"
             document.getElementById("mahasiswaFields").style.display = (role === "Mahasiswa") ? "block" : "none";
         }
 

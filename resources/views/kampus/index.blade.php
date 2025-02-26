@@ -32,9 +32,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        @canany(['edit-kampus', 'hapus-kampus'])
-                            <th>Aksi</th>
-                        @endcanany
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

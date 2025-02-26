@@ -105,11 +105,11 @@
                     <span class="nav-link-text" data-i18n="nav.tools_app_profiles">Profil Aplikasi</span>
                 </a>
             </li>
-            <li class="{{ Request::is('tools/app_fiturs*') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::is('tools/app_fiturs*') ? 'active' : '' }}">
                 <a href="/tools/app_fiturs" title="App Fiturs" data-filter-tags="tools app fiturs">
                     <span class="nav-link-text" data-i18n="nav.tools_app_fiturs">Fitur Aplikasi</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </li>
 @endif

@@ -15,12 +15,12 @@ class AppProfileSeeder extends Seeder
     {
         DB::table('app_profiles')->insert([
             [
-                'app_nama' => 'Penilaian MBKM',
-                'app_deskripsi' => 'Dashboard yang bisa di gunakan untuk manajemen aplikasi',
+                'app_nama' => 'Simikro',
+                'app_deskripsi' => 'Simikro adalah sebuah sistem digital yang dirancang untuk mempermudah evaluasi capaian microskill dalam program Merdeka Belajar Kampus Merdeka (MBKM). Aplikasi ini menyediakan mekanisme yang transparan dan efisien bagi mahasiswa dan dosen dalam menilai, melacak, serta mengonversi capaian microskill ke dalam Sistem Kredit Semester (SKS).',
                 'app_tahun' => 2025,
                 'app_pengembang' => 'Team R2 Commander',
-                'app_icon' => 'logoTRB.png',
-                'app_logo' => 'admin/img/logoTRB.png',
+                'app_icon' => 'twh.png',
+                'app_logo' => 'AA/twh.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

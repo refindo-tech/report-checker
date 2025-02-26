@@ -27,6 +27,7 @@ class MasterController extends Controller
     public function master_profil_update(Request $request)
     {
         $user = Auth::user();
+        // dd($user);
         $id = $user->id;
         // dd($id);
         if ($request->hasFile('image')) {
@@ -63,31 +64,31 @@ class MasterController extends Controller
                 'email' => $request->email,
                 'image' => $imageName,
             ]);
-            if ($user->dosen != null) {
+            if ($user->roles[0]->name == 'Dosen' || $user->roles[0]->name == 'Admin') {
 
-                $dosen = Dosen::where('user_id', $id)->first();
+                Dosen::updateOrCreate(
+                    ['user_id' => $id], // Kondisi pencarian
+                    [
+                        'nip' => $request->nip,
+                        'gender' => $request->gender,
+                        'phone' => $request->phone,
+                        'address' => $request->alamat,
+                    ]
+                );
+            } else if ($user->roles[0]->name == 'Mahasiswa') {
 
-                $dosen->update([
-                    'user_id' => $id,
-                    'nip' => $request->nip,
-                    'gender' => $request->gender,
-                    'phone' => $request->phone,
-                    'address' => $request->alamat,
-                ]);
-            } else if ($user->mahasiswa != null) {
-
-                $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
-
-                $mahasiswa->update([
-                    'user_id' => $id,
-                    'nim' => $request->nim,
-                    'gender' => $request->gender,
-                    'phone' => $request->phone,
-                    'address' => $request->address,
-                    'prodi' => $request->prodi,
-                    'fakultas' => $request->fakultas,
-                    'semester' => $request->semester,
-                ]);
+                Mahasiswa::updateOrCreate(
+                    ['user_id' => $id], // Kondisi pencarian
+                    [
+                        'nim' => $request->nim,
+                        'gender' => $request->gender,
+                        'phone' => $request->phone,
+                        'address' => $request->address,
+                        'prodi' => $request->prodi,
+                        'fakultas' => $request->fakultas,
+                        'semester' => $request->semester,
+                    ]
+                );
             }
         } else {
             $validator = Validator::make($request->all(), [
@@ -109,31 +110,31 @@ class MasterController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
             ]);
-            if ($user->dosen != null) {
+            if ($user->roles[0]->name == 'Dosen' || $user->roles[0]->name == 'Admin') {
 
-                $dosen = Dosen::where('user_id', $id)->first();
+                Dosen::updateOrCreate(
+                    ['user_id' => $id], // Kondisi pencarian
+                    [
+                        'nip' => $request->nip,
+                        'gender' => $request->gender,
+                        'phone' => $request->phone,
+                        'address' => $request->alamat,
+                    ]
+                );
+            } else if ($user->roles[0]->name == 'Mahasiswa') {
 
-                $dosen->update([
-                    'user_id' => $id,
-                    'nip' => $request->nip,
-                    'gender' => $request->gender,
-                    'phone' => $request->phone,
-                    'address' => $request->alamat,
-                ]);
-            } else if ($user->mahasiswa != null) {
-
-                $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
-
-                $mahasiswa->update([
-                    'user_id' => $id,
-                    'nim' => $request->nim,
-                    'gender' => $request->gender,
-                    'phone' => $request->phone,
-                    'address' => $request->address,
-                    'prodi' => $request->prodi,
-                    'fakultas' => $request->fakultas,
-                    'semester' => $request->semester,
-                ]);
+                Mahasiswa::updateOrCreate(
+                    ['user_id' => $id], // Kondisi pencarian
+                    [
+                        'nim' => $request->nim,
+                        'gender' => $request->gender,
+                        'phone' => $request->phone,
+                        'address' => $request->address,
+                        'prodi' => $request->prodi,
+                        'fakultas' => $request->fakultas,
+                        'semester' => $request->semester,
+                    ]
+                );
             }
         }
 

@@ -28,7 +28,7 @@ class AssessmentController extends Controller
             ->where('reviewer_id', auth()->user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
-            // dd($reports);
+        // dd($reports);
         // Inisialisasi array untuk menyimpan permission role
         $reportMikroskill = [];
 
@@ -83,16 +83,32 @@ class AssessmentController extends Controller
         DB::beginTransaction();
         try {
             $idLaprak = $request->id_laprak;
-            $mikroskills = $request->mikroskills;
+            $mikroskills = $request->mikroskills; // Data baru dari request (array)
             $totalSKS = $request->total_sks;
 
-            // Simpan data ke tabel laprak_has_mikroskill
-            foreach ($mikroskills as $idMikroskill) {
-                laprak_has_mikroskill::firstOrCreate([
+            // Ambil data lama dari database
+            $existingMikroskills = laprak_has_mikroskill::where('id_laprak', $idLaprak)
+                ->pluck('id_mikroskill')
+                ->toArray();
+
+            // Cari data yang perlu ditambahkan
+            $newMikroskills = array_diff($mikroskills, $existingMikroskills);
+
+            // Cari data yang perlu dihapus
+            $deletedMikroskills = array_diff($existingMikroskills, $mikroskills);
+
+            // Tambahkan data baru ke database
+            foreach ($newMikroskills as $idMikroskill) {
+                laprak_has_mikroskill::create([
                     'id_laprak' => $idLaprak,
                     'id_mikroskill' => $idMikroskill,
                 ]);
             }
+
+            // Hapus data yang tidak ada di request
+            laprak_has_mikroskill::where('id_laprak', $idLaprak)
+                ->whereIn('id_mikroskill', $deletedMikroskills)
+                ->delete();
 
             // Update total SKS di tabel final_report
             $finalReport = FinalReport::findOrFail($idLaprak);
@@ -102,7 +118,7 @@ class AssessmentController extends Controller
             DB::commit();
 
             return response()->json([
-                'message' => 'Data berhasil disimpan!'
+                'message' => 'Data berhasil diperbarui!'
             ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -111,6 +127,7 @@ class AssessmentController extends Controller
             ], 500);
         }
     }
+
 
 
 

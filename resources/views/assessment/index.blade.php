@@ -198,11 +198,24 @@
 
                     // Hapus opsi terakhir
                     lastSelected.prop('selected', false);
-                    $(this).trigger('change'); // Perbarui tampilan Select2
-                }
 
-                // Perbarui input SKS hanya untuk baris ini
-                row.find('.total-sks').val(totalSKS);
+                    // Gunakan setTimeout agar Select2 memperbarui tampilan dengan benar
+                    setTimeout(() => {
+                        $(this).trigger('change'); // Perbarui tampilan Select2
+
+                        // Hitung ulang total SKS setelah opsi terakhir dihapus
+                        let newTotalSKS = 0;
+                        $(this).find('option:selected').each(function() {
+                            newTotalSKS += parseInt($(this).data('sks')) || 0;
+                        });
+
+                        // Perbarui input SKS hanya untuk baris ini
+                        row.find('.total-sks').val(newTotalSKS);
+                    }, 100);
+                } else {
+                    // Perbarui input SKS hanya untuk baris ini jika masih di bawah batas
+                    row.find('.total-sks').val(totalSKS);
+                }
             });
         });
     </script>

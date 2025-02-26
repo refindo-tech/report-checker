@@ -52,7 +52,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <input class="form-control" name="file" type="file" id="file"
-                                                accept=".pdf .doc, .docx" data-show-errors="true" required>
+                                                accept=".pdf, .doc, .docx" data-show-errors="true" required>
                                         </div>
                                         @error('file')
                                             <span class="text-danger">{{ $message }}</span>
@@ -150,7 +150,7 @@
                                 <td>
                                     @if ($report->berkas)
                                         <a href="{{ asset('storage/report/' . $report->berkas) }}" target="_blank">
-                                            <i class="fas fa-file-pdf"></i>
+                                            <i class="fas fa-file-pdf" style="font-size: 24px;"></i> {{-- Bisa diubah ukurannya sesuai keinginan --}}
                                         </a>
                                     @else
                                         <span class="text-danger">Belum diisi</span>
