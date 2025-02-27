@@ -160,6 +160,7 @@ class FinalReportController extends Controller
     public function destroy(finalReport $finalReport, $id)
     {
         $report = finalReport::find($id);
+        Storage::delete('public/report/'.$report->berkas);
         $report->delete();
         return redirect()->route('report.index')->with('success', 'Berkas berhasil dihapus.');
     }
