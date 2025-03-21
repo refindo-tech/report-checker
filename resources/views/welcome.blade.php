@@ -44,7 +44,7 @@
             align-items: center;
         }
         .logo-container img {
-            max-width: 50%;
+            max-width: 80%;
             height: auto;
         }
         .btn-primary {
@@ -102,12 +102,12 @@
     @endcomponent
     <div class="hero-container">
         <div class="hero-text">
-            <h2>Simikro</h2>
-            <p>Simikro adalah sistem digital inovatif yang dirancang untuk mempermudah evaluasi capaian microskill dalam program Merdeka Belajar Kampus Merdeka (MBKM). Dengan platform ini, mahasiswa dan dosen dapat mengakses, menilai, serta mengonversi capaian microskill ke dalam Sistem Kredit Semester (SKS) dengan lebih transparan dan efisien.</p>
+            {{-- <h2>Simikro</h2> --}}
+            <p>SIMIKRO MBKM adalah sistem digital inovatif yang dirancang untuk mempermudah evaluasi capaian microskill dalam program Merdeka Belajar Kampus Merdeka (MBKM). Dengan platform ini, mahasiswa dan dosen dapat mengakses, menilai, serta mengonversi capaian microskill ke dalam Sistem Kredit Semester (SKS) dengan lebih transparan dan efisien.</p>
             <p>Mahasiswa dapat memantau hasil evaluasi secara real-time, memahami standar penilaian, serta mendapatkan umpan balik langsung dari dosen. Sementara itu, dosen dapat melakukan penilaian dengan lebih sistematis melalui format standar yang disediakan. Rekapitulasi hasil evaluasi juga dapat dikelola secara otomatis, meningkatkan transparansi, akurasi, dan efisiensi dalam proses evaluasi capaian pembelajaran mahasiswa.</p>
         </div>
         <div class="logo-container">
-            <img src="/admin/img/AA/twh.png" alt="Logo MBKM">
+            <img src="/admin/img/logo/full.png" alt="Logo MBKM">
         </div>
     </div>
     <div class="footer">
